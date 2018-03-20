@@ -78,11 +78,22 @@ https://pypi.python.org/pypi/RPi.GPIO
 
 Features
 ----------------------
+The library was been tested on a raspberry pi 3 model b 
+
+There are  Currently two components in library
+
+(1) 28BYJ-48 Stepper motor + ULN2003 driver board
+![ScreenShot motor](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/screenshot/28BYJ.jpg)
+(2) Tower pro Digital micro servo SG90
+![ScreenShot servo](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/sg90.jpg)
 
 
-See Also
------------
+I have created detailed help files in documentation folder at 
 
+[28BYJ motor](Documentation/28BYJ.md)
+
+[SG90 servo](Documentation/SG90.md)
+    
 
 Communication
 -----------
