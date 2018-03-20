@@ -16,7 +16,7 @@ Table of contents
   * [Table of contents](#table-of-contents)
   * [Installation](#installation)
   * [Usage](#usage)
-  * [Files and setup](#files-and-setup)
+  * [Files](#files)
   * [Dependencies](#dependencies)
   * [Features](#features)
   * [See Also](#see-also)
@@ -70,8 +70,11 @@ Dependencies
 -----------
 
 RPi.GPIO 0.6.3
+
 A module to control Raspberry Pi GPIO channels
+
 This package provides a class to control the GPIO on a Raspberry Pi.
+
 This should be pre-installed on most pies.  
 
 https://pypi.python.org/pypi/RPi.GPIO
@@ -83,12 +86,15 @@ The library was been tested on a raspberry pi 3 model b
 There are  Currently two components in library
 
 (1) 28BYJ-48 Stepper motor + ULN2003 driver board
+
 ![ScreenShot motor](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/screenshot/28BYJ.jpg)
+
 (2) Tower pro Digital micro servo SG90
+
 ![ScreenShot servo](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/sg90.jpg)
 
 
-I have created detailed help files in documentation folder at 
+I have created separate help files in documentation folder at to learn how to use library
 
 [28BYJ motor](Documentation/28BYJ.md)
 

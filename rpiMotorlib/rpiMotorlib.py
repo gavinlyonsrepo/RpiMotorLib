@@ -23,7 +23,7 @@ import RPi.GPIO as GPIO
 class BYJMotor(object):
     """class to control a 28BYJ-48 stepper motor with ULN2003 controller
     by a raspberry pi"""
-    def __init__(self, name):
+    def __init__(self, name=BYJMotor):
         self.name = name
         # This array is used to make the cursor "spin"
         # while the script is running.
@@ -147,7 +147,7 @@ class BYJMotor(object):
 
 class SG90servo(object):
     """class to control a Tower pro micro servo SG90 by raspberry pi"""
-    def __init__(self, name):
+    def __init__(self, name=SG90servo):
         self.name = name
         # We will be using GPIO pin numbers instead
         # of phyisical pin numbers.
@@ -167,7 +167,7 @@ class SG90servo(object):
          help=The min dutycycle position of servo
          (4) maxduty, type=float, default=11,
          help=The max dutycycle position of servo
-         (5) delay, type=int, default=0.5,
+         (5) delay, type=float, default=0.5,
          help=Time to wait (in seconds) between steps.
          (6) verbose, type=bool  type=bool default=False
           help="Output actions & details",
@@ -213,10 +213,10 @@ class SG90servo(object):
             GPIO.output(servo_pin, False)
             time.sleep(0.05)
 
-    def servoMove(self, servo_pin, position, delay, verbose=False):
+    def servoMove(self, servo_pin, position=7.5, delay=0.5, verbose=False):
         """function servoMove 4 inputs
 
-         servosweep(servo_pin, center, position, delay, verbose)
+         servosweep(servo_pin, position, delay, verbose)
 
          (1) servo_pin, type=int help=GPIO pin
          we will contect to signal line of servo

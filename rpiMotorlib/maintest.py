@@ -40,7 +40,7 @@ def main():
     # myservotest.servoSweep(7, 7.5, 3, 11, .5, True)
     time.sleep(1)
     # sweep from center to max 
-    #m yservotest.servoSweep(7, 7.5, 7.5, 11, .5, False)
+    #m myservotest.servoSweep(7, 7.5, 7.5, 11, .5, False)
     # sweep from center to min
     # myservotest.servoSweep(7, 7.5, 7.5, 3, .5, False)
     
