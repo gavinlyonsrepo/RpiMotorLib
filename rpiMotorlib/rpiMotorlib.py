@@ -11,32 +11,49 @@ class BYJMotor(object):
 		#This array is used to make the cursor "spin" while the script is running.
 		self.curserSpin = ["/","-","|","\\","|"]
 		self.spinPosition = 0
-		
-
-			
-	def motorRun(self,GpioPins = [],wait=.001,steps=500,counterclockwise=False,verbose=False):
-	
 		#We will be using GPIO pin numbers instead
 		#of phyisical pin numbers.
 		GPIO.setmode(GPIO.BCM)
 		GPIO.setwarnings(False)
+		#wait some time to start
+		time.sleep(0.5)
+			
+	def motorRun(self,GpioPins = [],wait=.001,steps=512,counterclockwise=False,verbose=False,steptype="half"):
+	
 		for pin in GpioPins:
 			GPIO.setup(pin, GPIO.OUT) #Set pin to output
 			GPIO.output(pin, False) #Set pin to low ("False")
 
-		#These steps are defined in datasheet at
+        #The half step are defined in datasheet at
 		#http://www.bitsbox.co.uk/data/motor/Stepper.pdf
-		#Each step is a list containing GPIO pins that should be set to High
-		StepSequence = list(range(0, 8))
-		StepSequence[0] = [GpioPins[0]]
-		StepSequence[1] = [GpioPins[0], GpioPins[1]]
-		StepSequence[2] = [GpioPins[1]]
-		StepSequence[3] = [GpioPins[1], GpioPins[2]]
-		StepSequence[4] = [GpioPins[2]]
-		StepSequence[5] = [GpioPins[2], GpioPins[3]]
-		StepSequence[6] = [GpioPins[3]]
-		StepSequence[7] = [GpioPins[3], GpioPins[0]]
 		
+		#Each step is a list containing GPIO pins that should be set to High
+		
+		if steptype == "half": #half stepping. 
+			StepSequence = list(range(0, 8))
+			StepSequence[0] = [GpioPins[0]]
+			StepSequence[1] = [GpioPins[0], GpioPins[1]]
+			StepSequence[2] = [GpioPins[1]]
+			StepSequence[3] = [GpioPins[1], GpioPins[2]]
+			StepSequence[4] = [GpioPins[2]]
+			StepSequence[5] = [GpioPins[2], GpioPins[3]]
+			StepSequence[6] = [GpioPins[3]]
+			StepSequence[7] = [GpioPins[3], GpioPins[0]]
+		elif steptype == "full": #full stepping. 
+			StepSequence = list(range(0, 4))
+			StepSequence[0] = [GpioPins[0], GpioPins[1]]
+			StepSequence[1] = [GpioPins[1], GpioPins[2]]
+			StepSequence[2] = [GpioPins[2], GpioPins[3]]
+			StepSequence[3] = [GpioPins[0], GpioPins[3]]
+		elif steptype == "wave": #wave driving
+			StepSequence = list(range(0, 4))
+			StepSequence[0] = [GpioPins[0]]
+			StepSequence[1] = [GpioPins[1]]
+			StepSequence[2] = [GpioPins[2]]
+			StepSequence[3] = [GpioPins[3]]
+		else:
+			print("Error: unknown step type ; half full or wave")
+			quit()
 
 		#if we want the motor to run in "reverse" we flip the sequence order.
 		if counterclockwise:
@@ -67,6 +84,7 @@ class BYJMotor(object):
 		stepsRemaining = steps
 		while stepsRemaining > 0:
 			for pinList in StepSequence:
+				print(pinList)
 				for pin in GpioPins:
 					if pin in pinList:
 						GPIO.output(pin, True)
@@ -79,6 +97,7 @@ class BYJMotor(object):
 		# switch off pins at end. 
 		for pin in GpioPins:
 			GPIO.output(pin, False)
+		GPIO.cleanup
 
 def test(text):
 	"""import code"""
