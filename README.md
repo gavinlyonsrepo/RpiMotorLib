@@ -4,8 +4,14 @@ Overview
 * Title: raspberry pi motor library. 
 * Description: A python 3 library for various motors and servos 
 to connect to a raspberry pi. Currently two components in library
-    (1) 28BYJ-48 Stepper motor + ULN2003 driver board
-    (2) Tower pro Digital micro servo SG90
+
+(1) 28BYJ-48 Stepper motor + ULN2003 driver board
+
+(2) Tower pro Digital micro servo SG90
+
+The end user can import this library into their projects and then 
+control the components with single lines of codes.
+    
 * Author: Gavin Lyons
 * URL: https://github.com/gavinlyonsrepo/RpiMotorLib
 
@@ -40,7 +46,7 @@ Program is a python 3 package.
 In addition to library files a small place holder script is installed
 to display version and help information
 
-Run the help script by typing RpiMotorScirptLib.py
+Run the help script by typing 
 RpiMotorScirptLib.py -[options]
 
 Options list :
@@ -59,10 +65,9 @@ rpiMotorLib files are listed below:
 
 | File Path | Description |
 | ------ | ------ |
-| rpiMotorLib.py |  python library file |
+| RpiMotorLib.py |  python library file |
 | RpiMotorScirptLib.py | python placeholder information script  |
-| maintest.py | python test file, not installed in repo |
-| /usr/share/doc/tv_viewer/LICENSE.md | copyright |
+| *Test.py | python test files, not installed , available in repo |
 | /usr/share/doc/tv_viewer/README.md | help file |
 
 
@@ -75,13 +80,13 @@ A module to control Raspberry Pi GPIO channels
 
 This package provides a class to control the GPIO on a Raspberry Pi.
 
-This should be pre-installed on most pies.  
+This should already installed on most Raspberry Pis.
 
 https://pypi.python.org/pypi/RPi.GPIO
 
 Features
 ----------------------
-The library was been tested on a raspberry pi 3 model b 
+The library has been tested on a raspberry pi 3 model b 
 
 There are  Currently two components in library
 

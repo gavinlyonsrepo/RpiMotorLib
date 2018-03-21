@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """A python 3 library for various
  motors and servos to connect to a raspberry pi"""
-# =========================HEADER=======================================
+# ========================= HEADER ===================================
 # title             :rpiMotorlib.py
 # description       :A python 3 library for various motors
 # and servos to connect to a raspberry pi
@@ -12,18 +12,18 @@
 # mail              :glyons66@hotmail.com
 # python_version    :3.6.0
 
-# ==========================IMPORTS======================
+# ========================== IMPORTS ======================
 # Import the system modules needed to run rpiMotorlib.py
 import time
 import RPi.GPIO as GPIO
 
-# ====================FUNCTION SECTION===============================
+# ==================== CLASS SECTION ===============================
 
 
 class BYJMotor(object):
     """class to control a 28BYJ-48 stepper motor with ULN2003 controller
     by a raspberry pi"""
-    def __init__(self, name=BYJMotor):
+    def __init__(self, name="BYJMotorX"):
         self.name = name
         # This array is used to make the cursor "spin"
         # while the script is running.
@@ -147,7 +147,7 @@ class BYJMotor(object):
 
 class SG90servo(object):
     """class to control a Tower pro micro servo SG90 by raspberry pi"""
-    def __init__(self, name=SG90servo):
+    def __init__(self, name="SG90servoX"):
         self.name = name
         # We will be using GPIO pin numbers instead
         # of phyisical pin numbers.
@@ -247,17 +247,18 @@ class SG90servo(object):
         GPIO.output(servo_pin, False)
 
 
-def test(text):
-    """import print statement"""
-    print(text)
+def importtest(text):
+    """import print test statement"""
+    pass
+    # print(text)
 
-# =====================MAIN===============================
+# ===================== MAIN ===============================
 
 
 if __name__ == '__main__':
-    test("main")
+    importtest("main")
 else:
-    test("Imported {}".format(__name__))
+    importtest("Imported {}".format(__name__))
 
 
-# =====================END===============================
+# ===================== END ===============================

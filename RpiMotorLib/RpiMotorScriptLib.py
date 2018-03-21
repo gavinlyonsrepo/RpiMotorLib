@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """python script to display the version and help for rpiMotorlib"""
 # =========================HEADER=======================================
-# title             :rpiMotorscriptlib.py
+# title             :RpiMotorScriptlib.py
 # description       :python placeholder  script to
-# display the version and help for rpiMotorlib
+# display the version and help for RpiMotorlib
 # author            :Gavin Lyons
 # date              :15/03/2018
 # version           :1.0-1
@@ -37,8 +37,8 @@ def process_cmd_arguments():
 
     args = parser.parse_args()
 
-    if len(sys.argv) == 1:
-        print("usage: RpiMotorScirptLib.py [-h] [-v]")
+    # if len(sys.argv) == 1:
+    #    print("usage: RpiMotorScirptLib.py [-h] [-v]")
 
     # display version
     if args.version:
