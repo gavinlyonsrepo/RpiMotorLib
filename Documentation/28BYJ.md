@@ -26,7 +26,7 @@ where we first power coil 1 only, then coil 1 and 2 together, then coil 2 only a
 this means 8 different signals, like so 
 
 
- ![ScreenShot motor diagram](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/screenshot/figure.jpg)
+ ![ScreenShot motor ](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/screenshot/figure.jpg)
 
 
 In addition to full step and half step there is also wave drive method.
@@ -134,4 +134,4 @@ GPIO.cleanup()
 
 If verbose is set to True various information on pin output and status is outputted to screen
 
- ![ScreenShot motor diagram](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/screenshot/verbose_output_run.jpg)
+ ![ScreenShot verbose](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/screenshot/Verbose_output_run.jpg)
