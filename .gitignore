@@ -2,4 +2,4 @@ RpiMotorLib/__pycache__
 RpiMotorLib/*.pyc
 dist/
 build/
-rpimotorlib.py.egg-info/
+rpimotorlib.egg-info/

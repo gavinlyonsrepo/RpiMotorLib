@@ -118,15 +118,15 @@ import time
 import RPi.GPIO as GPIO
 
 # import the library
-from RpiMotorLib import BYJMotor
+from RpiMotorLib import RpiMotorLib
     
 GpioPins = [18, 23, 24, 25]
 # Declare an named instance of class pass a name
-mymotortest = BYJMotor("MyMotorOne")
+mymotortest = RpiMotorLib.BYJMotor("MyMotorOne")
 time.sleep(0.5)
 
 # call the function pass
-motorRun(GpioPins , .01, 100, False, False, "half")
+mymotortest.motorRun(GpioPins , .01, 100, False, False, "half")
 
 # good practise to cleanup GPIO at some point before exit
 GPIO.cleanup()

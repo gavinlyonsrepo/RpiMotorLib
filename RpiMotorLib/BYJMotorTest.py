@@ -3,7 +3,8 @@
 
 import time 
 import RPi.GPIO as GPIO
-from RpiMotorLib import BYJMotor   
+
+from RpiMotorLib import BYJMotor
 
 def main():
     """main function loop"""
