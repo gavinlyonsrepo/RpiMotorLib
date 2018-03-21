@@ -36,7 +36,7 @@ Installation
 Make sure that python3 and pip3 have been installed on your machine, then: 
 
 ```sh
-sudo pip3 install rpimotorlib.py
+sudo pip3 install rpimotorlib
 ```
 
 Usage

@@ -1,0 +1,12 @@
+setup.cfg
+setup.py
+RpiMotorLib/BYJMotorTest.py
+RpiMotorLib/RpiMotorLib.py
+RpiMotorLib/RpiMotorScriptLib.py
+RpiMotorLib/SG90ServoTest.py
+RpiMotorLib/__init__.py
+rpimotorlib.egg-info/PKG-INFO
+rpimotorlib.egg-info/SOURCES.txt
+rpimotorlib.egg-info/dependency_links.txt
+rpimotorlib.egg-info/requires.txt
+rpimotorlib.egg-info/top_level.txt

@@ -75,12 +75,9 @@ Software
 The library file has a single class which controls the motor with one 
 function.
 
-The class is called BYJMotor and the functions are 
-(1) motorRun- moves stepper motor based on inputs
+The class is called BYJMotor and the function is called 
+, motorRun- moves stepper motor based on 6 inputs.
 
-motorRun(self, GpioPins, wait=.001, steps=512, ccwise=False, verbose=False, steptype="half"):
-
-function motorRun, 6 inputs , moves stepper motor based on inputs
 
 motorRun(GPIOPins, wait, steps, counterclockwise, verbose, steptype)
 

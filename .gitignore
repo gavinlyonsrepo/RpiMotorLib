@@ -1,5 +1,5 @@
-rpiMotorlib/__pycache__
-rpiMotorlib/*.pyc
+RpiMotorLib/__pycache__
+RpiMotorLib/*.pyc
 dist/
 build/
-rpiMotorlib.py.egg-info/
+rpimotorlib.py.egg-info/
