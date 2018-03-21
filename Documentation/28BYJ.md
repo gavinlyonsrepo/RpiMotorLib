@@ -131,3 +131,7 @@ mymotortest.motorRun(GpioPins , .01, 100, False, False, "half")
 # good practise to cleanup GPIO at some point before exit
 GPIO.cleanup()
 ```
+
+If verbose is set to True various information on pin output and status is outputted to screen
+
+ ![ScreenShot motor diagram](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/screenshot/verbose_output_run.jpg)

@@ -25,7 +25,7 @@ Table of contents
   * [Files](#files)
   * [Dependencies](#dependencies)
   * [Features](#features)
-  * [See Also](#see-also)
+  * [To Do](#to-do)
   * [Communication](#communication)
   * [History](#history)
   * [Copyright](#copyright)
@@ -47,7 +47,7 @@ In addition to library files a small place holder script is installed
 to display version and help information
 
 Run the help script by typing 
-RpiMotorScirptLib.py -[options]
+RpiMotorScriptLib.py -[options]
 
 Options list :
 
@@ -66,7 +66,7 @@ rpiMotorLib files are listed below:
 | File Path | Description |
 | ------ | ------ |
 | RpiMotorLib.py |  python library file |
-| RpiMotorScirptLib.py | python placeholder information script  |
+| RpiMotorScriptLib.py | python placeholder information script  |
 | *Test.py | python test files, not installed , available in repo |
 | /usr/share/doc/tv_viewer/README.md | help file |
 
@@ -86,7 +86,7 @@ https://pypi.python.org/pypi/RPi.GPIO
 
 Features
 ----------------------
-The library has been tested on a raspberry pi 3 model b 
+The library has been tested on a raspberry pi 3 model b. 
 
 There are  Currently two components in library
 
@@ -106,8 +106,15 @@ I have created separate help files in documentation folder at to learn how to us
 [SG90 servo](Documentation/SG90.md)
     
 
+To Do
+-----------------------
+
+(1) add more error handling and logging
+(2) add more components
+
+
 Communication
------------
+-----------------------
 If you should find a bug or you have any other query, 
 please send a report.
 Pull requests, suggestions for improvements
