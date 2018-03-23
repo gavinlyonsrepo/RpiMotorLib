@@ -106,7 +106,7 @@ help="Turn stepper counterclockwise"
  where full = fullstep , half = half step , wave = wave drive.
 
         
- example: to run A stepper motor connected to GPIO pins 18, 23, 24, 25
+ example (version 1.1): to run A stepper motor connected to GPIO pins 18, 23, 24, 25
  (18-IN1 23-IN2 24-IN3, 25-IN4)
  for step delay of .01 second for 100 steps in clockwise direction,
  verbose output off , in half step mode
@@ -116,6 +116,8 @@ help="Turn stepper counterclockwise"
 
 import time 
 import RPi.GPIO as GPIO
+
+# This code snippet is for Version 1.1 
 
 # import the library
 from RpiMotorLib import RpiMotorLib
