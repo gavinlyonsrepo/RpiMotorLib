@@ -17,6 +17,8 @@
 import time
 import RPi.GPIO as GPIO
 
+
+
 # ==================== CLASS SECTION ===============================
 
 
@@ -27,8 +29,8 @@ class BYJMotor(object):
         self.name = name
         # This array is used to make the cursor "spin"
         # while the script is running.
-        self.curserSpin = ["/", "-", "|", "\\", "|"]
-        self.spinPosition = 0
+        self.curser_spin = ["/", "-", "|", "\\", "|"]
+        self.spin_position = 0
         # We will be using GPIO pin numbers instead
         # of physical pin numbers.
         GPIO.setmode(GPIO.BCM)
@@ -93,42 +95,43 @@ class BYJMotor(object):
             step_sequence[2] = [gpiopins[2]]
             step_sequence[3] = [gpiopins[3]]
         else:
-            print("Error: unknown step type ; half full or wave")
+            print("Error: unknown step type ; half, full or wave")
             quit()
 
         #  To run motor in reverse we flip the sequence order.
         if ccwise:
             step_sequence.reverse()
 
-        # Prints a spinning cursor. Used when verbose not set to false.
-        def print_cursor_spin():
-            print("%s\r" % self.curserSpin[self.spinPosition], end='', flush=True)
-            self.spinPosition += 1
-            if self.spinPosition > 4:
-                self.spinPosition = 0
 
-        # Print status of pins.
+        def print_cursor_spin():
+            """ Prints a spinning cursor. Used when verbose not set to false. """
+            print(self.curser_spin[self.spin_position], end="\r", flush=True)
+            self.spin_position += 1
+            if self.spin_position > 4:
+                self.spin_position = 0
+
         def print_status(enabled_pins):
+            """   Print status of pins."""
             if verbose:
                 print("New Step:")
                 for pin_print in gpiopins:
                     if pin_print in enabled_pins:
-                        print("Enabling Pin %i" % pin_print)
+                        print("Enabling Pin {}".format(pin_print))
                     else:
-                        print("Disabling Pin %i" % pin_print)
+                        print("Disabling Pin {}".format(pin_print))
             else:
                 print_cursor_spin()
 
         # Iterate through the pins turning them on and off.
         steps_remaining = steps
         while steps_remaining > 0:
-            for pinList in step_sequence:
+            for pin_list in step_sequence:
                 for pin in gpiopins:
-                    if pin in pinList:
+                    if pin in pin_list:
                         GPIO.output(pin, True)
                     else:
                         GPIO.output(pin, False)
-                print_status(pinList)
+                print_status(pin_list)
                 time.sleep(wait)
             steps_remaining -= 1
 
@@ -183,7 +186,7 @@ class SG90servo(object):
         pwm_servo = GPIO.PWM(servo_pin, 50)
         pwm_servo.start(center)
         if verbose:
-                    print("Moved to center position = {}".format(center))
+            print("Moved to center position = {}".format(center))
         time.sleep(delay)
         try:
             while True:
