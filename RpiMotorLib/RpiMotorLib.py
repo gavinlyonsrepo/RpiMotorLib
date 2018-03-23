@@ -7,7 +7,7 @@
 # and servos to connect to a raspberry pi
 # author            :Gavin Lyons
 # date              :15/03/2018
-# version           :1.0-1
+# version           :1.1-2
 # web               :https://github.com/gavinlyonsrepo/RpiMotorLib
 # mail              :glyons66@hotmail.com
 # python_version    :3.6.0
@@ -16,8 +16,6 @@
 # Import the system modules needed to run rpiMotorlib.py
 import time
 import RPi.GPIO as GPIO
-
-
 
 # ==================== CLASS SECTION ===============================
 
