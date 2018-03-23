@@ -30,14 +30,14 @@ class BYJMotor(object):
         self.curserSpin = ["/", "-", "|", "\\", "|"]
         self.spinPosition = 0
         # We will be using GPIO pin numbers instead
-        # of phyisical pin numbers.
+        # of physical pin numbers.
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
 
-    def motorRun(self, GpioPins, wait=.001, steps=512, ccwise=False, verbose=False, steptype="half"):
-        """function motorRun, 6 inputs , moves stepper motor based on inputs
+    def motor_run(self, gpiopins, wait=.001, steps=512, ccwise=False, verbose=False, steptype="half"):
+        """function motor_run, 6 inputs , moves stepper motor based on inputs
 
-         motorRun(GPIOPins, wait, steps, counterclockwise, verbose, steptype)
+         motor_run(GPIOPins, wait, steps, counterclockwise, verbose, steptype)
 
          (1) GPIOPins, type=list of ints 4 long, help="list of
          4 GPIO pins to connect to motor controller
@@ -63,7 +63,7 @@ class BYJMotor(object):
          motorRun([18, 23, 24, 25], .01, 10, False, False, "half")
         """
 
-        for pin in GpioPins:
+        for pin in gpiopins:
             GPIO.setup(pin, GPIO.OUT)  # Set pin to output
             GPIO.output(pin, False)  # Set pin to low ("False")
 
@@ -71,73 +71,73 @@ class BYJMotor(object):
         # Each step is a list containing GPIO pins that should be set to High
 
         if steptype == "half":  # half stepping.
-            StepSequence = list(range(0, 8))
-            StepSequence[0] = [GpioPins[0]]
-            StepSequence[1] = [GpioPins[0], GpioPins[1]]
-            StepSequence[2] = [GpioPins[1]]
-            StepSequence[3] = [GpioPins[1], GpioPins[2]]
-            StepSequence[4] = [GpioPins[2]]
-            StepSequence[5] = [GpioPins[2], GpioPins[3]]
-            StepSequence[6] = [GpioPins[3]]
-            StepSequence[7] = [GpioPins[3], GpioPins[0]]
+            step_sequence = list(range(0, 8))
+            step_sequence[0] = [gpiopins[0]]
+            step_sequence[1] = [gpiopins[0], gpiopins[1]]
+            step_sequence[2] = [gpiopins[1]]
+            step_sequence[3] = [gpiopins[1], gpiopins[2]]
+            step_sequence[4] = [gpiopins[2]]
+            step_sequence[5] = [gpiopins[2], gpiopins[3]]
+            step_sequence[6] = [gpiopins[3]]
+            step_sequence[7] = [gpiopins[3], gpiopins[0]]
         elif steptype == "full":  # full stepping.
-            StepSequence = list(range(0, 4))
-            StepSequence[0] = [GpioPins[0], GpioPins[1]]
-            StepSequence[1] = [GpioPins[1], GpioPins[2]]
-            StepSequence[2] = [GpioPins[2], GpioPins[3]]
-            StepSequence[3] = [GpioPins[0], GpioPins[3]]
+            step_sequence = list(range(0, 4))
+            step_sequence[0] = [gpiopins[0], gpiopins[1]]
+            step_sequence[1] = [gpiopins[1], gpiopins[2]]
+            step_sequence[2] = [gpiopins[2], gpiopins[3]]
+            step_sequence[3] = [gpiopins[0], gpiopins[3]]
         elif steptype == "wave":  # wave driving
-            StepSequence = list(range(0, 4))
-            StepSequence[0] = [GpioPins[0]]
-            StepSequence[1] = [GpioPins[1]]
-            StepSequence[2] = [GpioPins[2]]
-            StepSequence[3] = [GpioPins[3]]
+            step_sequence = list(range(0, 4))
+            step_sequence[0] = [gpiopins[0]]
+            step_sequence[1] = [gpiopins[1]]
+            step_sequence[2] = [gpiopins[2]]
+            step_sequence[3] = [gpiopins[3]]
         else:
             print("Error: unknown step type ; half full or wave")
             quit()
 
         #  To run motor in reverse we flip the sequence order.
         if ccwise:
-            StepSequence.reverse()
+            step_sequence.reverse()
 
         # Prints a spinning cursor. Used when verbose not set to false.
-        def PrintCursorSpin():
+        def print_cursor_spin():
             print("%s\r" % self.curserSpin[self.spinPosition], end='', flush=True)
             self.spinPosition += 1
             if self.spinPosition > 4:
                 self.spinPosition = 0
 
         # Print status of pins.
-        def PrintStatus(enabledPins):
+        def print_status(enabled_pins):
             if verbose:
                 print("New Step:")
-                for pin in GpioPins:
-                    if pin in enabledPins:
-                        print("Enabling Pin %i" % pin)
+                for pin_print in gpiopins:
+                    if pin_print in enabled_pins:
+                        print("Enabling Pin %i" % pin_print)
                     else:
-                        print("Disabling Pin %i" % pin)
+                        print("Disabling Pin %i" % pin_print)
             else:
-                PrintCursorSpin()
+                print_cursor_spin()
 
         # Iterate through the pins turning them on and off.
-        stepsRemaining = steps
-        while stepsRemaining > 0:
-            for pinList in StepSequence:
-                for pin in GpioPins:
+        steps_remaining = steps
+        while steps_remaining > 0:
+            for pinList in step_sequence:
+                for pin in gpiopins:
                     if pin in pinList:
                         GPIO.output(pin, True)
                     else:
                         GPIO.output(pin, False)
-                PrintStatus(pinList)
+                print_status(pinList)
                 time.sleep(wait)
-            stepsRemaining -= 1
+            steps_remaining -= 1
 
         # switch off pins at end. and print report status
-        for pin in GpioPins:
+        for pin in gpiopins:
             GPIO.output(pin, False)
         if verbose:
             print("\nRpiMotorLib, Motor Run finished, Details:.\n")
-            print("GPIO pins = {}".format(GpioPins))
+            print("GPIO pins = {}".format(gpiopins))
             print("Wait time = {}".format(wait))
             print("Number of steps = {}".format(steps))
             print("Counter clockwise = {}".format(ccwise))
@@ -154,10 +154,10 @@ class SG90servo(object):
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
 
-    def servoSweep(self, servo_pin=7, center=7.5, minduty=3, maxduty=11, delay=0.5, verbose=False):
-        """function servoSweep, 6 inputs
+    def servo_sweep(self, servo_pin=7, center=7.5, minduty=3, maxduty=11, delay=0.5, verbose=False):
+        """function servo_sweep, 6 inputs
 
-         servosweep(servo_pin, center, minduty, maxduty, delay, verbose)
+         servo_sweep(servo_pin, center, minduty, maxduty, delay, verbose)
 
          (1) servo_pin, type=int help=GPIO pin
          we will contect to signal line of servo
@@ -213,7 +213,7 @@ class SG90servo(object):
             GPIO.output(servo_pin, False)
             time.sleep(0.05)
 
-    def servoMove(self, servo_pin, position=7.5, delay=0.5, verbose=False):
+    def servo_move(self, servo_pin, position=7.5, delay=0.5, verbose=False):
         """function servoMove 4 inputs
 
          servosweep(servo_pin, position, delay, verbose)
