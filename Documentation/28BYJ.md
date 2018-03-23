@@ -76,10 +76,10 @@ The library file has a single class which controls the motor with one
 function.
 
 The class is called BYJMotor and the function is called 
-, motorRun- moves stepper motor based on 6 inputs.
+, motor_run- moves stepper motor based on 6 inputs.
 
 
-motorRun(GPIOPins, wait, steps, counterclockwise, verbose, steptype)
+motor_run(GPIOPins, wait, steps, counterclockwise, verbose, steptype)
 
 (1) GpioPins, type=list of ints 4 long, help="list of
  4 GPIO pins to connect to motor controller
@@ -126,7 +126,7 @@ mymotortest = RpiMotorLib.BYJMotor("MyMotorOne")
 time.sleep(0.5)
 
 # call the function pass
-mymotortest.motorRun(GpioPins , .01, 100, False, False, "half")
+mymotortest.motor_run(GpioPins , .01, 100, False, False, "half")
 
 # good practise to cleanup GPIO at some point before exit
 GPIO.cleanup()
