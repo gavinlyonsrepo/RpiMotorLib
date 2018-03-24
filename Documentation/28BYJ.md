@@ -25,9 +25,7 @@ The 28BYH-48 datasheet specifies that the preferred method for driving this step
 where we first power coil 1 only, then coil 1 and 2 together, then coil 2 only and so on…With 4 coils, 
 this means 8 different signals, like so 
 
-
  ![ScreenShot motor ](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/screenshot/figure.jpg)
-
 
 In addition to full step and half step there is also wave drive method.
 Where one coil at a time is powered (like a wave) 
@@ -35,6 +33,8 @@ All three methods are available in this library.
 Full gives the most torque. Half gives less torque but more accuracy 
 and wave drive is best for low power applications. half step mode is recommend 
 for most projects.
+
+![screenshot steps](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/screenshot/figure3.jpg)
 
 Half-step mode: 8 step control signal sequence 
 5.625 degrees per step / 64 steps per one revolution of the internal motor shaft
