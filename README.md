@@ -7,7 +7,7 @@ to connect to a raspberry pi. Currently two components in library
 
 (1) 28BYJ-48 Stepper motor + ULN2003 driver board
 
-(2) Tower pro Digital micro servo SG90
+(2) Tower pro Digital micro servo SG90 (Note: Should work with many servos types but only tested with SG90)
 
 The end user can import this library into their projects and then 
 control the components with single lines of codes.
@@ -110,7 +110,10 @@ To Do
 -----------------------
 
 (1) add more error handling and logging
+
 (2) add more components
+
+(3) Setup I2C PWM servo control in addtion to GPIO PWM
 
 
 Communication
