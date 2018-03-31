@@ -181,7 +181,9 @@ class SG90servo(object):
         """
         print("RpiMotorLib: Servo Sweep running , press ctrl+c to quit")
         GPIO.setup(servo_pin, GPIO.OUT)
+        # set pin and freq
         pwm_servo = GPIO.PWM(servo_pin, 50)
+        # set duty cycle
         pwm_servo.start(center)
         if verbose:
             print("Moved to center position = {}".format(center))
@@ -224,7 +226,7 @@ class SG90servo(object):
          (2) position, type=float, default=7.5,
          help=The  dutycycle position of servo to move to
          (3) delay, type=int, default=0.5,
-         help=Time to wait (in seconds) between steps.
+         help=Time to wait (in seconds) after move.
          (4) verbose, type=bool  type=bool default=False
           help="Output actions & details",
 

@@ -1,16 +1,23 @@
 Overview
 --------------------------------------------
 * Name: RpiMotorLib
-* Title: raspberry pi motor library. 
+* Title: Raspberry pi motor library. 
 * Description: A python 3 library for various motors and servos 
-to connect to a raspberry pi. Currently two components in library
+to connect to a raspberry pi. Currently two Categories in library
 
 (1) 28BYJ-48 Stepper motor + ULN2003 driver board
 
-(2) Tower pro Digital micro servo SG90 (Note: Should work with many servos types but only tested with SG90)
+(2) Servo GPIO PWM
+
+Should Work on any servo with 20mS duty cycle/50Hz frequency control signal
+and 180 degree rotation.
+Tested on:
+	(1) Tower pro Digital micro servo SG90 
+	(2) Hitec HS422 servo
+	(3) Tower pro MG996R Servo
 
 The end user can import this library into their projects and then 
-control the components with single lines of codes.
+control the components with single lines of code.
     
 * Author: Gavin Lyons
 * URL: https://github.com/gavinlyonsrepo/RpiMotorLib
@@ -88,22 +95,25 @@ Features
 ----------------------
 The library has been tested on a raspberry pi 3 model b. 
 
-There are  Currently two components in library
+There are  Currently two categories in library
 
 (1) 28BYJ-48 Stepper motor + ULN2003 driver board
 
 ![ScreenShot motor](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/screenshot/28BYJ.jpg)
 
-(2) Tower pro Digital micro servo SG90
+(2) Servo (Should Work on any servo with 20mS duty cycle or 50Hz) Tested on 
+
 
 ![ScreenShot servo](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/sg90.jpg)
+![ScreenShot servo1](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/hs422.jpg)
+![ScreenShot servo2](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/mg996.jpg)
 
 
-I have created separate help files in documentation folder at to learn how to use library
+I have created separate help files in documentation folder at to learn how to use library :
 
 [28BYJ motor](Documentation/28BYJ.md)
 
-[SG90 servo](Documentation/SG90.md)
+[Servo GPIO PWM](Documentation/Servo_GPIO.md)
     
 
 To Do
@@ -113,7 +123,8 @@ To Do
 
 (2) add more components
 
-(3) Setup I2C PWM servo control in addtion to GPIO PWM
+(3) Change freq in server function to be user variable and add more
+functions.
 
 
 Communication

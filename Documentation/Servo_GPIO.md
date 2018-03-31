@@ -1,29 +1,40 @@
-Tower pro Digital micro servo SG90
+Servos
 ----------------------------------
 
 ![ScreenShot servo](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/sg90.jpg)
-
+![ScreenShot servo1](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/hs422.jpg)
+![ScreenShot servo2](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/mg996.jpg)
 
 Hardware
 ------------------------------------
 
+Should Work on any servo with 20mS duty cycle or 50Hz frequency
+Tested on:
+	(1) Tower pro Digital micro servo SG90 
+	(2) Hitec HS422 servo
+	(3) Tower pro MG996R Servo
 
-[Datasheet](http://www.micropik.com/PDF/SG90Servo.pdf)
+(Check if your servo matches the freq/duty cycle specifications)
 
+[Datasheet SG90](http://www.micropik.com/PDF/SG90Servo.pdf)
+[Datasheet Hs422](https://cdn.sparkfun.com/datasheets/Robotics/hs422-31422S.pdf)
+[Datasheet MG996R](http://www.datasheetcafe.com/mg996r-datasheet-digital-servo/)
 
-The servo has 3 wires one for gnd(brown) 5v power(red) and signal(orange).  
-I have verified that it is safe to drive a single micro server from the 5 volt rail on Rpi.
+The servo has 3 wires one for gnd(brown) 5v power(red) and signal(orange/yellow).  
+I have verified that it is safe to drive a single servo from the 5 volt rail on Rpi.
 However It is possible to damage your Raspberry Pi by drawing 
-too much current out of a pin(spikes or low current power supply on the pi). It is best to power it 
-from a 5 Volt source other than a Raspberry Pi rail. 
+too much current out of a pin(spikes or low current power supply on the pi). 
+It is best to power it from a 5 Volt source other than a Raspberry Pi rail. 
 You can still control it from the Raspberry Pi if you use a common ground, 
 but just get the power (red wire) from an external source. 
 The Pi draws approximately 700 mA from the +5 V supply. You may draw current from the +5 V pins provided 
 the sum of that current and the board's 700 mA doesn't exceed the supply you provide to the board. 
-From the data sheet, we see that a SG90 expects a frequency of 50 Hz 
-on the control line and the position it moves to depends on the pulse width of the signal.
 
-This servo has a range of 180 degrees.
+From the data sheet, we see these servos expects a frequency of 50 Hz 
+on the control line and the position it moves to depends on the pulse width of the signal.
+50Hz gives a period of 20mS (Freq = 1/Period)
+
+These servo has a range of 180 degrees.
 
 The Raspberry Pi controls the servo by outputting a PWM signal of varying 
 duty cycle on a GPIO pin connected to signal pin of servo.
@@ -35,25 +46,31 @@ Duty Cycle = Pulse Width * Frequency
 
 Given a 50 Hz frequency we can calculate the required duty cycle for any pulse width. For example:
 
-We need a 1.5 ms pulse to centre the servo, or a Duty Cycle = 0.0015 * 50 = 0.075 (i.e 7.5%).
-Similarly, 1 ms pulse (- 90 degrees) requires a Duty Cycle = 0.001 * 50 = 5%; and
-2 ms pulse (+ 90 degrees), Duty Cycle = 0.002 * 50 = 10%
+We need a 1.5 ms pulse to center the servo, 
+or a Duty Cycle = 0.0015 * 50 = 0.075 (i.e 7.5%).
+Similarly, 1 ms pulse (- 90 degrees or 0 degrees) 
+requires a Duty Cycle = 0.001 * 50 = 5%
+2 ms pulse (+ 90 degrees or 180), Duty Cycle = 0.002 * 50 = 10%
 
-Thus the duty cycle range should be from 5 - 10% with the centre at 7.5%. 
+Thus the duty cycle range should be from 5 - 10% with the center at 7.5%. 
 
 Every servo is different, so you will need to calibrate it for the best performance.
-I found 7.5 for center , 11 for max duty or left position and 2 for min duty or right
+I found 7.5 for center , 
+11 for max duty percentage or left position (180 degress)
+and 2 for min duty percentage or right postion (0 degrees)
+Check datasheet for recommend pulse width and calibrate accordingly.
 
  
 Software
 --------------------------------------------
 
 The library file has a single class which controls the servo with two different 
-functions.
+functions. The class is called SG90servo but works for all listed as tested.
 
 The class is called SG90servo and the functions are 
 
 (1) servo_sweep - sets up a continuous sweep from two points
+Center-wait-min-wait-max- and so on until user quits
 
 (2) servo_move - moves to a specified location
 
@@ -61,6 +78,8 @@ The class is called SG90servo and the functions are
 ### 1 - servo_sweep
 
 function, servo_sweep, 6 inputs
+sets up a continuous sweep from two points, 
+Center-delay-min-delay-max-delay- and so on until user quits
 
  servo_sweep(servo_pin, center, minduty, maxduty, delay, verbose)
 
