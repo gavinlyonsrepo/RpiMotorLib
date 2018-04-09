@@ -37,20 +37,27 @@ for most projects.
 ![screenshot steps](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/screenshot/figure3.jpg)
 
 Half-step mode: 8 step control signal sequence 
-5.625 degrees per step / 64 steps per one revolution of the internal motor shaft
-Full  Step mode and wave drive: 4 step control signal sequence 11.25 degrees per step 
-/ 32 steps per one revolution of the internal motor shaft
+5.625 degrees per step / 64  step control signal sequence per one revolution of the internal motor shaft
+
+Full Step mode and wave drive: 4 step control signal sequence 11.25 degrees per step 
+/ 32  step control signal sequence per one revolution of the internal motor shaft
 
 Gear ratio	Manufacturer specifies 64:1. 
 These means that in the recommended half-step mode we will have:
 64 steps per motor rotation x 64 gear ratio = 4096 steps per full revolution (approximately). 
-So It takes 4096/8 =  512 steps for motor to rotate one revolution due to gear division
+4096/8 =  512 steps control signal sequence for motor to rotate one revolution due to gear division
 
-for full step 32 X 64 = 2048 , 2048/4 = 512 steps  also
+So for  for Full step and wave drive, 
+32 X 64 = 2048 , 2048/4 = 512 steps 
+
+(steps per motor rotation X gear ratio) / Number of steps control signal sequence = steps control signal sequence for motor to rotate one revolution 
 
 The delay time setting between steps, recommend set to 0.001 second for half-step and 0.01 second
-for full and wave. But you can set it to whatever works for you. It was noted in testing
+for full and wave. The user can set it to whatever works for their application. It was noted in testing
 that .001 is too low for full and wave to function.
+
+To calculate Number of steps control signal sequence per degree (512/360) = 1.422222))
+So to turn motor 180 degree (180*1.4222) = ~256 steps
 
 The ULN2003 stepper motor driver board allows you to easily control the 28BYJ-48 stepper motor.
 One side of the board side has a 5 wire socket where the cable from the stepper motor hooks up 
@@ -72,14 +79,22 @@ This detailed video  explains more
 Software
 --------------------------------------------
 
-The library file has a single class which controls the motor with one 
-function.
+The library file RpiMotorLib.py contains the class which controls 
+the motor.
 
-The class is called BYJMotor and the function is called 
-, motor_run- moves stepper motor based on 6 inputs.
+When initialize class pass a name and motor type
+The class is called BYJMotor
 
+BYJMotor(name, motor_type) 
 
-motor_run(GPIOPins, wait, steps, counterclockwise, verbose, steptype)
+(1) name ,type=string, default="BYJMotorX" , help=motor_id
+
+(2) motor_type ,type=string, default="28BYJ", used by class 
+to calculate degree in verbose output two options currently
+Nema and 28BYJ. Set to 28BYJ for this component
+ 
+The main function is called motor_run- moves stepper motor based on 7 inputs.
+motor_run(GPIOPins, wait, steps, counterclockwise, verbose, steptype, initdelay)
 
 (1) GpioPins, type=list of ints 4 long, help="list of
  4 GPIO pins to connect to motor controller
@@ -92,8 +107,8 @@ motor_run(GPIOPins, wait, steps, counterclockwise, verbose, steptype)
 (2) wait, type=float, default=0.001, help=Time to wait
 (in seconds) between steps.
          
-(3) steps, type=int, default=512, help=Number of steps to take.
-Default is one revolution.
+(3) steps, type=int, default=512, help=Number of step control signal sequence
+ to take. Default is one revolution 512
          
 (4) ccwise (counterclockwise), type=bool default=False
 help="Turn stepper counterclockwise"
@@ -105,35 +120,35 @@ help="Turn stepper counterclockwise"
  step motor 3 options full step half step or wave drive
  where full = fullstep , half = half step , wave = wave drive.
 
+ (7) initdelay, type=float, default=1mS, help= Intial delay after
+GPIO pins initialized but before motor is moved, gives time for GPIO
+to initialize. 
         
- example (version 1.1): to run A stepper motor connected to GPIO pins 18, 23, 24, 25
+ Example: To run A stepper motor connected to GPIO pins 18, 23, 24, 25
  (18-IN1 23-IN2 24-IN3, 25-IN4)
- for step delay of .01 second for 100 steps in clockwise direction,
- verbose output off , in half step mode
+ for step delay of .01 second for 100 step control signal sequence, in clockwise direction,
+ verbose output off , in half step mode, with an init start delay of 50mS
 
     
 ```sh
 
-import time 
 import RPi.GPIO as GPIO
-
-# This code snippet is for Version 1.1 
 
 # import the library
 from RpiMotorLib import RpiMotorLib
     
 GpioPins = [18, 23, 24, 25]
-# Declare an named instance of class pass a name
-mymotortest = RpiMotorLib.BYJMotor("MyMotorOne")
-time.sleep(0.5)
 
-# call the function pass
-mymotortest.motor_run(GpioPins , .01, 100, False, False, "half")
+# Declare an named instance of class pass a name and motor type
+mymotortest = RpiMotorLib.BYJMotor("MyMotorOne", "28BYJ")
+
+# call the function pass the parameters
+mymotortest.motor_run(GpioPins , .01, 100, False, False, "half", .05)
 
 # good practise to cleanup GPIO at some point before exit
 GPIO.cleanup()
 ```
 
-If verbose is set to True various information on pin output and status is outputted to screen
+If verbose is set to True various information on pin output and status is outputted to screen at end of a run
 
  ![ScreenShot verbose](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/screenshot/Verbose_output_run.jpg)

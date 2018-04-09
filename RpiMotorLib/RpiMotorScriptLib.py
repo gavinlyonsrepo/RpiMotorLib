@@ -6,7 +6,7 @@
 # display the version and help for RpiMotorlib
 # author            :Gavin Lyons
 # date              :15/03/2018
-# version           :1.1-2
+# version           :1.2-3
 # web               :https://github.com/gavinlyonsrepo/RpiMotorLib
 # mail              :glyons66@hotmail.com
 # python_version    :3.6.0
@@ -16,7 +16,7 @@
 import argparse
 import sys
 
-__version__ = "1.1-2"
+__version__ = "2.0-1"
 __author__ = "Gavin Lyons"
 __url__ = "https://github.com/gavinlyonsrepo/RpiMotorLib"
 
@@ -30,26 +30,26 @@ def process_cmd_arguments():
      to connect to a raspberry pi. \
      RpiMotorScript:Lib a script to display  \
     the version and help for rpiMotorlib.  \
-    Written by ' + __author__ + '.  Readme at Url ' + __url__)
+    Readme is at /usr/share/doc/rpimotorlib/README.md .   \
+    Written by ' + __author__ + '.  The project  Url is at  ' + __url__)
     parser.add_argument(
         '-v', help='Print rpiMotorlib version and quit',
         default=False, dest='version', action='store_true')
 
     args = parser.parse_args()
-
-    # if len(sys.argv) == 1:
-    #    print("usage: RpiMotorScirptLib.py [-h] [-v]")
-
-    # display version
-    if args.version:
-        print("rpiMotorlib " + __version__)
-
     return args
 
 
 def main(args):
     """main function"""
-    pass
+    if len(sys.argv) == 1:
+       print("usage: RpiMotorScirptLib.py [-h] [-v]")
+
+    # display version
+    if args.version:
+        print("rpiMotorlib " + __version__)
+        
+    print("BYE")
 
 
 # =====================MAIN===============================

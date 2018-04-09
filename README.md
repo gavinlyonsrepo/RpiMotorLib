@@ -3,22 +3,36 @@ Overview
 * Name: RpiMotorLib
 * Title: Raspberry pi motor library. 
 * Description: A python 3 library for various motors and servos 
-to connect to a raspberry pi. Currently two Categories in library
+to connect to a raspberry pi.
+There are three categories in library.
+Stepper motors , Dc Motors and Servos.
 
-(1) 28BYJ-48 Stepper motor + ULN2003 driver board
-
-(2) Servo GPIO PWM
-
-Should Work on any servo with 20mS duty cycle/50Hz frequency control signal
-and 180 degree rotation.
-Tested on:
-	(1) Tower pro Digital micro servo SG90 
-	(2) Hitec HS422 servo
-	(3) Tower pro MG996R Servo
-
-The end user can import this library into their projects and then 
-control the components with single lines of code.
+1. Stepper motor
+    * Unipolar 28BYJ-48 Stepper motor controlled by ULN2003 driver module
+    * Bipolar Nema 11 Stepper motor controlled by L298N H-Bridge Motor controller module.
+    * Bipolar Nema 11 Stepper motor controlled by Stepper Motor Driver Carrier 
     
+2. DC motors
+    * DC motor controlled by L298N Motor controller module.
+    * DC motor controlled by a transistor.
+
+3. Servo GPIO PWM
+        * Tested on:
+        * Tower pro Digital SG90 micro servo 
+        * Hitec HS422 servo
+        * Tower pro MG996R Servo
+    
+    
+The end user can import this library into their projects 
+and then control the components with short snippets of code.
+The library is modular so user can just import the section they need.
+A lot of this code will work on similar components/modules just has not. 
+been tested due to parts lacking or time constraints.
+For example:
+The A4998 code should also work on DRV-8825 or similar. 
+The L298N code should work with a L9110S or similar.
+The Servo code should  on any servo that I am of aware of.
+
 * Author: Gavin Lyons
 * URL: https://github.com/gavinlyonsrepo/RpiMotorLib
 
@@ -50,8 +64,8 @@ Usage
 -------------------------------------------
 Program is a python 3 package. 
 
-In addition to library files a small place holder script is installed
-to display version and help information
+In addition to library files a small script is installed
+to display version and help information.
 
 Run the help script by typing 
 RpiMotorScriptLib.py -[options]
@@ -72,11 +86,13 @@ rpiMotorLib files are listed below:
 
 | File Path | Description |
 | ------ | ------ |
-| RpiMotorLib.py |  python library file |
-| RpiMotorScriptLib.py | python placeholder information script  |
-| *Test.py | python test files, not installed , available in repo |
-| /usr/share/doc/tv_viewer/README.md | help file |
-
+| RPiMotorLib/RpiMotorLib.py |  stepper motor python library file |
+| RPiMotorLib/rpiservolib.py | servo python library  file |
+| RPiMotorLib/rpidclib.py  |    DC python motor library  file |
+| RPiMotorLib/RpiMotorScriptLib.py | small script with meta data about library |
+  documentation/*.md | 6 markdown library documentation files |
+| test/*Test.py | 6 python test files |
+| /usr/share/doc/RpiMotorLib/README.md | help file |
 
 Dependencies
 -----------
@@ -94,47 +110,39 @@ https://pypi.python.org/pypi/RPi.GPIO
 Features
 ----------------------
 The library has been tested on a raspberry pi 3 model b. 
-
-There are  Currently two categories in library
-
-(1) 28BYJ-48 Stepper motor + ULN2003 driver board
-
-![ScreenShot motor](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/screenshot/28BYJ.jpg)
-
-(2) Servo (Should Work on any servo with 20mS duty cycle or 50Hz) Tested on 
-
-
-![ScreenShot servo](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/sg90.jpg)
-![ScreenShot servo1](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/hs422.jpg)
-![ScreenShot servo2](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/mg996.jpg)
-
-
 I have created separate help files in documentation folder at to learn how to use library :
 
-[28BYJ motor](Documentation/28BYJ.md)
-
 [Servo GPIO PWM](Documentation/Servo_GPIO.md)
+
+[28BYJ stepper motor ULN2003 ](Documentation/28BYJ.md)
+
+[Nema 11 stepper motor L298N ](Documentation/Nema11L298N.md)
+
+[Nema 11 stepper motor A4988 ](Documentation/Nema11A4988.md)
+
+[L298N DC Motor](Documentation/L298N_DC.md)
+
+[Trans DC Motor](Documentation/Trans_DC.md)
     
+Test files used during development are in test folder of repo.
+Example snippets are also available in documentation files 
+show the correct import statements for the installed program.
 
 To Do
 -----------------------
 
-(1) add more error handling and logging
-
-(2) add more components
-
-(3) Change freq in server function to be user variable and add more
-functions.
+(1) add and test more components
 
 
 Communication
 -----------------------
 If you should find a bug or you have any other query, 
 please send a report.
-Pull requests, suggestions for improvements
+Pull requests, components, suggestions for improvements
 and new features welcome.
 * Contact: Upstream repo at github site below or glyons66@hotmail.com
 * Upstream repository: https://github.com/gavinlyonsrepo/RpiMotorLib
+
 
 History
 ------------------
