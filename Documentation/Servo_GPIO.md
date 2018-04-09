@@ -8,11 +8,11 @@ Servos
 Hardware
 ------------------------------------
 
-Should Work on any servo with 20mS duty cycle or 50Hz frequency
-Tested on:
-	(1) Tower pro Digital micro servo SG90 
-	(2) Hitec HS422 servo
-	(3) Tower pro MG996R Servo
+Should Work on any servo with 20mS duty cycle or 50Hz frequency, tested on.
+
+* Tower pro Digital micro servo SG90 
+* Hitec HS422 servo
+* Tower pro MG996R Servo
 
 (Check if your servo matches the freq/duty cycle specifications, most should)
 

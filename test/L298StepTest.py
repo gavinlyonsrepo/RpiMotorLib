@@ -3,15 +3,11 @@
 
 import time 
 import RPi.GPIO as GPIO
-import sys
-sys.path.insert(0, '/home/pi/Documents/tech/RpiMotorLib/RpiMotorLib')
+#import sys
+#sys.path.insert(0, '/home/pi/Documents/tech/RpiMotorLib/RpiMotorLib')
+#from RpiMotorLib import BYJMotor
 
-from RpiMotorLib import BYJMotor
-
-# 1.8 360/200 full / wave
-# .9  360/400 half
-# 200/8 = 25 *2 half 
-# 200/4 = 50  full wave.
+from RpiMotorLib import RpiMotorLib
 
 
 def main():
@@ -22,7 +18,7 @@ def main():
     GpioPins = [19, 13, 21, 20]
     # Declare an named instance of class pass a name and type of motor
    
-    mymotortest = BYJMotor("MyMotorOne", "Nema")
+    mymotortest = RpiMotorLib.BYJMotor("MyMotorOne", "Nema")
     time.sleep(1)
     
     # motor_run(gpiopins, wait=.001, steps=512, ccwise=False, verbose=False, steptype="half", initdelay=.001):

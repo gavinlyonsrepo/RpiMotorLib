@@ -3,18 +3,17 @@
 
 import time 
 import RPi.GPIO as GPIO
-import sys
-sys.path.insert(0, '/home/pi/Documents/tech/RpiMotorLib/RpiMotorLib')
+#import sys
+#sys.path.insert(0, '/home/pi/Documents/tech/RpiMotorLib/RpiMotorLib')
 
-from rpiservolib import SG90servo
-
+from RpiMotorLib import rpiservolib
 
 def main():
     """main function loop"""
     
     # ===== tests for servo SG90 ========== 
     # initialize
-    myservotest  = SG90servo("servoone", 50, 3, 11)
+    myservotest  = rpiservolib.SG90servo("servoone", 50, 3, 11)
     
     
     

@@ -3,19 +3,17 @@
 
 import time 
 import RPi.GPIO as GPIO
-import sys
-sys.path.insert(0, '/home/pi/Documents/tech/RpiMotorLib/RpiMotorLib')
-
-from RpiMotorLib import A4988Nema
+#import sys
+#sys.path.insert(0, '/home/pi/Documents/tech/RpiMotorLib/RpiMotorLib')
 
 
-# 200 full
+from RpiMotorLib import RpiMotorLib
+
+# 200 steps full revolution
 # 400 half
 # 800 1/4
 # 1600 1/8
 # 3200 1/16
-
-
 # __init__(self, direction_pin, step_pin, mode_pins):
 # motor_go(clockwise=False, steptype="Full", steps=200, stepdelay=.005, verbose=False, initdelay=.05)
 
@@ -30,7 +28,7 @@ def main():
     step = 21      # Step -> GPIO Pin
     
     # Declare an named instance of class pass GPIO-PINs
-    mymotortest = A4988Nema(direction, step, GPIO_pins)
+    mymotortest = RpiMotorLib.A4988Nema(direction, step, GPIO_pins)
     
     # ====================== section A ===================
     print("TEST SECTION A")

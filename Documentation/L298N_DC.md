@@ -65,15 +65,16 @@ the PWM signal from the digital pin connected to the enable pin can take care of
 
 The PWM signal or duty cycle is a floating point number and a percentage can be set from 0 to 100.
 
-This sofware and L298N should work with any DC Motor between rated 5 and 35 volts
-This library was tested on a number including the RF-310T-11400
+This sofware and L298N should work with any DC Motor between rated 5 and 35 volts.
+This library was tested on a RF-310T-11400 DC motor.
+
   
 Software
 -------------------------------------------
 
 The file rpi_dc_lib.py contains code for this component
 It consists of a class called L298NMDc and five functions
-The four function is called 
+The five functions is called: 
 1. forward = Drive motor forward,  passed one argument = duty cycle %
 2. backward = drive motor backward,  passed one argument = duty cycle %
 3. stop = stop motor, passed one argument = duty cycle %

@@ -57,10 +57,10 @@ that is which one is which. You will need to determine
 the A, B, C and D wires. 
 With our example motor these are green, blue, black and red.  
 
-black wire A == out3 L298N 
-green wire C == out1 L298N 
-red wire B == out4 L298N 
-blue wire D == out2 L298N 
+* black wire A == out3 L298N. 
+* green wire C == out1 L298N. 
+* red wire B == out4 L298N. 
+* blue wire D == out2 L298N. 
 
 Make these connections.
 Place the jumpers included with the L298N module over the pairs at module points 7 and 12. 
@@ -107,10 +107,10 @@ Full Step mode and wave drive: 4
 Software
 --------------------------------------------
 
-Same software as 28BYJ-48 28BYJ-48 28BYJ-48 28BYJ-48 but with 
+Same software as 28BYJ-48 28BYJ-48 but with 
 minor change in class definition for verbose output.
 
-The library file RpiMotorLib.py has a single class which controls the motor with one 
+The library file RpiMotorLib.py has a class which controls the motor with one 
 main function.
 
 When initializing the class pass a name and motor type.

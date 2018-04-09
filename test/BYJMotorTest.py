@@ -3,10 +3,11 @@
 
 import time 
 import RPi.GPIO as GPIO
-import sys
-sys.path.insert(0, '/home/pi/Documents/tech/RpiMotorLib/RpiMotorLib')
+#import sys
+#sys.path.insert(0, '/home/pi/Documents/tech/RpiMotorLib/RpiMotorLib')
+#from RpiMotorLib import BYJMotor
 
-from RpiMotorLib import BYJMotor
+from RpiMotorLib import RpiMotorLib
 
 
 def main():
@@ -15,8 +16,9 @@ def main():
     # ====== tests for motor 28BYJ48 ====
     
     GpioPins = [18, 23, 24, 25]
+    
     # Declare an named instance of class pass a name and type of motor
-    mymotortest = BYJMotor("MyMotorOne", "28BYJ")
+    mymotortest = RpiMotorLib.BYJMotor("MyMotorOne", "28BYJ")
     
     time.sleep(0.1)
     input("Press <Enter> to continue Test1")

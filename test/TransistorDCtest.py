@@ -3,15 +3,17 @@
 
 import time 
 import RPi.GPIO as GPIO
-import sys
-sys.path.insert(0, '/home/pi/Documents/tech/RpiMotorLib/RpiMotorLib')
-from rpi_dc_lib import TranDc
+#import sys
+#sys.path.insert(0, '/home/pi/Documents/tech/RpiMotorLib/RpiMotorLib')
+#from rpi_dc_lib import TranDc
+
+from RpiMotorLib import rpi_dc_lib
 
 def motorone():
     
     print(" TEST: testing motor 1") 
     # Motorssetup
-    MotorOne = TranDc(26 ,200 ,True)
+    MotorOne = rpi_dc_lib.TranDc(26 ,200 ,True)
 
     # ================ Motors one test  section 1=============
     

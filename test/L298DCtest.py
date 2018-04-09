@@ -3,11 +3,11 @@
 
 import time 
 import RPi.GPIO as GPIO
-import sys
-sys.path.insert(0, '/home/pi/Documents/tech/RpiMotorLib/RpiMotorLib')
+#import sys
+#sys.path.insert(0, '/home/pi/Documents/tech/RpiMotorLib/RpiMotorLib')
 
 
-from rpi_dc_lib import L298NMDc
+from RpiMotorLib import rpi_dc_lib 
 
     
 # ====== tests for  DC motor 28BYJ48 ====
@@ -26,7 +26,7 @@ def motorone():
     
     print(" TEST: testing motor 1") 
     # Motorssetup
-    MotorOne = L298NMDc(19 ,13 ,26 ,50 ,True, "motor_one")
+    MotorOne = rpi_dc_lib.L298NMDc(19 ,13 ,26 ,50 ,True, "motor_one")
 
     # ================ Motors one test  section 1=============
     try:

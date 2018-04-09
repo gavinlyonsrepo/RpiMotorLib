@@ -10,28 +10,29 @@ Stepper motors , Dc Motors and Servos.
 1. Stepper motor
     * Unipolar 28BYJ-48 Stepper motor controlled by ULN2003 driver module
     * Bipolar Nema 11 Stepper motor controlled by L298N H-Bridge Motor controller module.
-    * Bipolar Nema 11 Stepper motor controlled by Stepper Motor Driver Carrier 
+    * Bipolar Nema 11 Stepper motor controlled by A4998 Stepper Motor Driver Carrier 
     
 2. DC motors
     * DC motor controlled by L298N Motor controller module.
     * DC motor controlled by a transistor.
 
 3. Servo GPIO PWM
-        * Tested on:
-        * Tower pro Digital SG90 micro servo 
-        * Hitec HS422 servo
-        * Tower pro MG996R Servo
-    
+    * Tested on
+    * Tower pro Digital SG90 micro servo 
+    * Hitec HS422 servo
+    * Tower pro MG996R Servo
+
     
 The end user can import this library into their projects 
 and then control the components with short snippets of code.
 The library is modular so user can just import the section they need.
-A lot of this code will work on similar components/modules just has not. 
+A lot of this code will work on similar components/modules but has not. 
 been tested due to parts lacking or time constraints.
 For example:
 The A4998 code should also work on DRV-8825 or similar. 
 The L298N code should work with a L9110S or similar.
 The Servo code should  on any servo that I am of aware of.
+Many stepper motors should work with the Nema 11 code, nema 17 etc
 
 * Author: Gavin Lyons
 * URL: https://github.com/gavinlyonsrepo/RpiMotorLib
@@ -88,7 +89,7 @@ rpiMotorLib files are listed below:
 | ------ | ------ |
 | RPiMotorLib/RpiMotorLib.py |  stepper motor python library file |
 | RPiMotorLib/rpiservolib.py | servo python library  file |
-| RPiMotorLib/rpidclib.py  |    DC python motor library  file |
+| RPiMotorLib/rpi_dc_lib.py  |    DC python motor library  file |
 | RPiMotorLib/RpiMotorScriptLib.py | small script with meta data about library |
   documentation/*.md | 6 markdown library documentation files |
 | test/*Test.py | 6 python test files |
@@ -122,11 +123,11 @@ I have created separate help files in documentation folder at to learn how to us
 
 [L298N DC Motor](Documentation/L298N_DC.md)
 
-[Trans DC Motor](Documentation/Trans_DC.md)
+[Trans DC Motor](Documentation/Transistor_DC.md)
     
 Test files used during development are in test folder of repo.
-Example snippets are also available in documentation files 
-show the correct import statements for the installed program.
+Example snippets are also available in documentation files,
+which show the correct import statements for the installed program.
 
 To Do
 -----------------------
