@@ -9,7 +9,7 @@ setup(
     license="GPL",
     keywords="servo motor library raspberry pi SG90 28BYJ-48 A4998 stepper",
     url="https://github.com/gavinlyonsrepo/RpiMotorLib",
-    download_url='https://github.com/gavinlyonsrepo/RpiMotorLib/archive/1.1.tar.gz',
+    download_url='https://github.com/gavinlyonsrepo/RpiMotorLib/archive/2.0.tar.gz',
     packages=['RpiMotorLib'],
     data_files=[('/usr/share/doc/rpimotorlib/', ['README.md'])],
     install_requires=['pip'],

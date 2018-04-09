@@ -1,3 +1,5 @@
+![ScreenShot dcmotor](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/RF310T11400.jpg)
+
 Overview
 --------------------------------------------
 * Name: RpiMotorLib

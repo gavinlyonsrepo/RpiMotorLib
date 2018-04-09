@@ -2,18 +2,23 @@ DC motor controlled by Transistor
 -------------------------------------------------
 
 ![ScreenShot dcmotor](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/RF310T11400.jpg)
+![ScreenShot Tran](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/tran.jpg)
+
 
 Hardware
 --------------------------------------------
 
+
+![ScreenShot sch](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/motor_gpio.jpg)
+
 DC motor controlled by Transistor connected to a GPIO pin and feed a PWM 
 signal for speed control. No direction.
 Used for fans and applications where direction not needed.   
-This video explains it well.
+This video explains setup and theory well.
 
-[Video](https://www.youtube.com/watch?v=W7cV9_W12sM)
+[youtube Video](https://www.youtube.com/watch?v=W7cV9_W12sM)
 
-This library was tested on a number including the RF-310T-11400
+This library was tested on a number of motors including the RF-310T-11400
   
 Software
 -------------------------------------------
