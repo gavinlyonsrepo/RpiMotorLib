@@ -24,16 +24,22 @@ Stepper motors , Dc Motors and Servos.
     * Hitec HS422 servo
     * Tower pro MG996R Servo
 
-    
 The end user can import this library into their projects 
 and then control the components with short snippets of code.
 The library is modular so user can just import the section they need.
 A lot of this code will work on similar components/modules but has not. 
 been tested due to parts lacking or time constraints.
 For example:
+
 The A4998 code should also work on DRV-8825 or similar. 
-The L298N code should work with a L9110S or similar.
-The Servo code should  on any servo that I am of aware of.
+see this link for list of alternatives for this module 
+(and drop-in replacements in many applications) 
+[pololu product 1182](https://www.pololu.com/product/1182)
+
+The L298N code should work with a L9110S or similar cofigured H-bridge modules/circuits
+
+The Servo code should on any servo that I am of aware of.
+
 Many stepper motors should work with the Nema 11 code, nema 17 etc
 
 * Author: Gavin Lyons
@@ -65,7 +71,7 @@ sudo pip3 install rpimotorlib
 
 Usage
 -------------------------------------------
-Program is a python 3 package. 
+Program is a python 3 package. (3.4.2) 
 
 In addition to library files a small script is installed
 to display version and help information.
@@ -83,7 +89,7 @@ Options list :
 To learn how to use the Library in programs.
 Go to features section below
 
-Files and setup
+Files
 -----------------------------------------
 rpiMotorLib files are listed below:
 
@@ -93,7 +99,7 @@ rpiMotorLib files are listed below:
 | RPiMotorLib/rpiservolib.py | servo python library  file |
 | RPiMotorLib/rpi_dc_lib.py  |    DC python motor library  file |
 | RPiMotorLib/RpiMotorScriptLib.py | small script with meta data about library |
-  documentation/*.md | 6 markdown library documentation files |
+| documentation/*.md | 6 markdown library documentation files |
 | test/*Test.py | 6 python test files |
 | /usr/share/doc/RpiMotorLib/README.md | help file |
 
@@ -112,8 +118,9 @@ https://pypi.python.org/pypi/RPi.GPIO
 
 Features
 ----------------------
-The library has been tested on a raspberry pi 3 model b. 
-I have created separate help files in documentation folder at to learn how to use library :
+The library has tested and built on a raspberry pi 3 model b, Raspbian, jessie 8.0 and python 3.4.2
+
+I have created separate help files in documentation folder to learn how to use library :
 
 [Servo GPIO PWM](Documentation/Servo_GPIO.md)
 
@@ -128,8 +135,8 @@ I have created separate help files in documentation folder at to learn how to us
 [Trans DC Motor](Documentation/Transistor_DC.md)
     
 Test files used during development are in test folder of repo.
-Example snippets are also available in documentation files,
-which show the correct import statements for the installed program.
+Example snippets are also available in documentation files
+
 
 To Do
 -----------------------
