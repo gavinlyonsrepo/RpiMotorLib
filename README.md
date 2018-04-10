@@ -12,7 +12,7 @@ Stepper motors , Dc Motors and Servos.
 1. Stepper motor
     * Unipolar 28BYJ-48 Stepper motor controlled by ULN2003 driver module
     * Bipolar Nema 11 Stepper motor controlled by L298N H-Bridge Motor controller module.
-    * Bipolar Nema 11 Stepper motor controlled by A4998 Stepper Motor Driver Carrier 
+    * Bipolar Nema 11 Stepper motor controlled by A4988 Stepper Motor Driver Carrier 
     
 2. DC motors
     * DC motor controlled by L298N Motor controller module.
@@ -31,7 +31,7 @@ A lot of this code will work on similar components/modules but has not.
 been tested due to parts lacking or time constraints.
 For example:
 
-The A4998 code should also work on DRV-8825 or similar. 
+The A4988 code should also work on DRV-8825 or similar. 
 see this link for list of alternatives for this module 
 (and drop-in replacements in many applications) 
 [pololu product 1182](https://www.pololu.com/product/1182)
