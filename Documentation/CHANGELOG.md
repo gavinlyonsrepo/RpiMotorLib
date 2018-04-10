@@ -7,7 +7,8 @@ Version control history:
 	* Code re-factor python standard and optimization's.
 * Version 2.0-3 090418
 	* Major upgrade 
-		* added Dc motors driven by L298N + transistor
-		* added Nema stepper driven by motors A4998 and L298N
+		* added DC motors driven by L298N + transistor
+		* added Nema stepper driven by motor controller A4988
+		* added Nema stepper driven by motor controller  L298N
 		* Added new functions to Servo section.
 
