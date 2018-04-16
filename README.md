@@ -37,7 +37,7 @@ See this link for list of alternatives for this module
 (and drop-in replacements in many applications) 
 [pololu product 1182](https://www.pololu.com/product/1182)
 
-The L298N code should work with a L9110S or similar cofigured H-bridge modules/circuits
+The L298N code should work with a L9110S or similar configured H-bridge modules/circuits
 
 The Servo code should on any servo that I am of aware of.
 
