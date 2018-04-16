@@ -31,8 +31,8 @@ A lot of this code will work on similar components/modules but has not.
 been tested due to parts lacking or time constraints.
 For example:
 
-The A4988 code should also work on DRV-8825 or similar. 
-see this link for list of alternatives for this module 
+The A4988 code **may** work with other pololu modules but is **untested** at this point.
+See this link for list of alternatives for this module 
 (and drop-in replacements in many applications) 
 [pololu product 1182](https://www.pololu.com/product/1182)
 
