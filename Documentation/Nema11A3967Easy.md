@@ -92,7 +92,7 @@ Also do NOT disconnect motor when in operation, as it will damage controller.
  
 
 | MS1 | MS2 | Resolution |
-| --- | --- |
+| --- | --- | --- |
 | L | L | Full step | 
 | H | L | Half step |
 | L | H | Quarter step |
