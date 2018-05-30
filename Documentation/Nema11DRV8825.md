@@ -9,7 +9,7 @@ Hardware
 
 Nema 11 Stepper Motor:
 
-see [A4988 Nema Section](documentation/Nema11A4988.md) 
+see [A4988 Nema Section](Nema11A4988.md) 
 
 
 DRV8825:
@@ -98,7 +98,7 @@ and Drv8825. The only difference from a user POV is when you instantiate
 the class the user passes the motor type and also user can now use 
 1/32 microstep for DRV8825.
 
-See for more details [A4988 software Section](documentation/Nema11A4988.md) 
+See for more details [A4988 software Section](Nema11A4988.md) 
 
 
 Example: Should do a 180 degree turn.
