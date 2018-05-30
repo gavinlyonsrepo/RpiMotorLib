@@ -113,7 +113,28 @@ Software
 The library file RpiMotorLib.py contains the class which controls 
 the motor. The class is called A3967EasyNema.
 
+init method 3 inputs.
+(1) direction type=int , help=GPIO pin connected to DIR pin of IC
+(2) step_pin type=int , help=GPIO pin connected to STEP of IC
+(3) mode_pins type=tuple of 2 ints, help=GPIO pins connected to
+Microstep Resolution pins MS1-MS2 of IC
 
+ motor_move method 6 inputs.
+ (1) stepdelay type=float, default=0.05, help=Time to wait
+ (in seconds) between steps.
+ (2) steps, type=int, default=200, help=Number of steps sequence's
+ to execute. Default is 200 ,
+ (3) clockwise, type=bool default=False
+ help="Turn stepper counterclockwise"
+ (4) verbose, type=bool  type=bool default=False
+ help="Write pin actions",
+ (5) steptype, type=string , default=Full help= type of drive to
+ step motor 4 options
+    (Full, Half, 1/4, 1/8)
+ (6) initdelay, type=float, default=1mS, help= Intial delay after
+ GPIO pins initialized but before motor is moved.
+ 
+ Example:
  
 ```sh
 
