@@ -9,7 +9,7 @@ Hardware
 
 Nema 11 Stepper Motor:
 
-see [A4988 Nema Section](/documentation/Nema11A4988.md) 
+see [A4988 Nema Section](documentation/Nema11A4988.md) 
 
 
 DRV8825:
@@ -41,10 +41,10 @@ We see the following pins:
 * GND – The logic supply ground.
 * FLT - Logic low when in fault condition (overtemp, overcurrent)
 * ENABLE – Logic high to disable device outputs and indexer operation, logic  low to enable. Internal pulldown.
-* MS1, MS2, MS3 – These three connections determine the microstepping mode of the DRV8825 module. By setting the logic levels here you can set the motor to Full, Half, Quarter, Eighth, Sixteenth or 1/32 steps. 
+* MS0, MS1, MS2 – These three connections determine the microstepping mode of the DRV8825 module. By setting the logic levels here you can set the motor to Full, Half, Quarter, Eighth, Sixteenth or 1/32 steps. 
 * RESET – Active-low reset input initializes the indexer logic and disables the H-bridge outputs. Internal pulldown.
 * SLEEP – Logic high to enable device, logic low to enter low-power sleep Internal pulldown.
-* STEP – This is how you drive the motor from an external microcontroller or square wave oscillator. Each pulse sent here steps the motor by whatever number of steps or microsteps that has been set by MS1, MS2 and MS3 settings. The faster you pulse this the faster the motor will travel.
+* STEP – This is how you drive the motor from an external microcontroller or square wave oscillator. Each pulse sent here steps the motor by whatever number of steps or microsteps that has been set by MSX settings. The faster you pulse this the faster the motor will travel.
 * DIR – The direction control A high input here drives the motor clockwise, a low will drive it counterclockwise.
 
 DRV8825 wiring diagram:
@@ -57,18 +57,18 @@ the DRV8825 is conveniently laid out to match the 4-pin connector
 that is common on several bipolar motors 
 but you should check your motor connections to be sure they are correct.
 
-Connect 5 GPIO pins to MS1, MS2, MS3, STEP and DIR.
-NOTE in this figure MS1 and MS3 are not connected.
+Connect 5 GPIO pins to MS0, MS1, MS2, STEP and DIR.
+NOTE in this figure MS pins are not connected.
 
-Connect pi gnd to DRV8825 at GND
-Connect Reset and sleep together and to pi 5V
+Connect pi gnd to DRV8825 at GND. 
+Connect Reset and sleep together and to pi 5V.
 
 Note that there is an additional component not shown , in this circuit. 
 This is essential to decouple the power supply. Any value from 47uf up will suffice, 
 try and mount the capacitor as close to the DRV8825 VMOT and GND pins as possible.
 Connect up capacitor and Motor leads
 
-Advisable to  carry out a DRV8825 Current Adjustment before using motor see info links at top of section.
+Advisable to carry out a DRV8825 Current Adjustment before using motor see info links at top of section.
 
 Also do not disconnect motor when in operation, as it will damage controller. 
 
@@ -98,7 +98,7 @@ and Drv8825. The only difference from a user POV is when you instantiate
 the class the user passes the motor type and also user can now use 
 1/32 microstep for DRV8825.
 
-See for more details [A4988 software Section](/documentation/Nema11A4988.md) 
+See for more details [A4988 software Section](documentation/Nema11A4988.md) 
 
 
 Example: Should do a 180 degree turn.
