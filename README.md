@@ -1,7 +1,6 @@
 ![ScreenShot dcmotor](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/RF310T11400.jpg)
 ![ScreenShot Nema](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/nema11.jpg)
 ![ScreenShot L298N](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/L298N.jpg)
-![ScreenShot A3967](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/A3967.jpg)
 ![ScreenShot A4988](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/A4988.jpg)
 
 Overview
@@ -18,35 +17,33 @@ Stepper motors , Dc Motors and Servos. The following is a list of tested parts
     * Bipolar Nema 11 Stepper motor controlled by L298N H-Bridge Motor controller module.
     * Bipolar Nema 11 Stepper motor controlled by A4988 Stepper Motor Driver Carrier 
     * Bipolar Nema 11 Stepper motor controlled by DRV8825 Stepper Motor Driver Carrier
-    * Bipolar Nema 11 Stepper motor controlled by A3967 Stepper Motor Driver Carrier "easy driver version 4.4" 
+    * Bipolar Nema 11 Stepper motor controlled by A3967 Stepper Motor Driver  "easy driver version 4.4" 
     
 2. DC motors
     * DC brushed motor controlled by L298N Motor controller module.
     * DC brushed motor controlled by a transistor.
 
 3. Servo GPIO PWM
-        * Tower pro Digital SG90 micro servo 
-        * Hitec HS422 servo
-        * Tower pro MG996R Servo
+    * Tower pro Digital SG90 micro servo 
+    * Hitec HS422 servo
+    * Tower pro MG996R Servo
 
 The end user can import this library into their projects 
 and then control the components with short snippets of code.
 The library is modular so user can just import the section they need.
+
+*Other components*
 A lot of this code will work on similar components/modules but has not. 
 been tested due to parts lacking or time constraints.
 For example:
 
-The A4988 code **may** work with other pololu modules but is **untested** at this point
+The A4988/DRV8825 code **may** work with other *pololu* modules but is **untested** at this point
 with any other of the module listed at link.
-See this link for list of alternatives for this module 
-(and drop-in replacements in many applications) 
-[pololu product 1182](https://www.pololu.com/product/1182)
-
-The L298N code should work with a L9110S or similar configured H-bridge modules/circuits
-
+See this link for list of alternatives and drop-in replacements for this module.
+[pololu product 1182](https://www.pololu.com/product/1182).
+The L298N code should work with a L9110S or similar configured H-bridge modules/circuits.
 The Servo code should on any servo that I am of aware of.
-
-Many stepper motors should work with the Nema 11 code, nema 17 etc
+Many stepper motors should work with the Nema 11 code, nema 17 etc.
 
 * Author: Gavin Lyons
 * URL: https://github.com/gavinlyonsrepo/RpiMotorLib

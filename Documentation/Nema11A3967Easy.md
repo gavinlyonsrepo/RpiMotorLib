@@ -44,7 +44,7 @@ The "Easy Driver" is a motor driver based on the Allego A3967 designed by Schmal
 It is used to drive stepper motors. Each EasyDriver can drive up to about 750mA per phase of a bi-polar stepper motor. 
 It defaults to 8 step microstepping mode. (So if your motor is 200 full steps per revolution, you would get 1600 steps/rev using EasyDriver.) 
 
-For the code in my library to work we need to make following connections.
+For the code in this library to work we need to make following connections.
 
 GND : There are three GND (Ground) pins on the Easy Driver. 
 They are all connected together inside the board. 
@@ -70,25 +70,26 @@ MS1/MS2 : These digital inputs control the microstepping mode. Connect to RPI GP
 Possible settings are (MS1/MS2) : full step (0,0), half step (1,0), 1/4 step (0,1), and 1/8 step 
 (1,1).
 
-Enable, Reset, PFD and Sleep pins can be left open circuit and are not supported in this library at present.
-Enable and Reset are active low and can be left open circuit in my experience. 
+Enable, Reset, PFD and Sleep pins can be left unconnected. They are not supported in this library at present.
+
 
 ![ScreenShot motor pinout](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/screenshot/a3967pinout.jpg)
 
 
 In addition there are two bridges/jumpers on the Easy driver SJ1 and SJ2. 
-SJ1 is jumper APWR and can be left alone. 
-SJ2 decides wheter the input Logic is 5v for example an Arduino or 3.3V like the RPI
+SJ1 is jumper APWR and can be left alone, see datasheet for details.
+SJ2 decides wheter the input Logic is 5v  or 3.3V. The RPI needs 3.3v
 *NP* The SJ2 is open and set to 5v by default. The user must bridge this jumper
 to work with RPI, note diagram for location of SJ2 in bottom left.
 
 ![ScreenShot motor pinout](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/screenshot/a3967jumper.jpg)
 
-Also do not disconnect motor when in operation, as it will damage controller. 
+Also do NOT disconnect motor when in operation, as it will damage controller. 
 
 ![ScreenShot mircostep data](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/Microstepping_Data.jpg)
 
-| Microstep Resolution Truth Table |
+ Microstep Resolution Truth Table.
+ 
 | --- | --- |
 | MS1 | MS2 | Resolution |
 | L | L | Full step | 
