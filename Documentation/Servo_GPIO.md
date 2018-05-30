@@ -124,8 +124,8 @@ y_one and y-two are used by methods numbered 3 and 4.
 
 ### 1 - servo_sweep
 
-function, servo_sweep, 7 inputs
-sets up a continuous sweep from two points, 
+function, servo_sweep, 8 inputs
+sets up asweep from two points, 
 Center-delay-min-delay-max-delay- and so on until user quits
 
  servo_sweep(servo_pin, center, minduty, maxduty, delay, verbose, initdelay)
@@ -148,13 +148,18 @@ Center-delay-min-delay-max-delay- and so on until user quits
  (6) verbose, type=bool  type=bool default=False
   help="Output actions & details",
 
-(7) initdelay, type=float, default 50mS
+ (7) initdelay, type=float, default 50mS
     help= A delay after Gpio setup and before servo moves
     
- example (Version 1.1): to sweep the servo connected to GPIO pins 7
- for step delay of .5 second from minduty position
+ (8)  sweeplen, type=integer , default one million
+     help=  is number of times to execute sweep.
+ 
+ example:Setup a class instance called servoone with control freq 50mS
+ with y_one set to 3 and Y_two to 11. Next call method
+ to sweep the servo connected to GPIO pins 7
+ for step delay of 0.5 second from minduty position
  2 to maxduty position 12 and center position 6
- with verbose output set to True and initdelay set to 0.05mS
+ with verbose output set to True and initdelay set to 0.01mS , 100 times
  
 ```sh
 
@@ -164,7 +169,7 @@ from RpiMotorLib import rpiservolib
 myservotest  = rpiservolib.SG90servo("servoone", 50, 3, 11)
 
 # call the function pass by value in this case.
-myservotest.servo_sweep(7, 6, 2, 12, .5, True, .05)
+myservotest.servo_sweep(7, 6, 2, 12, 0.5, True, 0.01, 100)
 
 # good practise to cleanup GPIO at some point before exit
 GPIO.cleanup()

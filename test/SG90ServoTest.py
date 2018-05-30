@@ -15,7 +15,7 @@ def main():
     # initialize
     myservotest  = rpiservolib.SG90servo("servoone", 50, 3, 11)
     
-    
+     
     
     input("Press <Enter> to continue Test1a")
     myservotest.servo_move_step(26, 10, 180, .1, 5, 1, True)
@@ -38,16 +38,17 @@ def main():
     # full sweep section 3
     input("Press <Enter> to continue Test3a1")
     time.sleep(1)
-    myservotest.servo_sweep(26, 7.5, 3, 11, .5, True)
+    myservotest.servo_sweep(26, 7.5, 3, 11, .5, True, .05, 10)
     # sweep from center to max 
     input("Press <Enter> to continue Test3a2")
     time.sleep(1)
-    myservotest.servo_sweep(26, 7.5, 7.5, 11, .5, False)
+    myservotest.servo_sweep(26, 7.5, 7.5, 11, .5, True, 2, 20)
     # sweep from center to min
     input("Press <Enter> to continue Test3a3")
     time.sleep(1)
-    myservotest.servo_sweep(26, 7.5, 7.5, 3, .5, False)
-
+    myservotest.servo_sweep(26, 7.5, 7.5, 3, .5, True, .05)
+    
+    
      # single move section 4
     input("Press <Enter> to continue Test4b1")
     time.sleep(1)
@@ -58,7 +59,7 @@ def main():
     input("Press <Enter> to continue Test4b3")
     time.sleep(1)
     myservotest.servo_move(26, 7.5, .5, True)
-   
+     
     time.sleep(1)
     
 # ===================MAIN===============================

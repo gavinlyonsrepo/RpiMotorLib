@@ -11,4 +11,8 @@ Version control history:
 		* added Nema stepper driven by motor controller A4988
 		* added Nema stepper driven by motor controller  L298N
 		* Added new functions to Servo section.
+* Version 2.1-4 280518
+    * Added Nema stepper driven by motor controller A3967 "Easy Driver"
+    * Added Nema stepper driven by motor controller DRV8825 
+    * Added new option to servo_sweep method to allow to make sweep limited
 

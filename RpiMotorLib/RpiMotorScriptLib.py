@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
-"""python script to display the version and help for rpiMotorlib"""
-# =========================HEADER=======================================
+"""
+# ========================= HEADER =====================================
 # title             :RpiMotorScriptlib.py
 # description       :python placeholder  script to
-# display the version and help for RpiMotorlib
+# display the version and help for Rpi package RpiMotorlib
 # author            :Gavin Lyons
-# date              :15/03/2018
-# version           :1.2-3
 # web               :https://github.com/gavinlyonsrepo/RpiMotorLib
 # mail              :glyons66@hotmail.com
-# python_version    :3.6.0
+# python_version    :3.4.2
+"""
 
 # ==========================IMPORTS======================
 # Import the system module needed to run rpiMotorScriptLib.py

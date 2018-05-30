@@ -1,4 +1,8 @@
 ![ScreenShot dcmotor](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/RF310T11400.jpg)
+![ScreenShot Nema](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/nema11.jpg)
+![ScreenShot L298N](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/L298N.jpg)
+![ScreenShot A3967](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/A3967.jpg)
+![ScreenShot A4988](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/A4988.jpg)
 
 Overview
 --------------------------------------------
@@ -7,22 +11,23 @@ Overview
 * Description: A python 3 library for various motors and servos 
 to connect to a raspberry pi.
 There are three categories in library.
-Stepper motors , Dc Motors and Servos.
+Stepper motors , Dc Motors and Servos. The following is a list of tested parts
 
 1. Stepper motor
     * Unipolar 28BYJ-48 Stepper motor controlled by ULN2003 driver module
     * Bipolar Nema 11 Stepper motor controlled by L298N H-Bridge Motor controller module.
     * Bipolar Nema 11 Stepper motor controlled by A4988 Stepper Motor Driver Carrier 
+    * Bipolar Nema 11 Stepper motor controlled by DRV8825 Stepper Motor Driver Carrier
+    * Bipolar Nema 11 Stepper motor controlled by A3967 Stepper Motor Driver Carrier "easy driver version 4.4" 
     
 2. DC motors
-    * DC motor controlled by L298N Motor controller module.
-    * DC motor controlled by a transistor.
+    * DC brushed motor controlled by L298N Motor controller module.
+    * DC brushed motor controlled by a transistor.
 
 3. Servo GPIO PWM
-    * Tested on
-    * Tower pro Digital SG90 micro servo 
-    * Hitec HS422 servo
-    * Tower pro MG996R Servo
+        * Tower pro Digital SG90 micro servo 
+        * Hitec HS422 servo
+        * Tower pro MG996R Servo
 
 The end user can import this library into their projects 
 and then control the components with short snippets of code.
@@ -131,9 +136,11 @@ I have created separate help files in documentation folder to learn how to use l
 
 [Nema 11 stepper motor A4988 ](Documentation/Nema11A4988.md)
 
+[Nema 11 stepper motor A3967](Documentation/Nema11A3967Easy.md)
+
 [L298N DC Motor](Documentation/L298N_DC.md)
 
-[Trans DC Motor](Documentation/Transistor_DC.md)
+[Transistor DC Motor](Documentation/Transistor_DC.md)
     
 Test files used during development are in test folder of repo.
 Example snippets are also available in documentation files

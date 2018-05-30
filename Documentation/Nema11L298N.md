@@ -2,7 +2,7 @@ Bipolar Nema 11 Stepper motor controlled by L298N Motor controller module.
 ---------------------------------------
 
 ![ScreenShot motor](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/screenshot/nema11.jpg)
-
+![ScreenShot L298N](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/L298N.jpg)
 
 Hardware
 ------------------------------------

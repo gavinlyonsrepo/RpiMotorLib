@@ -39,8 +39,8 @@ class SG90servo(object):
         GPIO.setwarnings(False)
 
     def servo_sweep(self, servo_pin=7, center=7.5, minduty=3,
-                    maxduty=11, delay=0.5, verbose=False, initdelay=.05):
-        """servo_sweep 7 inputs, moves servo in continuous sweep loop
+                    maxduty=11, delay=0.5, verbose=False, initdelay=.05, sweeplen=1000000):
+        """servo_sweep 8 inputs, moves servo in sweep loop
 
          (1) servo_pin, type=int help=GPIO pin
          we will contect to signal line of servo
@@ -56,12 +56,8 @@ class SG90servo(object):
           help="Output actions & details",
          (7) initdelay, type=float, default 50mS
          help= A delay after Gpio setup and before servo moves
-
-         Example: to sweep the servo connected to GPIO pins 7
-         for step delay of .5 second from minduty postion
-         2 to maxduty 12 center position 6
-         with verbose output
-         servoSweep(7, 6, 3, 11, .5, True)
+         (8)  sweeplen, type=integer , default one million
+         help=  is number of times to execute sweep.
         """
         if verbose:
             print("RpiMotorLib: Servo Sweep running , press ctrl+c to quit")
@@ -75,7 +71,7 @@ class SG90servo(object):
             print("Moved to center position = {}".format(center))
         time.sleep(delay)
         try:
-            while True:
+            while sweeplen > 0:
                 pwm_servo.ChangeDutyCycle(minduty)
                 if verbose:
                     print("Moved to min position = {}".format(minduty))
@@ -83,6 +79,8 @@ class SG90servo(object):
                 pwm_servo.ChangeDutyCycle(maxduty)
                 if verbose:
                     print("Moved to max position = {}".format(maxduty))
+                    print("Number of loops left = {}".format(sweeplen))
+                sweeplen -= 1
                 time.sleep(delay)
 
         except KeyboardInterrupt:
