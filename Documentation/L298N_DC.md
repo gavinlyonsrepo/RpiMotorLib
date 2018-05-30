@@ -1,8 +1,8 @@
 DC motor controlled by L298N Motor controller module.
 -------------------------------------------------
 
-![ScreenShot dcmotor](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/RF310T11400.jpg)
-![ScreenShot L298N](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/L298N.jpg)
+![ScreenShot dcmotor](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/RF310T11400.jpg)
+![ScreenShot L298N](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/L298N.jpg)
 
 
 Hardware
@@ -24,7 +24,7 @@ Module pinouts
 Consider the following image - match the numbers against the list below the image:
 
 
-![ScreenShot L298Npinout](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/298pinout.jpg)
+![ScreenShot L298Npinout](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/298pinout.jpg)
 
 1. DC motor 1 "+" or stepper motor A+
 2. DC motor 1 "-" or stepper motor A-

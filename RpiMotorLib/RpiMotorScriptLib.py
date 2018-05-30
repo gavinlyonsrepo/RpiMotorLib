@@ -15,7 +15,7 @@
 import argparse
 import sys
 
-__version__ = "2.0-1"
+__version__ = "2.1-4"
 __author__ = "Gavin Lyons"
 __url__ = "https://github.com/gavinlyonsrepo/RpiMotorLib"
 
@@ -42,7 +42,7 @@ def process_cmd_arguments():
 def main(args):
     """main function"""
     if len(sys.argv) == 1:
-       print("usage: RpiMotorScirptLib.py [-h] [-v]")
+       print("usage: RpiMotorScriptLib.py [-h] [-v]")
 
     # display version
     if args.version:

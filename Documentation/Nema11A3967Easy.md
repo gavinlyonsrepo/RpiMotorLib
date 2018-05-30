@@ -1,8 +1,8 @@
 Bipolar Nema11 Stepper motor with A4988  Driver Carrier 
 --------------------------------------------  
 
-![ScreenShot Nema](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/nema11.jpg)
-![ScreenShot A3967](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/A3967.jpg)
+![ScreenShot Nema](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/nema11.jpg)
+![ScreenShot A3967](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/A3967.jpg)
 
 Hardware
 ------------------------------------
@@ -13,7 +13,7 @@ This library was tested
 with a typical bipolar NEMA-11 stepper motor with four wires:
 should work with any similar type motor.
 
- ![ScreenShot motor pinout ](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/screenshot/nema11pinout.jpg)
+ ![ScreenShot motor pinout ](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/images/nema11pinout.jpg)
 
 It has 200 steps per revolution, and can operate at at 60 RPM. 
 It was a step to angle ratio of 1.8 degrees per step. 
@@ -73,7 +73,7 @@ Possible settings are (MS1/MS2) : full step (0,0), half step (1,0), 1/4 step (0,
 Enable, Reset, PFD and Sleep pins can be left unconnected. They are not supported in this library at present.
 
 
-![ScreenShot motor pinout](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/screenshot/a3967pinout.jpg)
+![ScreenShot motor pinout](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/images/a3967pinout.jpg)
 
 
 In addition there are two bridges/jumpers on the Easy driver SJ1 and SJ2. 
@@ -82,11 +82,11 @@ SJ2 decides wheter the input Logic is 5v  or 3.3V. The RPI needs 3.3v
 *NP* The SJ2 is open and set to 5v by default. The user must bridge this jumper
 to work with RPI, note diagram for location of SJ2 in bottom left.
 
-![ScreenShot motor pinout](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/screenshot/a3967jumper.jpg)
+![ScreenShot motor pinout](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/images/a3967jumper.jpg)
 
 Also do NOT disconnect motor when in operation, as it will damage controller. 
 
-![ScreenShot mircostep data](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/Microstepping_Data.jpg)
+![ScreenShot mircostep data](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/Microstepping_Data.jpg)
 
  Microstep Resolution Truth Table.
  

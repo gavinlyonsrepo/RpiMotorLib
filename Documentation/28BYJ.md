@@ -1,7 +1,7 @@
 28BYJ-48 Stepper motor + ULN2003 driver board
 ---------------------------------------
 
-![ScreenShot motor](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/screenshot/28BYJ.jpg)
+![ScreenShot motor](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/images/28BYJ.jpg)
 
 
 Hardware
@@ -25,7 +25,7 @@ The 28BYH-48 datasheet specifies that the preferred method for driving this step
 where we first power coil 1 only, then coil 1 and 2 together, then coil 2 only and so on…With 4 coils, 
 this means 8 different signals, like so 
 
- ![ScreenShot motor ](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/screenshot/figure.jpg)
+ ![ScreenShot motor ](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/images/figure.jpg)
 
 In addition to full step and half step there is also wave drive method.
 Where one coil at a time is powered (like a wave) 
@@ -34,7 +34,7 @@ Full gives the most torque. Half gives less torque but more accuracy
 and wave drive is best for low power applications. half step mode is recommend 
 for most projects.
 
-![screenshot steps](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/screenshot/figure3.jpg)
+![screenshot steps](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/images/figure3.jpg)
 
 Half-step mode: 8 step control signal sequence 
 5.625 degrees per step / 64  step control signal sequence per one revolution of the internal motor shaft
@@ -63,7 +63,7 @@ The ULN2003 stepper motor driver board allows you to easily control the 28BYJ-48
 One side of the board side has a 5 wire socket where the cable from the stepper motor hooks up 
 and 4 LEDs to indicate which coil is currently powered.
 
-![ScreenShot motor diagram](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/screenshot/figure2.jpg)
+![ScreenShot motor diagram](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/images/figure2.jpg)
 
 Connect the ULN2003 driver IN1, IN2, IN3 and IN4 to 4 GPIO pins on raspberry pi.
 These GPIO pins will be in a list of 4 in the software where [IN1 , IN2 , IN3 ,IN4] = [GPIO0 , GPIO1, GPIO2 , GPIO3]

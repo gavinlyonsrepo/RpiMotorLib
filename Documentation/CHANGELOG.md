@@ -14,5 +14,5 @@ Version control history:
 * Version 2.1-4 280518
     * Added Nema stepper driven by motor controller A3967 "Easy Driver"
     * Added Nema stepper driven by motor controller DRV8825 
-    * Added new option to servo_sweep method to allow to make sweep limited
-
+    * Added new option (sweeplen) to servo_sweep method. Defines a fixed 
+    length to the sweep rather than continuous.  

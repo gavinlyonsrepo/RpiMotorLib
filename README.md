@@ -1,13 +1,13 @@
-![ScreenShot dcmotor](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/RF310T11400.jpg)
-![ScreenShot Nema](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/nema11.jpg)
-![ScreenShot L298N](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/L298N.jpg)
-![ScreenShot A4988](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/screenshot/A4988.jpg)
+![ScreenShot dcmotor](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/RF310T11400.jpg)
+![ScreenShot Nema](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/nema11.jpg)
+![ScreenShot L298N](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/L298N.jpg)
+![ScreenShot A4988](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/A4988.jpg)
 
 Overview
 --------------------------------------------
 * Name: RpiMotorLib
-* Title: Raspberry pi motor library. 
-* Description: A python 3 library for various motors and servos 
+* Title: Raspberry pi motor library.
+* Description: A python 3 library for various motors and servos
 to connect to a raspberry pi.
 There are three categories in library.
 Stepper motors , Dc Motors and Servos. The following is a list of tested parts
@@ -15,35 +15,35 @@ Stepper motors , Dc Motors and Servos. The following is a list of tested parts
 1. Stepper motor
     * Unipolar 28BYJ-48 Stepper motor controlled by ULN2003 driver module
     * Bipolar Nema 11 Stepper motor controlled by L298N H-Bridge Motor controller module.
-    * Bipolar Nema 11 Stepper motor controlled by A4988 Stepper Motor Driver Carrier 
+    * Bipolar Nema 11 Stepper motor controlled by A4988 Stepper Motor Driver Carrier
     * Bipolar Nema 11 Stepper motor controlled by DRV8825 Stepper Motor Driver Carrier
-    * Bipolar Nema 11 Stepper motor controlled by A3967 Stepper Motor Driver  "easy driver version 4.4" 
-    
+    * Bipolar Nema 11 Stepper motor controlled by A3967 Stepper Motor Driver  "easy driver version 4.4"
+
 2. DC motors
     * DC brushed motor controlled by L298N Motor controller module.
     * DC brushed motor controlled by a transistor.
 
 3. Servo GPIO PWM
-    * Tower pro Digital SG90 micro servo 
+    * Tower pro Digital SG90 micro servo
     * Hitec HS422 servo
     * Tower pro MG996R Servo
 
-The end user can import this library into their projects 
+The end user can import this library into their projects
 and then control the components with short snippets of code.
 The library is modular so user can just import the section they need.
 
-*Other components*
-A lot of this code will work on similar components/modules but has not. 
-been tested due to parts lacking or time constraints.
+*Other components*.
+
+A lot of this code will work on similar components/modules but has not
+been tested due to parts lacking.
 For example:
 
-The A4988/DRV8825 code **may** work with other *pololu* modules but is **untested** at this point
-with any other of the module listed at link.
+The A4988/DRV8825 code **may** work with other *pololu* modules.
 See this link for list of alternatives and drop-in replacements for this module.
 [pololu product 1182](https://www.pololu.com/product/1182).
 The L298N code should work with a L9110S or similar configured H-bridge modules/circuits.
 The Servo code should on any servo that I am of aware of.
-Many stepper motors should work with the Nema 11 code, nema 17 etc.
+Most 4 pin bipolar stepper motors should work in place of Nema 11.
 
 * Author: Gavin Lyons
 * URL: https://github.com/gavinlyonsrepo/RpiMotorLib
@@ -66,7 +66,7 @@ Table of contents
 Installation
 -----------------------------------------------
 
-Make sure that python3 and pip3 have been installed on your machine, then: 
+Make sure that python3 and pip3 have been installed on your machine, then:
 
 ```sh
 sudo pip3 install rpimotorlib
@@ -74,12 +74,12 @@ sudo pip3 install rpimotorlib
 
 Usage
 -------------------------------------------
-Program is a python 3 package. (3.4.2) 
+Program is a python 3 package. (3.4.2)
 
 In addition to library files a small script is installed
 to display version and help information.
 
-Run the help script by typing 
+Run the help script by typing
 RpiMotorScriptLib.py -[options]
 
 Options list :
@@ -102,9 +102,9 @@ rpiMotorLib files are listed below:
 | RPiMotorLib/rpiservolib.py | servo python library  file |
 | RPiMotorLib/rpi_dc_lib.py  |    DC python motor library  file |
 | RPiMotorLib/RpiMotorScriptLib.py | small script with meta data about library |
-| documentation/*.md | 6 markdown library documentation files |
-| test/*Test.py | 6 python test files |
-| /usr/share/doc/RpiMotorLib/README.md | help file |
+| documentation/*.md | 8 markdown library documentation files |
+| test/*Test.py | 8 python test files |
+| /usr/share/doc/RpiMotorLib/README.md | This help file |
 
 Dependencies
 -----------
@@ -133,12 +133,14 @@ I have created separate help files in documentation folder to learn how to use l
 
 [Nema 11 stepper motor A4988 ](Documentation/Nema11A4988.md)
 
+[Nema 11 stepper motor DRV8825 ](Documentation/Nema11DRV8825.md)
+
 [Nema 11 stepper motor A3967](Documentation/Nema11A3967Easy.md)
 
 [L298N DC Motor](Documentation/L298N_DC.md)
 
 [Transistor DC Motor](Documentation/Transistor_DC.md)
-    
+
 Test files used during development are in test folder of repo.
 Example snippets are also available in documentation files
 
@@ -151,7 +153,7 @@ To Do
 
 Communication
 -----------------------
-If you should find a bug or you have any other query, 
+If you should find a bug or you have any other query,
 please send a report.
 Pull requests, components, suggestions for improvements
 and new features welcome.
@@ -165,8 +167,8 @@ CHANGELOG.md is at repository
 
 Copyright
 -------------
-Copyright (C) 2018 Gavin Lyons 
+Copyright (C) 2018 Gavin Lyons
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public license published by
-the Free Software Foundation, see LICENSE.md in documentation section 
+the Free Software Foundation, see LICENSE.md in documentation section
 for more details

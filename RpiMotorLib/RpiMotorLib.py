@@ -8,9 +8,9 @@
 # This file is for stepper motor tested on
 # 28BYJ-48 unipolar stepper motor with ULN2003  = BYJMotor class
 # Bipolar Nema stepper motor with L298N = BYJMotor class.
-# Bipolar Nema Stepper motor A4998 Stepper Motor Driver Carrier
-#
-#
+# Bipolar Nema Stepper motor A4988  Driver = A4988Nema class
+# Bipolar Nema Stepper motor DRV8825 Driver = A4988Nema class
+# Bipolar Nema Stepper motor A3967 Easy Driver = A3967EasyNema class
 # author            :Gavin Lyons
 # Date created      :See changelog at url
 # Version           ;See changelog at url
@@ -175,19 +175,50 @@ class BYJMotor(object):
 
 
 class A4988Nema(object):
-    """ Class to control a Nema bi-polar stepper motor """
-    def __init__(self, direction_pin, step_pin, mode_pins):
+    """ Class to control a Nema bi-polar stepper motor with a A4988 also tested with DRV8825"""
+    def __init__(self, direction_pin, step_pin, mode_pins, motor_type="A4988"):
         """ class init method 3 inputs
         (1) direction type=int , help=GPIO pin connected to DIR pin of IC
         (2) step_pin type=int , help=GPIO pin connected to STEP of IC
         (3) mode_pins type=tuple of 3 ints, help=GPIO pins connected to
-        Microstep Resolution pins MS1-MS3 of IC"""
-
+        Microstep Resolution pins MS1-MS3 of IC
+        (4) motor_type type=string, help=TYpe of motor two options: A4988 or DRV8825
+        """
+        self.motor_type = motor_type
         self.direction_pin = direction_pin
         self.step_pin = step_pin
         self.mode_pins = mode_pins
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
+
+    def resolution_set(self, steptype):
+        """ method to calculate step resolution
+        based on motor type and steptype"""
+        if self.motor_type == "A4988":
+            resolution = {'Full': (0, 0, 0),
+                          'Half': (1, 0, 0),
+                          '1/4': (0, 1, 0),
+                          '1/8': (1, 1, 0),
+                          '1/16': (1, 1, 1)}
+        elif self.motor_type == "DRV8825":
+            resolution = {'Full': (0, 0, 0),
+                          'Half': (1, 0, 0),
+                          '1/4': (0, 1, 0),
+                          '1/8': (1, 1, 0),
+                          '1/16': (0, 0, 1),
+                          '1/32': (1, 0, 1)}
+        else: 
+            print("Error invalid motor_type: {}".format(steptype))
+            quit()
+        
+        # error check stepmode
+        if steptype in resolution:
+            pass
+        else:
+            print("Error invalid steptype: {}".format(steptype))
+            quit()
+
+        GPIO.output(self.mode_pins, resolution[steptype])
 
     def motor_go(self, clockwise=False, steptype="Full",
                  steps=200, stepdelay=.005, verbose=False, initdelay=.05):
@@ -215,19 +246,8 @@ class A4988Nema(object):
         GPIO.setup(self.mode_pins, GPIO.OUT)
         try:
             # dict resolution
-            resolution = {'Full': (0, 0, 0),
-                          'Half': (1, 0, 0),
-                          '1/4': (0, 1, 0),
-                          '1/8': (1, 1, 0),
-                          '1/16': (1, 1, 1)}
-            # error check stepmode
-            if steptype in resolution:
-                pass
-            else:
-                print("Error invalid steptype: {}".format(steptype))
-                quit()
+            self.resolution_set(steptype)
 
-            GPIO.output(self.mode_pins, resolution[steptype])
             time.sleep(initdelay)
 
             for i in range(steps):
@@ -248,6 +268,7 @@ class A4988Nema(object):
             # print report status
             if verbose:
                 print("\nRpiMotorLib, Motor Run finished, Details:.\n")
+                print("Motor type = {}".format(self.motor_type))
                 print("Clockwise = {}".format(clockwise))
                 print("Step Type = {}".format(steptype))
                 print("Number of steps = {}".format(steps))

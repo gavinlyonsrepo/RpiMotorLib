@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" test example file for rpiMotorlib.py """
+""" test example file for rpiMotorlib.py A4988 NEMA"""
 
 import time 
 import RPi.GPIO as GPIO
@@ -14,13 +14,13 @@ from RpiMotorLib import RpiMotorLib
 # 800 1/4
 # 1600 1/8
 # 3200 1/16
-# __init__(self, direction_pin, step_pin, mode_pins):
+# __init__(self, direction_pin, step_pin, mode_pins , motor_type):
 # motor_go(clockwise=False, steptype="Full", steps=200, stepdelay=.005, verbose=False, initdelay=.05)
 
 def main():
     """main function loop"""
     
-    # ====== tests for motor 28BYJ48 ====
+    # ====== tests for motor ====
     
     #GPIO pins 
     GPIO_pins = (14, 15, 18) # Microstep Resolution MS1-MS3 -> GPIO Pin
@@ -28,12 +28,12 @@ def main():
     step = 21      # Step -> GPIO Pin
     
     # Declare an named instance of class pass GPIO-PINs
-    mymotortest = RpiMotorLib.A4988Nema(direction, step, GPIO_pins)
+    mymotortest = RpiMotorLib.A4988Nema(direction, step, GPIO_pins, "A4988")
     
     # ====================== section A ===================
     print("TEST SECTION A")
     
-    input("TEST: Press <Enter> to continue  Full 180 tuen Test1")
+    input("TEST: Press <Enter> to continue  Full 180 turn Test1")
     mymotortest.motor_go(False, "Full" , 100, .005, True, .05)
     time.sleep(1)
     input("TEST: Press <Enter> to continue  full 180 clockwise Test2")
