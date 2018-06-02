@@ -148,7 +148,9 @@ Example snippets are also available in documentation files
 To Do
 -----------------------
 
-(1) add and test more components
+1. Add and test more components.
+
+2. Change over Servo class from GPIO to pigpio library.
 
 
 Communication
