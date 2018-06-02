@@ -95,7 +95,7 @@ The class is called SG90servo but works for all listed as tested.
 The class is called SG90servo and their are four methods are 
 
 (1) servo_sweep - sets up a continuous sweep from two points
-Center-wait-min-wait-max-wait-min- and so on until user quits
+Center-wait-min-wait-max-wait-min- and so on until user quits or set limit reached.
 
 (2) servo_move - moves to a specified location in a single sweep
 
@@ -126,9 +126,9 @@ y_one and y-two are used by methods numbered 3 and 4.
 
 function, servo_sweep, 8 inputs
 sets up asweep from two points, 
-Center-delay-min-delay-max-delay- and so on until user quits
+Center-delay-min-delay-max-delay- and so on until user quits or set-limit reached.
 
- servo_sweep(servo_pin, center, minduty, maxduty, delay, verbose, initdelay)
+ servo_sweep(servo_pin, center, minduty, maxduty, delay, verbose, initdelay, sweeplen)
 
  (1) servo_pin, type=int help=GPIO pin
  we will contect to signal line of servo
