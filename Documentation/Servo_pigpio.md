@@ -12,7 +12,7 @@ Should Work on any servo with 20mS duty cycle or 50Hz frequency, tested on.
 * Hitec HS422 servo
 * Tower pro MG996R Servo
 
-(Check if your servo has a rnage of 0-180 degrees and 
+(Check if your servo has a range of 0-180 degrees and 
 matches the freq/duty cycle specifications, most should)
 
 [Datasheet SG90](http://www.micropik.com/PDF/SG90Servo.pdf)
@@ -39,8 +39,6 @@ These servo has a range of 180 degrees.
 
 The Raspberry Pi controls the servo by outputting a PWM signal of varying 
 duty cycle on a GPIO pin connected to signal pin of servo.
-
-
 
 Duty Cycle = Pulse Width * Frequency
 
@@ -92,7 +90,7 @@ startup. By typing sudo pigpiod.
 The library file rpi_pservo_lib.py has a single class 
 which controls the servo 
 
-The class is called ServoPigpio and their are four methods:
+The class is called ServoPigpio and it contains four methods:
 
 (1) servo_sweep - sets up a continuous sweep from two points
 Center-wait-min-wait-max-wait-min- and so on until user quits or set limit reached.
@@ -155,7 +153,7 @@ Center-delay-min-delay-max-delay- and so on until user quits or set-limit reache
  with y_one set to 3 and Y_two to 11. Next call method
  to sweep the servo connected to GPIO pins 7
  for step delay of 0.5 second from pulse width
- 1000 to maxduty position 2000 and center position 1500
+ 1000uS to pulse width position 2000uS and center position 1500uS
  with verbose output set to True and initdelay set to 0.01mS , 100 times
  
 ```sh
@@ -209,7 +207,7 @@ print("Pulse width micro seconds = {} ".format(myservotest.convert_from_degree(t
 
 ### 4 servo_move_step 
 
-servo_move_step(servo_pin, start, end, stepdelay, stepsize, initdelay, verbose=)
+servo_move_step(servo_pin, start, end, stepdelay, stepsize, initdelay, verbose)
 
 servo_move_step - moves servo from two points in timed steps,
 seven inputs. 

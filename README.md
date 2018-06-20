@@ -126,21 +126,23 @@ The library was tested and built on a raspberry pi 3 model b, Raspbian, jessie 8
 
 I have created separate help files in documentation folder to learn how to use library :
 
-Note: There are two different options for controlling the servo.
+
+1. Servos:
+
+NOTE: There are two different options for controlling the servo.
 When using Rpi_GPIO option you may notice twitching at certain
 delays and stepsizes. This is the result of the 
 implementation of the RPIO PWM software timing. If the application requires
 precise control the user can pick the pigpio library
 which uses hardware based timing. The disadvantage being they must install 
-another an extra dependencies.
+another dependency.
 
-Servos:
+[Servo RPi.GPIO PWM](Documentation/Servo_GPIO.md)
 
-[Servo RPi.GPIOPWM](Documentation/Servo_GPIO.md)
+[Servo pigpio PWM](Documentation/Servo_pigpio.md)
 
-[Servo RPi.GPIOPWM](Documentation/Servo_pigpio.md)
 
-Stepper Motors:
+2. Stepper Motors:
 
 [28BYJ stepper motor ULN2003 ](Documentation/28BYJ.md)
 
@@ -152,7 +154,8 @@ Stepper Motors:
 
 [Nema 11 stepper motor A3967](Documentation/Nema11A3967Easy.md)
 
-DC Motors:
+
+3. DC Motors:
 
 [L298N DC Motor](Documentation/L298N_DC.md)
 
