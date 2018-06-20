@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """ 
 # ========================= HEADER ===================================
-# title             :rpiservolib.py
+# title             :rpi_pservo_lib.py
 # description       :Part of a RpiMotorLib python 3 library for motors
 # and servos to connect to a raspberry pi
-# This file is for servos controlled by GPIO PWM
+# This file is for servos controlled by pigpio PWM
 # author            :Gavin Lyons
 # web               :https://github.com/gavinlyonsrepo/RpiMotorLib
 # mail              :glyons66@hotmail.com
@@ -14,42 +14,39 @@
 # Import the system modules needed to run rpiMotorlib.py
 import sys
 import time
-import RPi.GPIO as GPIO
+import pigpio
 
 # ==================== CLASS SECTION ===============================
 
 
-class SG90servo(object):
-    """class to control a servo with GPIO PWM by raspberry pi"""
+class ServoPigpio(object):
+    """class to control a servo with pigpio library PWM by raspberry pi"""
 
-    def __init__(self, name="SG90servoX", freq=50, y_one=2, y_two=12):
+    def __init__(self, name="servoY", freq=50, y_one=1000, y_two=2000):
         """ init method for class
         4 inputs
-        (1) name, default=SG90servoX, type=string, help=name of instance
+        (1) name, default=servoY, type=string, help=name of instance
         (2) Freq, type=int, default=50,  help=control freq of servo in Hz
-        (3) y_one, type=float, default = 2 ,help=pulse min duty cycle of servo % for 0 degrees
-        (4) y_two type=float, default = 12, help=pulse max duty cycle of servo % for 180 degrees
+        (3) y_one, type=float, default = 1000 ,help=pulse width min in uS of servo % for 0 degrees
+        (4) y_two type=float, default = 2000 , help=pulse width max in uS of servo % for 180 degrees
           """
 
         self.name = name
         self.freq = freq
         self.y_one = y_one
         self.y_two = y_two
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setwarnings(False)
 
-    def servo_sweep(self, servo_pin=7, center=7.5, minduty=3,
-                    maxduty=11, delay=0.5, verbose=False, initdelay=.05, sweeplen=1000000):
+    def servo_sweep(self, servo_pin=7, center=1500, minduty=1000,
+                    maxduty=2000, delay=0.5, verbose=False, initdelay=.05, sweeplen=1000000):
         """servo_sweep 8 inputs, moves servo in sweep loop
-
          (1) servo_pin, type=int help=GPIO pin
          we will contect to signal line of servo
-         (2) center, type=float, default=7.5,
-         help=The center dutycycle position of servo
-         (3) minduty, type=float, default=3,
-         help=The min dutycycle position of servo
-         (4) maxduty, type=float, default=11,
-         help=The max dutycycle position of servo
+         (2) center, type=float, default=1000,
+         help=The center pulsewidth position of servo, uS
+         (3) minduty, type=float, default=1000,
+         help=The min pulsewidth position of servo , uS
+         (4) maxduty, type=float, default=2000,
+         help=The max pulsewidth position of servo , uS
          (5) delay, type=float, default=0.5,
          help=Time to wait (in seconds) between steps.
          (6) verbose, type=bool  type=bool default=False
@@ -61,24 +58,28 @@ class SG90servo(object):
         """
         if verbose:
             print("RpiMotorLib: Servo Sweep running , press ctrl+c to quit")
-        GPIO.setup(servo_pin, GPIO.OUT)
+        pi = pigpio.pi() # Connect to local Pi.
+        if not pi.connected:
+            print("RpiMotorLib : failed to connect to pigpio Daemon")
+            exit()
+        pi.set_mode(servo_pin, pigpio.OUTPUT)
         time.sleep(initdelay)
         # set pin and freq
-        pwm_servo = GPIO.PWM(servo_pin, self.freq)
+        pi.set_PWM_frequency(servo_pin, self.freq)
         # set duty cycle
-        pwm_servo.start(center)
+        pi.set_servo_pulsewidth(servo_pin, center)
         if verbose:
-            print("Moved to center position = {}".format(center))
+            print("Moved to center Pulse width = {}".format(center))
         time.sleep(delay)
         try:
             while sweeplen > 0:
-                pwm_servo.ChangeDutyCycle(minduty)
+                pi.set_servo_pulsewidth(servo_pin, minduty)
                 if verbose:
-                    print("Moved to min position = {}".format(minduty))
+                    print("Moved to min Pulse width = {}".format(minduty))
                 time.sleep(delay)
-                pwm_servo.ChangeDutyCycle(maxduty)
+                pi.set_servo_pulsewidth(servo_pin, maxduty)
                 if verbose:
-                    print("Moved to max position = {}".format(maxduty))
+                    print("Moved to max Pulse width = {}".format(maxduty))
                     print("Number of loops left = {}".format(sweeplen))
                 sweeplen -= 1
                 time.sleep(delay)
@@ -89,28 +90,28 @@ class SG90servo(object):
             if verbose:
                 print("\nRpiMotorLib, Servo Sweep finished, Details:.\n")
                 print("servo pin = {}".format(servo_pin))
-                print("Center position = {}".format(center))
-                print("min position = {}".format(minduty))
-                print("max position = {}".format(maxduty))
+                print("Center Pulse width = {}".format(center))
+                print("min Pulse width = {}".format(minduty))
+                print("max Pulse width = {}".format(maxduty))
                 print("Time delay = {}".format(delay))
                 print("Verbose  = {}".format(verbose))
                 print("Servo control frequency = {}".format(self.freq))
                 print("Number of Sweeps not completed = {}".format(sweeplen))
             if verbose:
                 print("RpiMotorLib: Cleaning up")
-            pwm_servo.stop()
-            GPIO.output(servo_pin, False)
+            pi.set_servo_pulsewidth(26, 0)
+            pi.stop()
 
-    def servo_move(self, servo_pin, position=7.5,
+    def servo_move(self, servo_pin, position=1500,
                    delay=0.5, verbose=False, initdelay=.05):
         """ servoMove 5 inputs
 
-         servosweep(servo_pin, position, delay, verbose)
+         servoMove(servo_pin, position, delay, verbose)
 
          (1) servo_pin, type=int help=GPIO pin
          we will contect to signal line of servo
-         (2) position, type=float, default=7.5,
-         help=The  dutycycle position of servo to move to
+         (2) position, type=float, default=1500,
+         help=The pulsewidth of servo to move to uS
          (3) delay, type=int, default=0.5,
          help=Time to wait (in seconds) before move after setup
          (4) verbose, type=bool  type=bool default=False
@@ -123,38 +124,38 @@ class SG90servo(object):
          with non-verbose output
          servoMove(7, 11, .5, False)
         """
-
-        GPIO.setup(servo_pin, GPIO.OUT)
+        pi = pigpio.pi()
+        pi.set_mode(servo_pin, pigpio.OUTPUT)
         time.sleep(initdelay)
-        pwm_servo = GPIO.PWM(servo_pin, self.freq)
+        pi.set_PWM_frequency(servo_pin, self.freq)
 
         try:
-            pwm_servo.start(position)
+            pi.set_servo_pulsewidth(servo_pin, position)
             time.sleep(delay)
         except KeyboardInterrupt:
             print("CTRL-C: RpiServoLib: Terminating program.")
         else:
             if verbose:
                 print("\nRpiMotorLib, Servo Single Move finished, Details:.\n")
-                print("Moved to position = {}".format(position))
+                print("Moved to pulse width = {}".format(position))
                 print("servo pin = {}".format(servo_pin))
                 print("Time delay = {}".format(delay))
                 print("Verbose  = {}".format(verbose))
         finally:
             if verbose:
                 print("RpiMotorLib: Cleaning up")
-            pwm_servo.stop()
-            GPIO.output(servo_pin, False)
+            pi.set_servo_pulsewidth(26, 0)
+            pi.stop()
 
     def convert_from_degree(self, degree):
-        """ converts degrees to duty cycle percentage , takes in degree
+        """ converts degrees to Pulse width , takes in degree
         returns duty cycle float"""
         x_two = 180
         x_one = 0
         slope = (self.y_two-self.y_one)/(x_two-x_one)
-        duty_cycle = slope*(degree-x_one) + self.y_one
-        return duty_cycle
-
+        pulse_width = slope*(degree-x_one) + self.y_one
+        return pulse_width
+        
     def servo_move_step(self, servo_pin, start=10, end=170, stepdelay=1,
                         stepsize=1, initdelay=1, verbose=False):
         """
@@ -185,17 +186,18 @@ class SG90servo(object):
         if start > end:
             stepsize = (stepsize)*-1
 
-        GPIO.setup(servo_pin, GPIO.OUT)
+        pi = pigpio.pi()
+        pi.set_mode(servo_pin, pigpio.OUTPUT)
         time.sleep(initdelay)
-        pwm_servo = GPIO.PWM(servo_pin, self.freq)
+        pi.set_PWM_frequency(servo_pin, self.freq)
         try:
             start_dc = self.convert_from_degree(start)
-            pwm_servo.start(start_dc)
+            pi.set_servo_pulsewidth(servo_pin, start_dc)
             for i in range(start, end+stepsize, stepsize):
                 end_pwm = self.convert_from_degree(i)
                 if verbose:
                     print("Servo moving: {}  {} ".format(end_pwm, i))
-                pwm_servo.ChangeDutyCycle(end_pwm)
+                pi.set_servo_pulsewidth(servo_pin, end_pwm)
                 time.sleep(stepdelay)
         except KeyboardInterrupt:
             print("CTRL-C: RpiServoLib: Terminating program.")
@@ -209,16 +211,15 @@ class SG90servo(object):
                 print("servo pin = {}".format(servo_pin))
                 print("stepsize = {}".format(stepsize))
                 print("Start = {}".format(start))
-                print("End = {}".format(end))
+                print("End  = {}".format(end))
                 print("Step delay = {}".format(stepdelay))
                 print("Initial delay = {}".format(initdelay))
                 print("Servo control frequency = {}".format(self.freq))
         finally:
             if verbose:
                 print("RpiMotorLib: Cleaning up")
-            pwm_servo.stop()
-            GPIO.output(servo_pin, False)
-
+            pi.set_servo_pulsewidth(26, 0)
+            pi.stop()
 
 def importtest(text):
     """import print test statement"""

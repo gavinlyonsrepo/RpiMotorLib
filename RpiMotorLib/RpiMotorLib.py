@@ -33,18 +33,18 @@ class BYJMotor(object):
     def __init__(self, name="BYJMotorX", motor_type="28BYJ"):
         self.name = name
         self.motor_type = motor_type
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setwarnings(False)
         # This array is used to make the cursor "spin"
         # while the script is running.
         self.curser_spin = ["/", "-", "|", "\\", "|"]
         self.spin_position = 0
-        # We will be using GPIO pin numbers instead
-        # of physical pin numbers.
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setwarnings(False)
+     
 
     def print_cursor_spin(self):
-        """ Prints a spinning cursor. Used when verbose not set to false. """
-        print(self.curser_spin[self.spin_position], end="\r", flush=True)
+        """ Prints a spinning cursor. Used when verbose not set to false.
+        NOTE: deprecated version 2.2-3 left in code for reference """
+        # print(self.curser_spin[self.spin_position], end="\r", flush=True)
         self.spin_position += 1
         if self.spin_position > 4:
             self.spin_position = 0
