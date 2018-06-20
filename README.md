@@ -137,7 +137,7 @@ precise control the user can pick the pigpio library
 which uses hardware based timing. The disadvantage being they must install 
 another dependency.
 
-[Servo RPi.GPIO PWM](Documentation/Servo_GPIO.md)
+[Servo RPi.GPIO PWM](Documentation/Servo_RPI_GPIO.md)
 
 [Servo pigpio PWM](Documentation/Servo_pigpio.md)
 
