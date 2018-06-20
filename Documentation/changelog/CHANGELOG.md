@@ -20,3 +20,4 @@ Version control history:
 	length to the sweep rather than continuous.  
 
 * Version 2.2-3 200618
+	* Added support for pigpio library option for servo control
