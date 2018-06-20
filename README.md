@@ -25,7 +25,7 @@ Stepper motors , Dc Motors and Servos. The following is a list of tested parts
 
 3. Servo 
     * Servo controlled by RPi.GPIO module PWM.
-    * Servo by pigpio library module PWM.
+    * Servo controlled by pigpio library module PWM.
     
 The end user can import this library into their projects
 and then control the components with short snippets of code.
@@ -122,9 +122,17 @@ See homepage for installation and setup instructions.
 
 Features
 ----------------------
-The library has tested and built on a raspberry pi 3 model b, Raspbian, jessie 8.0 and python 3.4.2
+The library was tested and built on a raspberry pi 3 model b, Raspbian, jessie 8.0 and python 3.4.2
 
 I have created separate help files in documentation folder to learn how to use library :
+
+Note: There are two different options for controlling the servo.
+When using Rpi_GPIO option you may notice twitching at certain
+delays and stepsizes. This is the result of the 
+implementation of the RPIO PWM software timing. If the application requires
+precise control the user can pick the pigpio library
+which uses hardware based timing. The disadvantage being they must install 
+another an extra dependencies.
 
 Servos:
 

@@ -88,6 +88,15 @@ So for default values 90 degree or midpoint is 7.0.
 Software
 --------------------------------------------
 
+Note: There are two different options for controlling the servo.
+When using Rpi_GPIO option you may notice twitching at certain
+delays and stepsizes. This is the result of the 
+implementation of the RPIO PWM software timing. If the application requires
+precise control the user can pick the pigpio library
+which uses hardware based timing. The disadvantage being they must install 
+another an extra dependencies.
+
+
 The library file has a single class which controls the servo 
 The class is called SG90servo but works for all listed as tested.
 
@@ -101,10 +110,7 @@ Center-wait-min-wait-max-wait-min- and so on until user quits or set limit reach
 (3) convert_from_degree - converts degrees to duty cycle percentage 
 
 (4) servo_move_step - moves servo from two points in timed steps.
-when using this method you may notice twitching at certain
-delays and stepsizes. This can be particular pronounced 
-on cheap servos. This is most likely result of the 
-implementation of the RPIO PWM software timing. 
+
 
 ### Import library and intialise the class 
 
