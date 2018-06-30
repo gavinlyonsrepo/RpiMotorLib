@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" test example file for rpiMotorlib.py """
+""" test example file for rpiMotorlib.py   motor A3967 NEMA """
 
 import time 
 import RPi.GPIO as GPIO
@@ -19,7 +19,7 @@ from RpiMotorLib import RpiMotorLib
 def main():
     """main function loop"""
     
-    # ====== tests for motor 28BYJ48 ====
+    # ====== tests for motor A3967 NEMA ====
     
     #GPIO pins 
     GPIO_pins = (6, 13) # Microstep Resolution MS1-MS2 -> GPIO Pin

@@ -1,27 +1,34 @@
 #!/usr/bin/env python3
-""" test example file for rpiMotorlib.py L298 dc motor"""
+""" test example file for rpiMotorlib.py 
+testfile for  DC motor run by DRV8833 or L9110s test"""
 
 import time 
 import RPi.GPIO as GPIO
 #import sys
 #sys.path.insert(0, '/home/pi/Documents/tech/RpiMotorLib/RpiMotorLib')
+
+
 from RpiMotorLib import rpi_dc_lib 
 
-# ====== tests for  DC motor L298 ====
-# ena - - 26
-# in1 - - 19
-# in2 - - 13
-# in3 - - 21
-# in4 - - 20
-# enB - - 16
+    
+# ====== tests L9110S -DRV8833   ====
 
+# my pin-outs L9110S -DRV8833
+# in1 A-1B - brown = 26
+# in2 A-1A - blue = 19
+
+# in3 B-1B - green = 13
+# in4 B-1A - black = 21
+
+# L9110S B output dir A output PWM
 # ======== test motor 1 ==================
+
 
 def motorone():
     
     print(" TEST: testing motor 1") 
     # Motorssetup
-    MotorOne = rpi_dc_lib.L298NMDc(19 ,13 ,26 ,50 ,True, "motor_one")
+    MotorOne = rpi_dc_lib.DRV8833NmDc(26 ,19 ,50 ,True, "motor_one")
 
     # ================ Motors one test  section 1=============
     try:
@@ -54,13 +61,14 @@ def motorone():
         MotorOne.stop(0)
         print("motor stopped\n")
         time.sleep(3)
-         
+      
+      
         print("5  brake check")
         MotorOne.forward(50)
         time.sleep(3)
-        MotorOne.brake(0)
+        MotorOne.brake(100)
         print("motor brake\n")
-      
+        
     except KeyboardInterrupt:
             print("CTRL-C: Terminating program.")
     except Exception as error:
@@ -74,7 +82,7 @@ def motortwo():
       
     print(" TEST: testing motor ") 
     # Motorssetup
-    MotorTwo = rpi_dc_lib.L298NMDc(21 ,20 ,16 ,50 ,True, "motor_two")
+    MotorTwo = rpi_dc_lib.DRV8833NmDc(13 ,21 ,50 ,True, "motor_two")
 
     # ================ Motors two test  section 1=============
     try:
@@ -111,11 +119,10 @@ def motortwo():
         print("motor stop\n")
         time.sleep(3)
         
-         
-        print("5 .brake check")
+        print("5  brake check")
         MotorTwo.forward(50)
         time.sleep(3)
-        MotorTwo.brake(0)
+        MotorTwo.brake(100)
         print("motor brake\n")
         
     except KeyboardInterrupt:
@@ -137,6 +144,7 @@ if __name__ == '__main__':
     print("motortwo tests")
     motortwo()
     exit()
+    
     
 
 # =====================END===============================

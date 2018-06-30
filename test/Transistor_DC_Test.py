@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" test example file for rpiMotorlib.py """
+""" test example file for rpiMotorlib.py : transistor DC motor """
 
 import time 
 import RPi.GPIO as GPIO

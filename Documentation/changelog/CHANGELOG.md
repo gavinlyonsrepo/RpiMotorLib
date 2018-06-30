@@ -8,9 +8,9 @@ Version control history:
 	* Code re-factor python standard and optimization's.
 	
 * Version 2.0-1 090418
-	* added DC motors driven by L298N + transistor
-	* added Nema stepper driven by motor controller A4988
-	* added Nema stepper driven by motor controller  L298N
+	* Added DC motors driven by L298N + transistor
+	* Added Nema stepper driven by motor controller A4988
+	* Added Nema stepper driven by motor controller  L298N
 	* Added new functions to Servo section.
 	
 * Version 2.1-2 280518
@@ -21,3 +21,8 @@ Version control history:
 
 * Version 2.2-3 200618
 	* Added support for pigpio library option for servo control
+
+* Version 2.3-4 010718
+	* Added DC motors driven by L9110S module
+	* Added DC motors driven by DRV8833 module
+

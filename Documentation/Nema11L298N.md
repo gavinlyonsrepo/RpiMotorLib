@@ -107,7 +107,7 @@ Full Step mode and wave drive: 4
 Software
 --------------------------------------------
 
-Same software as 28BYJ-48 28BYJ-48 but with 
+Same software as 28BYJ-48  but with 
 minor change in class definition for verbose output.
 
 The library file RpiMotorLib.py has a class which controls the motor with one 

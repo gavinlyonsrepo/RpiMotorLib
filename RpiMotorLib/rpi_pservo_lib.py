@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" 
+"""
 # ========================= HEADER ===================================
 # title             :rpi_pservo_lib.py
 # description       :Part of a RpiMotorLib python 3 library for motors
@@ -20,15 +20,21 @@ import pigpio
 
 
 class ServoPigpio(object):
-    """class to control a servo with pigpio library PWM by raspberry pi"""
+    """A Class to control a servo with pigpio library PWM by raspberry pi
+    5 methods:
+    1. __init__ 2. servo_sweep 3. servo_move 4. convert_from_degree
+    5. servo_move_step
+    """
 
     def __init__(self, name="servoY", freq=50, y_one=1000, y_two=2000):
         """ init method for class
         4 inputs
         (1) name, default=servoY, type=string, help=name of instance
         (2) Freq, type=int, default=50,  help=control freq of servo in Hz
-        (3) y_one, type=float, default = 1000 ,help=pulse width min in uS of servo % for 0 degrees
-        (4) y_two type=float, default = 2000 , help=pulse width max in uS of servo % for 180 degrees
+        (3) y_one, type=float, default = 1000 ,
+        help=pulse width min in uS of servo % for 0 degrees
+        (4) y_two type=float, default = 2000 ,
+        help=pulse width max in uS of servo % for 180 degrees
           """
 
         self.name = name
@@ -36,8 +42,8 @@ class ServoPigpio(object):
         self.y_one = y_one
         self.y_two = y_two
 
-    def servo_sweep(self, servo_pin=7, center=1500, minduty=1000,
-                    maxduty=2000, delay=0.5, verbose=False, initdelay=.05, sweeplen=1000000):
+    def servo_sweep(self, servo_pin=7, center=1500, minduty=1000, maxduty=2000,
+                    delay=0.5, verbose=False, initdelay=.05, sweeplen=1000000):
         """servo_sweep 8 inputs, moves servo in sweep loop
          (1) servo_pin, type=int help=GPIO pin
          we will contect to signal line of servo
@@ -58,26 +64,26 @@ class ServoPigpio(object):
         """
         if verbose:
             print("RpiMotorLib: Servo Sweep running , press ctrl+c to quit")
-        pi = pigpio.pi() # Connect to local Pi.
-        if not pi.connected:
+        pi_servo = pigpio.pi()  # Connect to local Pi.
+        if not pi_servo.connected:
             print("RpiMotorLib : failed to connect to pigpio Daemon")
             exit()
-        pi.set_mode(servo_pin, pigpio.OUTPUT)
+        pi_servo.set_mode(servo_pin, pigpio.OUTPUT)
         time.sleep(initdelay)
         # set pin and freq
-        pi.set_PWM_frequency(servo_pin, self.freq)
+        pi_servo.set_PWM_frequency(servo_pin, self.freq)
         # set duty cycle
-        pi.set_servo_pulsewidth(servo_pin, center)
+        pi_servo.set_servo_pulsewidth(servo_pin, center)
         if verbose:
             print("Moved to center Pulse width = {}".format(center))
         time.sleep(delay)
         try:
             while sweeplen > 0:
-                pi.set_servo_pulsewidth(servo_pin, minduty)
+                pi_servo.set_servo_pulsewidth(servo_pin, minduty)
                 if verbose:
                     print("Moved to min Pulse width = {}".format(minduty))
                 time.sleep(delay)
-                pi.set_servo_pulsewidth(servo_pin, maxduty)
+                pi_servo.set_servo_pulsewidth(servo_pin, maxduty)
                 if verbose:
                     print("Moved to max Pulse width = {}".format(maxduty))
                     print("Number of loops left = {}".format(sweeplen))
@@ -99,8 +105,8 @@ class ServoPigpio(object):
                 print("Number of Sweeps not completed = {}".format(sweeplen))
             if verbose:
                 print("RpiMotorLib: Cleaning up")
-            pi.set_servo_pulsewidth(26, 0)
-            pi.stop()
+            pi_servo.set_servo_pulsewidth(servo_pin, 0)
+            pi_servo.stop()
 
     def servo_move(self, servo_pin, position=1500,
                    delay=0.5, verbose=False, initdelay=.05):
@@ -118,19 +124,14 @@ class ServoPigpio(object):
           help="Output actions & details",
          (5) initdelay, type=float, default 50mS
          help= A delay after Gpio setup and before servo moves
-         
-         example: to move the servo connected to GPIO pins 7
-         for step delay of .5 second to postion 11
-         with non-verbose output
-         servoMove(7, 11, .5, False)
         """
-        pi = pigpio.pi()
-        pi.set_mode(servo_pin, pigpio.OUTPUT)
+        pi_servo = pigpio.pi()
+        pi_servo.set_mode(servo_pin, pigpio.OUTPUT)
         time.sleep(initdelay)
-        pi.set_PWM_frequency(servo_pin, self.freq)
+        pi_servo.set_PWM_frequency(servo_pin, self.freq)
 
         try:
-            pi.set_servo_pulsewidth(servo_pin, position)
+            pi_servo.set_servo_pulsewidth(servo_pin, position)
             time.sleep(delay)
         except KeyboardInterrupt:
             print("CTRL-C: RpiServoLib: Terminating program.")
@@ -144,8 +145,8 @@ class ServoPigpio(object):
         finally:
             if verbose:
                 print("RpiMotorLib: Cleaning up")
-            pi.set_servo_pulsewidth(26, 0)
-            pi.stop()
+            pi_servo.set_servo_pulsewidth(servo_pin, 0)
+            pi_servo.stop()
 
     def convert_from_degree(self, degree):
         """ converts degrees to Pulse width , takes in degree
@@ -155,7 +156,7 @@ class ServoPigpio(object):
         slope = (self.y_two-self.y_one)/(x_two-x_one)
         pulse_width = slope*(degree-x_one) + self.y_one
         return pulse_width
-        
+
     def servo_move_step(self, servo_pin, start=10, end=170, stepdelay=1,
                         stepsize=1, initdelay=1, verbose=False):
         """
@@ -172,32 +173,26 @@ class ServoPigpio(object):
         help=Time to wait (in seconds) between steps.
         (5) stepsize, type=int, default=1.
         help=teh size of steps between start and end in degrees
-        (6) initdelay, type=float, default 50mS
+        (6) initdelay, type=float, default =1
         help= A delay after Gpio setup and before servo moves
         (7) verbose, type=bool  type=bool default=False
          help="Output actions & details",
-
-        Example: to move a servo on GPIO pin 26 from 10 degrees to 180
-        degrees in 20 degree steps every two seconds, with an initial delay
-        of one second and verbose output.
-
-        servo_move_step(26, 10, 180, 2, 20, 1, True)
         """
         if start > end:
             stepsize = (stepsize)*-1
 
-        pi = pigpio.pi()
-        pi.set_mode(servo_pin, pigpio.OUTPUT)
+        pi_servo = pigpio.pi()
+        pi_servo.set_mode(servo_pin, pigpio.OUTPUT)
         time.sleep(initdelay)
-        pi.set_PWM_frequency(servo_pin, self.freq)
+        pi_servo.set_PWM_frequency(servo_pin, self.freq)
         try:
             start_dc = self.convert_from_degree(start)
-            pi.set_servo_pulsewidth(servo_pin, start_dc)
+            pi_servo.set_servo_pulsewidth(servo_pin, start_dc)
             for i in range(start, end+stepsize, stepsize):
                 end_pwm = self.convert_from_degree(i)
                 if verbose:
                     print("Servo moving: {}  {} ".format(end_pwm, i))
-                pi.set_servo_pulsewidth(servo_pin, end_pwm)
+                pi_servo.set_servo_pulsewidth(servo_pin, end_pwm)
                 time.sleep(stepdelay)
         except KeyboardInterrupt:
             print("CTRL-C: RpiServoLib: Terminating program.")
@@ -218,8 +213,9 @@ class ServoPigpio(object):
         finally:
             if verbose:
                 print("RpiMotorLib: Cleaning up")
-            pi.set_servo_pulsewidth(26, 0)
-            pi.stop()
+            pi_servo.set_servo_pulsewidth(servo_pin, 0)
+            pi_servo.stop()
+
 
 def importtest(text):
     """import print test statement"""

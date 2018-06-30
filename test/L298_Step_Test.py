@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" test example file for rpiMotorlib.py """
+""" test example file for rpiMotorlib.py L298 stepper tests"""
 
 import time 
 import RPi.GPIO as GPIO
@@ -15,15 +15,16 @@ def main():
     
     # ====== tests for motor L298STepTest ====
     
-    GpioPins = [19, 13, 21, 20]
+    GpioPins = [19, 26, 21, 13]
+    #GpioPins = [19, 13, 21, 20]
     # Declare an named instance of class pass a name and type of motor
    
     mymotortest = RpiMotorLib.BYJMotor("MyMotorOne", "Nema")
     time.sleep(1)
     
-    # motor_run(gpiopins, wait=.001, steps=512, ccwise=False, verbose=False, steptype="half", initdelay=.001):
+    # motor_run(gpiopins, wait, steps, ccwise, verbose, steptype, initdelay):
     input("Press <Enter> to continue Test1")
-    mymotortest.motor_run(GpioPins,.05, 20, False, True,"half" ,1 )
+    mymotortest.motor_run(GpioPins,.5, 200, False, True,"full" ,1 )
     time.sleep(1)
     input("Press <Enter> to continue  Test2")
     mymotortest.motor_run(GpioPins,.1, 20 , False, True,"wave", 1)

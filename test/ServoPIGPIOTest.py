@@ -22,10 +22,10 @@ def main():
     # delay=0.5, verbose=False, initdelay=.05
     print("\nTest 1x servo_move_step")
     input("Press <Enter> to continue Test1a")
-    myservotest.servo_move_step(26, 10, 180, .1, 5, 1, True)
+    myservotest.servo_move_step(26, 15, 180, .1, 5, 1, True)
     time.sleep(1)
     input("Press <Enter> to continue Test1b")
-    myservotest.servo_move_step(26, 170, 10, .5, 20, 1, True)
+    myservotest.servo_move_step(26, 170, 15, .5, 20, 1, True)
     time.sleep(1)
     input("Press <Enter> to continue Test1b")
     myservotest.servo_move_step(26, 10, 50, 1, 1, 1, True)

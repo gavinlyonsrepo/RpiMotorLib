@@ -73,14 +73,14 @@ Software
 -------------------------------------------
 
 The file rpi_dc_lib.py contains code for this component
-It consists of a class called L298NMDc and five functions
+It consists of a class called L298NMDc and five methods
 The five functions is called: 
 1. forward = Drive motor forward,  passed one argument = duty cycle %
 2. backward = drive motor backward,  passed one argument = duty cycle %
 3. stop = stop motor, passed one argument = duty cycle %
 4. brake = brake motor,  passed one argument = duty cycle %
 5. cleanup = turn off the 3 GPIO pins and will also run GPIO.cleanup() 
-passed a boolean if False just turn off te 3 GPIO useds by motor,
+passed a boolean if False just turn off the 3 GPIO used by motor driver,
 if True run in-built GPIO.cleanup() function.
 
 Example: 
