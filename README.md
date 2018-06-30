@@ -22,7 +22,9 @@ Stepper motors , Dc Motors and Servos. The following is a list of tested parts
 2. DC motors
     * DC brushed motor controlled by L298N Motor controller module.
     * DC brushed motor controlled by a transistor.
-
+    * DC brushed motor controlled by L9110S Motor controller module.
+    * DC brushed motor controlled by DV8833 Motor controller module.
+    
 3. Servo 
     * Servo controlled by RPi.GPIO module PWM.
     * Servo controlled by pigpio library module PWM.
@@ -90,8 +92,8 @@ rpiMotorLib files are listed below:
 | RPiMotorLib/rpi_pservo_lib.py | servo python library pigpio PWM file |
 | RPiMotorLib/rpi_dc_lib.py  |    DC python motor library  file |
 | RPiMotorLib/RpiMotorScriptLib.py | small script with meta data about library |
-| documentation/*.md | 9 markdown library documentation files |
-| test/*Test.py | 9 python test files |
+| documentation/*.md | 11 markdown library documentation files |
+| test/*Test.py | 10 python test files |
 | /usr/share/doc/RpiMotorLib/README.md | This help file |
 
 Dependencies
@@ -161,6 +163,10 @@ another dependency.
 
 [Transistor DC Motor](Documentation/Transistor_DC.md)
 
+[L9110S DC Motor](Documentation/L9110S_DC.md)
+
+[DRV8833 DC Motor](Documentation/DRV8833_DC.md)
+
 Test files used during development are in test folder of repo.
 Example snippets are also available in documentation files
 
@@ -168,8 +174,6 @@ Example snippets are also available in documentation files
 See Also
 ---------------------------
 
-
-*Other components*.
 
 A lot of this code will work on similar components/modules but has not
 been tested due to parts lacking.
@@ -179,8 +183,6 @@ For example:
 The A4988/DRV8825 code **may** work with other *pololu* modules.
 See this link for list of alternatives and drop-in replacements for this module.
 [pololu product 1182](https://www.pololu.com/product/1182).
-
-The L298N code should work with a L9110S or similar configured H-bridge modules/circuits.
 
 The Servo code should on most standard servos.
 
