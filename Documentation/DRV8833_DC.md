@@ -1,7 +1,6 @@
 DC motor controlled by DRV8833 Motor controller module.
 -------------------------------------------------
 
-![ScreenShot dcmotor](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/RF310T11400.jpg)
 ![ScreenShot DRV8833](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/DRV8833.jpg)
 
 
