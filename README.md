@@ -60,10 +60,10 @@ The library was tested and built on a raspberry pi 3 model b, Raspbian jessie 8.
 It was also tested for Python (3.5.3) and Raspbian 9.6 stretch.
 Also for Windows 10 users See issue number 2 at project Github URL.
 
-Make sure that python 3.5.3 and pip 3.5 have been installed on your machine, then:
+Make sure that python 3.5.3 and pip have been installed on your machine, then:
 
 ```sh
-sudo pip3.5 install rpimotorlib
+sudo pip install rpimotorlib
 ```
 
 Usage
