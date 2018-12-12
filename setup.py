@@ -13,7 +13,7 @@ setup(
     url="https://github.com/gavinlyonsrepo/RpiMotorLib",
     download_url='https://github.com/gavinlyonsrepo/RpiMotorLib/archive/2.3.tar.gz',
     packages=['RpiMotorLib'],
-    data_files=[('/usr/share/doc/rpimotorlib/', ['README.md'])],
+    data_files=[('', ['README.md'])],
     install_requires=['pip'],
     setup_requires=['pip'],
     scripts=['RpiMotorLib/RpiMotorScriptLib.py'],
