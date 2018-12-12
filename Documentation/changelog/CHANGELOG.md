@@ -26,3 +26,7 @@ Version control history:
 	* Added DC motors driven by L9110S module
 	* Added DC motors driven by DRV8833 module
 
+* Version 2.4-5 121218
+	* Added Support for installation on Windows 10 by changing Setup.py
+	* See issue 2 at Github Project URL.
+	

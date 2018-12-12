@@ -7,7 +7,7 @@
 # author            :Gavin Lyons
 # web               :https://github.com/gavinlyonsrepo/RpiMotorLib
 # mail              :glyons66@hotmail.com
-# python_version    :3.4.2
+# python_version    :3.5.3
 """
 
 # ==========================IMPORTS======================
@@ -15,7 +15,7 @@
 import argparse
 import sys
 
-__version__ = "2.3-4"
+__version__ = "2.4-5"
 __author__ = "Gavin Lyons"
 __url__ = "https://github.com/gavinlyonsrepo/RpiMotorLib"
 
@@ -29,8 +29,7 @@ def process_cmd_arguments():
      to connect to a raspberry pi. \
      RpiMotorScript:Lib a script to display  \
     the version and help for rpiMotorlib.  \
-    Readme is at /usr/share/doc/rpimotorlib/README.md .   \
-    Written by ' + __author__ + '.  The project  Url is at  ' + __url__)
+    Written by ' + __author__ + '.  The project Documentation is at ' + __url__)
     parser.add_argument(
         '-v', help='Print rpiMotorlib version and quit',
         default=False, dest='version', action='store_true')

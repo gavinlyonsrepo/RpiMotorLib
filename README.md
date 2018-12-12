@@ -51,24 +51,30 @@ Table of contents
   * [Communication](#communication)
   * [History](#history)
   * [Copyright](#copyright)
+  * [Contributers](#contributers)
 
 Installation
 -----------------------------------------------
 
-Make sure that python3 and pip3 have been installed on your machine, then:
+The library was tested and built on a raspberry pi 3 model b, Raspbian jessie 8.0 and python 3.4.2.
+It was also tested for Python (3.5.3) and Raspbian 9.6 stretch.
+Also for Windows 10 users See issue number 2 at project Github URL.
+
+Make sure that python 3.5.3 and pip 3.5 have been installed on your machine, then:
 
 ```sh
-sudo pip3 install rpimotorlib
+sudo pip3.5 install rpimotorlib
 ```
 
 Usage
 -------------------------------------------
-Program is a python 3 package. (3.4.2)
+
+
 
 In addition to library files a small script is installed
 to display version and help information.
 
-Run the help script by typing
+Run the help script by typing (for Linux systems)
 RpiMotorScriptLib.py -[options]
 
 Options list :
@@ -124,7 +130,6 @@ See homepage for installation and setup instructions.
 
 Features
 ----------------------
-The library was tested and built on a raspberry pi 3 model b, Raspbian, jessie 8.0 and python 3.4.2
 
 I have created separate help files in documentation folder to learn how to use library :
 
@@ -214,3 +219,8 @@ This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public license published by
 the Free Software Foundation, see LICENSE.md in documentation section
 for more details.
+
+
+Contributers
+--------------------
+[Erez Levanon](https://github.com/erezlevanon)
