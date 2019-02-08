@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
 """
  title             :rpi_dc_lib.py
+ 
  description       :Part of a RpiMotorLib python 3 library for motors
  and servos to connect to a raspberry pi
- This file is for DC Motors. direct current.
+ This file is for DC Motors. direct current. tested on:
+ DC motor via L298n motor controller  = L298NMDc class
+ DC motor via L9110S and DRV8833 motor controller = DRV8833 class.
+ 
  author            :Gavin Lyons
  web               :https://github.com/gavinlyonsrepo/RpiMotorLib
  mail              :glyons66@hotmail.com
  python_version    :3.4.2
+ This file is for DC Motors tested on
  """
 
 # ========================== IMPORTS ======================
@@ -109,7 +114,7 @@ class L298NMDc(object):
 
 
 class DRV8833NmDc(object):
-    """ Class to control DC motor via L298n motor controller
+    """ Class to control DC motor via L9110S and DRV8833 motor controller
     6 methods 1. __init__ 2. forward
     3.backward 4.stop 5.brake 6.cleanup"""
 
