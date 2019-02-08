@@ -7,12 +7,11 @@
  This file is for DC Motors. direct current. tested on:
  DC motor via L298n motor controller  = L298NMDc class
  DC motor via L9110S and DRV8833 motor controller = DRV8833 class.
- 
+ DC motor via a transistor = TranDc class
  author            :Gavin Lyons
  web               :https://github.com/gavinlyonsrepo/RpiMotorLib
  mail              :glyons66@hotmail.com
  python_version    :3.4.2
- This file is for DC Motors tested on
  """
 
 # ========================== IMPORTS ======================
