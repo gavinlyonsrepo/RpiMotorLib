@@ -208,7 +208,7 @@ class A4988Nema(object):
                           '1/16': (0, 0, 1),
                           '1/32': (1, 0, 1)}
         else: 
-            print("Error invalid motor_type: {}".format(steptype))
+            print("Error invalid motor_type: {}".format(self.motor_type))
             quit()
         
         # error check stepmode

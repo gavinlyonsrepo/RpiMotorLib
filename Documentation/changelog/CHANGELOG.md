@@ -30,3 +30,8 @@ Version control history:
 	* Added Support for installation on Windows 10 by changing Setup.py
 	* See issue 2 at Github Project URL.
 	
+* version 2.5-6 310319
+	* Minor minor update, correcting the error message in class "A4988Nema"
+	,method "resolution_set". The latter half was reporting the "step type"
+	instead of "motor type" to user. This error message was only displayed 
+	if user initialized class with a unknown motor type(user typo).

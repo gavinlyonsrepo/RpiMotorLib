@@ -15,7 +15,7 @@
 import argparse
 import sys
 
-__version__ = "2.4-5"
+__version__ = "2.5-6"
 __author__ = "Gavin Lyons"
 __url__ = "https://github.com/gavinlyonsrepo/RpiMotorLib"
 
