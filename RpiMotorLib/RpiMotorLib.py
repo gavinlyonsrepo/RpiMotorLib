@@ -39,7 +39,7 @@ class BYJMotor(object):
         # while the script is running.
         self.curser_spin = ["/", "-", "|", "\\", "|"]
         self.spin_position = 0
-     
+
 
     def print_cursor_spin(self):
         """ Prints a spinning cursor. Used when verbose not set to false.
@@ -151,6 +151,7 @@ class BYJMotor(object):
 
         except KeyboardInterrupt:
             print("User Keyboard Interrupt : RpiMotorLib: ")
+            raise KeyboardInterrupt
         except Exception as motor_error:
             print(sys.exc_info()[0])
             print(motor_error)
@@ -207,10 +208,10 @@ class A4988Nema(object):
                           '1/8': (1, 1, 0),
                           '1/16': (0, 0, 1),
                           '1/32': (1, 0, 1)}
-        else: 
+        else:
             print("Error invalid motor_type: {}".format(self.motor_type))
             quit()
-        
+
         # error check stepmode
         if steptype in resolution:
             pass
