@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="rpimotorlib",
-    version="2.5",
+    version="2.6",
     author="Gavin Lyons",
     author_email="glyons66@hotmail.com",
     description="A python 3 library for various motors and servos to connect to a raspberry pi",
@@ -11,7 +11,7 @@ setup(
     license="GPL",
     keywords="L9110S DRV8833 A3967 L298 servo motor library raspberry pi SG90 28BYJ-48 A4988 stepper DRV8825",
     url="https://github.com/gavinlyonsrepo/RpiMotorLib",
-    download_url='https://github.com/gavinlyonsrepo/RpiMotorLib/archive/2.5 .tar.gz',
+    download_url='https://github.com/gavinlyonsrepo/RpiMotorLib/archive/2.6.tar.gz',
     packages=['RpiMotorLib'],
     data_files=[('', ['README.md'])],
     install_requires=['pip'],
