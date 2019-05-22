@@ -24,7 +24,7 @@ def main():
     
     time.sleep(0.1)
     input("Press <Enter> to continue Test1")
-    mymotortest.motor_run(GpioPins,.01,512, True, True,"full",10)
+    mymotortest.motor_run(GpioPins,.01,256, True, True,"full",5)
     time.sleep(1)
     input("Press <Enter> to continue  Test2")
     mymotortest.motor_run(GpioPins,.01,512, False, True,"wave", .05)

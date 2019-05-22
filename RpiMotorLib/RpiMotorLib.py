@@ -155,10 +155,8 @@ class BYJMotor(object):
             print(sys.exc_info()[0])
             print(motor_error)
             print("RpiMotorLib  : Unexpected error:")
-        finally:
-            # switch off pins at end. and print report status
-            for pin in gpiopins:
-                GPIO.output(pin, False)
+        else:
+            # print report status if everything went well 
             if verbose:
                 print("\nRpiMotorLib, Motor Run finished, Details:.\n")
                 print("Motor type = {}".format(self.motor_type))
@@ -172,6 +170,11 @@ class BYJMotor(object):
                 print("Counter clockwise = {}".format(ccwise))
                 print("Verbose  = {}".format(verbose))
                 print("Steptype = {}".format(steptype))
+        finally:
+            # switch off pins at end
+            for pin in gpiopins:
+                GPIO.output(pin, False)
+
 
 
 class A4988Nema(object):

@@ -31,7 +31,20 @@ Version control history:
 	* See issue 2 at Github Project URL.
 	
 * version 2.5-6 310319
-	* Minor minor update, correcting the error message in class "A4988Nema"
+	* Minor update, correcting the error message in class "A4988Nema"
 	,method "resolution_set". The latter half was reporting the "step type"
 	instead of "motor type" to user. This error message was only displayed 
 	if user initialized class with a unknown motor type(user typo).
+	
+* version 2.6-7 210519
+	* Minor update addressing concerns raised by issue 4 on github.
+	In class "BYJMotor" changed error handling in 
+	method  "motor_run" so Verbose reporting is in the "else" code block
+	instead of the "finally" code block as sometimes this reporting code
+	was throwing exceptions after a keyboard exception was interrupted: 
+	For example before the motor started.
+	"UnboundLocalError: local variable 'step_sequence' referenced before assignment"
+	
+	
+	
+	
