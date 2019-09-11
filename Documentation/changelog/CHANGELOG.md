@@ -45,6 +45,8 @@ Version control history:
 	For example before the motor started.
 	"UnboundLocalError: local variable 'step_sequence' referenced before assignment"
 	
+* version 2.7-9 010919
+	* Added Support for TB6612FNG motor controller both stepper and DC motor
 	
 	
 	

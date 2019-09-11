@@ -17,13 +17,15 @@ Stepper motors , Dc Motors and Servos. The following is a list of tested parts
     * Bipolar Nema 11 Stepper motor controlled by L298N H-Bridge Motor controller module.
     * Bipolar Nema 11 Stepper motor controlled by A4988 Stepper Motor Driver Carrier
     * Bipolar Nema 11 Stepper motor controlled by DRV8825 Stepper Motor Driver Carrier
-    * Bipolar Nema 11 Stepper motor controlled by A3967 Stepper Motor Driver  "easy driver version 4.4"
-
+    * Bipolar Nema 11 Stepper motor controlled by A3967 Stepper Motor Driver aka "easy driver v4.4"
+    * Bipolar Nema 11 Stepper motor controlled by TB6612FNG Dual Motor Driver Carrier
+    
 2. DC motors
     * DC brushed motor controlled by L298N Motor controller module.
     * DC brushed motor controlled by a transistor.
     * DC brushed motor controlled by L9110S Motor controller module.
     * DC brushed motor controlled by DV8833 Motor controller module.
+    * DC brushed motor controlled by TB6612FNG Dual Motor Driver Carrier
     
 3. Servo 
     * Servo controlled by RPi.GPIO module PWM.
@@ -31,7 +33,8 @@ Stepper motors , Dc Motors and Servos. The following is a list of tested parts
     
 The end user can import this library into their projects
 and then control the components with short snippets of code.
-The library is modular so user can just import the section they need.
+The library is modular so user can just import/use the section they need.
+
 
 * Author: Gavin Lyons
 * URL: https://github.com/gavinlyonsrepo/RpiMotorLib
@@ -46,6 +49,7 @@ Table of contents
   * [Files](#files)
   * [Dependencies](#dependencies)
   * [Features](#features)
+  * [Software Matrix](#software-matrix)
   * [See Also](#see-also)
   * [To Do](#to-do)
   * [Communication](#communication)
@@ -56,8 +60,9 @@ Table of contents
 Installation
 -----------------------------------------------
 
-The library was tested and built on a raspberry pi 3 model b, Raspbian jessie 8.0 and python 3.4.2.
-It was also tested for Python (3.5.3) and Raspbian 9.6 stretch.
+The library was initially tested and built on a raspberry pi 3 model b,
+Raspbian jessie 8.0 and python 3.4.2.
+It was also tested for Python (3.5.3) and Raspbian stretch 9.9 .
 Also for Windows 10 users See issue number 2 at project Github URL.
 
 Make sure that python 3.5.3 and pip have been installed on your machine, then:
@@ -69,12 +74,10 @@ sudo pip install rpimotorlib
 Usage
 -------------------------------------------
 
-
-
 In addition to library files a small script is installed
 to display version and help information.
 
-Run the help script by typing (for Linux systems)
+Run the information script by typing (for Linux systems)
 RpiMotorScriptLib.py -[options]
 
 Options list :
@@ -98,8 +101,8 @@ rpiMotorLib files are listed below:
 | RPiMotorLib/rpi_pservo_lib.py | servo python library pigpio PWM file |
 | RPiMotorLib/rpi_dc_lib.py  |    DC python motor library  file |
 | RPiMotorLib/RpiMotorScriptLib.py | small script with meta data about library |
-| documentation/*.md | 11 markdown library documentation files |
-| test/*Test.py | 10 python test files |
+| documentation/*.md | 14 markdown library documentation files |
+| test/*Test.py | 12 python test files |
 | /usr/share/doc/RpiMotorLib/README.md | This help file |
 
 Dependencies
@@ -111,7 +114,7 @@ A module to control Raspberry Pi GPIO channels
 
 This package provides a class to control the GPIO on a Raspberry Pi.
 
-This should already installed on most Raspberry Pis.
+This should already be installed on most Raspberry Pis.
 
 [Rpi.GPIO pypi page](https://pypi.python.org/pypi/RPi.GPIO)
 
@@ -161,6 +164,9 @@ another dependency.
 
 [Nema 11 stepper motor A3967](Documentation/Nema11A3967Easy.md)
 
+[Nema 11 stepper motor TB6612FNG](Documentation/Nema11TB6612FNG.md)
+
+
 
 3. DC Motors:
 
@@ -172,13 +178,19 @@ another dependency.
 
 [DRV8833 DC Motor](Documentation/DRV8833_DC.md)
 
+[TB6612FNG DC Motor](Documentation/TB6612FNG_DC.md)
+
 Test files used during development are in test folder of repo.
-Example snippets are also available in documentation files
+Example snippets are also available in some of the documentation files.
+
+
+Software Matrix
+--------------------------
+![Software Matrix](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/matrix.jpg)
 
 
 See Also
 ---------------------------
-
 
 A lot of this code will work on similar components/modules but has not
 been tested due to parts lacking.
@@ -197,6 +209,7 @@ Most 4 pin bipolar stepper motors should work in place of Nema 11.
 To Do
 -----------------------
 Add and test more components.
+DRV8833 stepper motor test.
 
 Communication
 -----------------------
