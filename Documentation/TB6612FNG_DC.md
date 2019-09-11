@@ -89,7 +89,7 @@ Example:
 There is a detailed example code is in the TB6612FNGDCtest.py file in test subfolder of 
 rpiMotorLib repository. 
 
-To run this test file type **python3 TB6612FNGDCtest.py** in a terminal.
+To run this test file type **python3 TB6612FNG_DCMot_Test.py** in a terminal.
 
 
 In event of error or keyboard interrupt call "cleanup function"

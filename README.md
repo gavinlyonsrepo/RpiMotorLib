@@ -186,7 +186,10 @@ Example snippets are also available in some of the documentation files.
 
 Software Matrix
 --------------------------
-![Software Matrix](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/matrix.jpg)
+
+There is a ODS file in the Documentation folder called Matrix,
+which shows which class is used for which controller,
+or consult the docstring of the appropriate python file. 
 
 
 See Also

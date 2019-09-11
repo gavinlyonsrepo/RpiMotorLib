@@ -156,7 +156,7 @@ Example:
 There is a detailed example code is in the **TB6612FNG_Nema_Test.py** file in test subfolder of 
 rpiMotorLib repository. 
 
-To run this test file type **python3 TB6612FNGtest.py** in a terminal.
+To run this test file type **python3 TB6612FNG_Nema_Test.py** in a terminal.
 
 If verbose is set to True various information on pin output and status is outputted to screen at end of a run
 
