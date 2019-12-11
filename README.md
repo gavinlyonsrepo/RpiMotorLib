@@ -51,7 +51,6 @@ Table of contents
   * [Features](#features)
   * [Software Matrix](#software-matrix)
   * [See Also](#see-also)
-  * [To Do](#to-do)
   * [Communication](#communication)
   * [History](#history)
   * [Copyright](#copyright)
@@ -208,11 +207,6 @@ The Servo code should on most standard servos.
 
 Most 4 pin bipolar stepper motors should work in place of Nema 11.
 
-
-To Do
------------------------
-Add and test more components.
-DRV8833 stepper motor test.
 
 Communication
 -----------------------
