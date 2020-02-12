@@ -1,4 +1,4 @@
-Bipolar Nema11 Stepper motor with A4988  Driver Carrier 
+Bipolar Nema11 Stepper motor with A3967  Driver Carrier 
 --------------------------------------------  
 
 ![ScreenShot Nema](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/nema11.jpg)

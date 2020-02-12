@@ -10,7 +10,7 @@ Table of contents
 ---------------------------
 
   * [Table of contents](#table-of-contents)
-  * [Overview](#overview))
+  * [Overview](#overview)
   * [Installation](#installation)
   * [Information script](#information-script)
   * [Files](#files)
