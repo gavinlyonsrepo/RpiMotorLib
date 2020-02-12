@@ -4,9 +4,6 @@ Version control history:
 * Version 1.0-1 150318 
 	* First version, 28BYJ-48 + servos.
 	
-* Version 1.1-2 220318
-	* Code re-factor python standard and optimization's.
-	
 * Version 2.0-1 090418
 	* Added DC motors driven by L298N + transistor
 	* Added Nema stepper driven by motor controller A4988
@@ -27,6 +24,7 @@ Version control history:
 	* Added DC motors driven by DRV8833 module
 
 * Version 2.4-5 121218
+	* minor update
 	* Added Support for installation on Windows 10 by changing Setup.py
 	* See issue 2 at Github Project URL.
 	
