@@ -40,7 +40,7 @@ class BYJMotor(object):
         # while the script is running.
         self.curser_spin = ["/", "-", "|", "\\", "|"]
         self.spin_position = 0
-     
+        self.stop_motor = False
 
     def print_cursor_spin(self):
         """ Prints a spinning cursor. Used when verbose not set to false.
@@ -49,6 +49,9 @@ class BYJMotor(object):
         self.spin_position += 1
         if self.spin_position > 4:
             self.spin_position = 0
+
+    def motor_stop(self):
+        self.stop_motor = True
 
     def motor_run(self, gpiopins, wait=.001, steps=512, ccwise=False,
                   verbose=False, steptype="half", initdelay=.001):
@@ -142,10 +145,13 @@ class BYJMotor(object):
             while steps_remaining > 0:
                 for pin_list in step_sequence:
                     for pin in gpiopins:
-                        if pin in pin_list:
-                            GPIO.output(pin, True)
+                        if self.stop_motor:
+                            return
                         else:
-                            GPIO.output(pin, False)
+                            if pin in pin_list:
+                                GPIO.output(pin, True)
+                            else:
+                                GPIO.output(pin, False)
                     print_status(pin_list)
                     time.sleep(wait)
                 steps_remaining -= 1
