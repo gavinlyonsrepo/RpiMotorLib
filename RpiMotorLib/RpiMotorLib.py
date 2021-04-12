@@ -146,6 +146,7 @@ class BYJMotor(object):
                 for pin_list in step_sequence:
                     for pin in gpiopins:
                         if self.stop_motor:
+                            self.stop_motor = False
                             return
                         else:
                             if pin in pin_list:
