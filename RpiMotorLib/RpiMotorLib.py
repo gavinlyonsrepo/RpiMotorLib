@@ -27,6 +27,8 @@ import RPi.GPIO as GPIO
 
 # ==================== CLASS SECTION ===============================
 
+class StopMotorInterrupt(Exception):
+    pass
 
 class BYJMotor(object):
     """class to control a 28BYJ-48 stepper motor with ULN2003 controller
@@ -147,7 +149,7 @@ class BYJMotor(object):
                     for pin in gpiopins:
                         if self.stop_motor:
                             self.stop_motor = False
-                            return
+                            raise StopMotorInterrupt
                         else:
                             if pin in pin_list:
                                 GPIO.output(pin, True)
@@ -159,6 +161,8 @@ class BYJMotor(object):
 
         except KeyboardInterrupt:
             print("User Keyboard Interrupt : RpiMotorLib: ")
+        except StopMotorInterrupt:
+            print("Stop Motor Interrupt : RpiMotorLib: ")
         except Exception as motor_error:
             print(sys.exc_info()[0])
             print(motor_error)
