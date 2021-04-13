@@ -27,6 +27,8 @@ import RPi.GPIO as GPIO
 
 # ==================== CLASS SECTION ===============================
 
+class StopMotorInterrupt(Exception):
+    pass
 
 class BYJMotor(object):
     """class to control a 28BYJ-48 stepper motor with ULN2003 controller
@@ -40,7 +42,7 @@ class BYJMotor(object):
         # while the script is running.
         self.curser_spin = ["/", "-", "|", "\\", "|"]
         self.spin_position = 0
-     
+        self.stop_motor = False
 
     def print_cursor_spin(self):
         """ Prints a spinning cursor. Used when verbose not set to false.
@@ -49,6 +51,9 @@ class BYJMotor(object):
         self.spin_position += 1
         if self.spin_position > 4:
             self.spin_position = 0
+
+    def motor_stop(self):
+        self.stop_motor = True
 
     def motor_run(self, gpiopins, wait=.001, steps=512, ccwise=False,
                   verbose=False, steptype="half", initdelay=.001):
@@ -76,6 +81,7 @@ class BYJMotor(object):
 
         """
         try:
+            self.stop_motor = False
             for pin in gpiopins:
                 GPIO.setup(pin, GPIO.OUT)
                 GPIO.output(pin, False)
@@ -142,16 +148,21 @@ class BYJMotor(object):
             while steps_remaining > 0:
                 for pin_list in step_sequence:
                     for pin in gpiopins:
-                        if pin in pin_list:
-                            GPIO.output(pin, True)
+                        if self.stop_motor:
+                            raise StopMotorInterrupt
                         else:
-                            GPIO.output(pin, False)
+                            if pin in pin_list:
+                                GPIO.output(pin, True)
+                            else:
+                                GPIO.output(pin, False)
                     print_status(pin_list)
                     time.sleep(wait)
                 steps_remaining -= 1
 
         except KeyboardInterrupt:
             print("User Keyboard Interrupt : RpiMotorLib: ")
+        except StopMotorInterrupt:
+            print("Stop Motor Interrupt : RpiMotorLib: ")
         except Exception as motor_error:
             print(sys.exc_info()[0])
             print(motor_error)

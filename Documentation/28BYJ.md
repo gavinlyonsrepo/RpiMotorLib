@@ -129,6 +129,8 @@ to initialize.
  for step delay of .01 second for 100 step control signal sequence, in clockwise direction,
  verbose output off , in half step mode, with an init start delay of 50mS
 
+The second function is called to stop the motor when the motor is moving.
+motor_stop()
     
 ```sh
 
