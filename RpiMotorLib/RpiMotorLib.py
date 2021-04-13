@@ -148,7 +148,7 @@ class BYJMotor(object):
             while steps_remaining > 0:
                 for pin_list in step_sequence:
                     for pin in gpiopins:
-                        if self.stop_motor == True:
+                        if self.stop_motor:
                             raise StopMotorInterrupt
                         else:
                             if pin in pin_list:
