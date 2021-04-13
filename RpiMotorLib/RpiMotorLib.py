@@ -81,6 +81,7 @@ class BYJMotor(object):
 
         """
         try:
+            self.stop_motor = False
             for pin in gpiopins:
                 GPIO.setup(pin, GPIO.OUT)
                 GPIO.output(pin, False)
@@ -147,8 +148,7 @@ class BYJMotor(object):
             while steps_remaining > 0:
                 for pin_list in step_sequence:
                     for pin in gpiopins:
-                        if self.stop_motor:
-                            self.stop_motor = False
+                        if self.stop_motor == True:
                             raise StopMotorInterrupt
                         else:
                             if pin in pin_list:
