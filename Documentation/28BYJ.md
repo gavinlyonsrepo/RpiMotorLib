@@ -80,7 +80,7 @@ Software
 --------------------------------------------
 
 The library file RpiMotorLib.py contains the class which controls 
-the motor.
+the motor. The test file in the test folder is called BYJ_Motor_Test.py.
 
 When initialize class pass a name and motor type
 The class is called BYJMotor
@@ -130,7 +130,7 @@ to initialize.
  verbose output off , in half step mode, with an init start delay of 50mS
 
 The second function is called to stop the motor when the motor is moving.
-motor_stop()
+motor_stop(), if you wish to stop motor before end of its run. You can also stop with keyboard interrupt.
     
 ```sh
 

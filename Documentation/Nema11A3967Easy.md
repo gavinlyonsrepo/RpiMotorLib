@@ -18,9 +18,7 @@ should work with any similar type motor.
 It has 200 steps per revolution, and can operate at at 60 RPM. 
 It was a step to angle ratio of 1.8 degrees per step. 
 
-The key to successful stepper motor control is identifying the wires - 
-that is which one is which. You will need to determine 
-the A, B, C and D wires. 
+You will need to determine the A, B, C and D wires. 
 With our example motor these are green, blue, black and red.  
 
 coil 2.
@@ -70,11 +68,20 @@ MS1/MS2 : These digital inputs control the microstepping mode. Connect to RPI GP
 Possible settings are (MS1/MS2) : full step (0,0), half step (1,0), 1/4 step (0,1), and 1/8 step 
 (1,1).
 
-Enable, Reset, PFD and Sleep pins can be left unconnected. They are not supported in this library at present.
 
+Enable, Reset, PFD and Sleep pins can be left unconnected. 
+They are not supported in this library at present.
+The User can control them externally with GPIO. 
+
+RST (reset) : This normally high input signal will disable all output drivers when pulled low.
+SLP (sleep) : This normally high input signal will minimize power consumption  the output drivers when pulled low.
+ENABLE : This normally low input signal will disable all outputs when pulled high.
+PFD : This one is complicated - please see the datasheet for more information. 
+
+
+Also do NOT disconnect motor when in operation, as it will damage controller. 
 
 ![ScreenShot motor pinout](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/images/a3967pinout.jpg)
-
 
 In addition there are two bridges/jumpers on the Easy driver SJ1 and SJ2. 
 SJ1 is jumper APWR and can be left alone, see datasheet for details.
@@ -84,13 +91,17 @@ to work with RPI, note diagram for location of SJ2 in bottom left.
 
 ![ScreenShot motor pinout](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/images/a3967jumper.jpg)
 
-Also do NOT disconnect motor when in operation, as it will damage controller. 
+There are 4 step modes for A3967.
 
-![ScreenShot mircostep data](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/Microstepping_Data.jpg)
+| MicroStep| Step increment degrees | Steps for 1 revolution(360) |
+| ------ | ------ |  ------ |
+| Full | 1.8 |  200 |
+| Half | 0.9 |  400 |
+| 1/4 | 0.45 |  800 |
+| 1/8 | 0.225 |  1600 |
 
- Microstep Resolution Truth Table.
+Microstep Resolution Truth Table.
  
-
 | MS1 | MS2 | Resolution |
 | --- | --- | --- |
 | L | L | Full step | 
@@ -98,20 +109,13 @@ Also do NOT disconnect motor when in operation, as it will damage controller.
 | L | H | Quarter step |
 | H | H | Eighth step |
 
-There are 4 step modes for A3967, NOTE the A3967 only goes as far as 1/8 step
-Above is the step-resolution of Motor step per degree,
- 
-* Full mode: 200 steps is one revolution. 1.8 degree per step = 360
-* Half mode: 400 steps is one revolution 0.9 degree per step = 360
-*  ... and so on.
-
-
 
 Software
 --------------------------------------------
 
 The library file RpiMotorLib.py contains the class which controls 
-the motor. The class is called A3967EasyNema.
+the motor. The class is called A3967EasyNema. 
+The test file is called A3967_Nema_Test.py.
 
 init method 3 inputs.
 1.  direction type=int , help=GPIO pin connected to DIR pin of IC
@@ -134,11 +138,14 @@ Microstep Resolution pins MS1-MS2 of IC
  6. initdelay, type=float, default=1mS, help= Initial delay after
  GPIO pins initialized but before motor is moved.
  
+Another function is called to stop the motor when the motor is moving.
+motor_stop(), if you wish to stop motor before end of its run. 
+You can also stop with keyboard interrupt.
+
  Example:
  
 ```sh
 
- 
 import RPi.GPIO as GPIO
 
 

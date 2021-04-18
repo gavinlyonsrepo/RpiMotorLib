@@ -46,5 +46,9 @@ Version control history:
 * version 2.7-8 050919
 	* Added Support for TB6612FNG motor controller both stepper and DC motor
 	
-	
-	
+* version 3.0-1 150421
+	* Pull request number eight merged. 
+	* Added Motor-stop method to all stepper motors classes 
+	* Added Servo-Stop method to all servo classes
+	* Servo pigpio: make pigpio host and port configurable
+

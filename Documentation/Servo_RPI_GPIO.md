@@ -15,14 +15,14 @@ Should Work on any servo with 20mS duty cycle or 50Hz frequency, tested on.
 
 (Check if your servo matches the freq/duty cycle specifications, most should)
 
-[Datasheet SG90](http://www.micropik.com/PDF/SG90Servo.pdf)
-[Datasheet Hs422](https://cdn.sparkfun.com/datasheets/Robotics/hs422-31422S.pdf)
-[Datasheet MG996R](http://www.datasheetcafe.com/mg996r-datasheet-digital-servo/)
+[Datasheet SG90,](http://www.micropik.com/PDF/SG90Servo.pdf)
+[Datasheet Hs422,](https://cdn.sparkfun.com/datasheets/Robotics/hs422-31422S.pdf)
+[Datasheet MG996R.](http://www.datasheetcafe.com/mg996r-datasheet-digital-servo/)
 
 The following data applies to the SG90 servo.
 
 The servo has 3 wires one for gnd(brown) 5v power(red) and signal(orange/yellow).  
-I have verified that it is safe to drive a single servo from the 5 volt rail on Rpi.
+It is generally safe to drive a single small servo from the 5 volt rail on Rpi.
 However It is possible to damage your Raspberry Pi by drawing 
 too much current out of a pin(spikes or low current power supply on the pi). 
 It is best to power it from a 5 Volt source other than a Raspberry Pi rail. 
@@ -34,29 +34,23 @@ the sum of that current and the board's 700 mA doesn't exceed the supply you p
 From the data sheet , we see these servos expects a frequency of 50 Hz 
 on the control line and the position it moves to depends on the pulse width of the signal.
 50Hz gives a period of 20mS (Freq = 1/Period)
-
 These servo has a range of 180 degrees.
 
 The Raspberry Pi controls the servo by outputting a PWM signal of varying 
 duty cycle on a GPIO pin connected to signal pin of servo.
-
 For the Raspberry Pi we do not have a change pulse width method for PWM, 
-but we can change the Duty Cycle. Note that:
-
-Duty Cycle = Pulse Width * Frequency
+but we can change the Duty Cycle. Note that: Duty Cycle = Pulse Width * Frequency
 
 Given a 50 Hz frequency we can calculate the required duty cycle for any pulse width. For example:
-
 We need a 1.5 ms pulse to center the servo, 
 or a Duty Cycle = 0.0015 * 50 = 0.075 (i.e 7.5%).
 Similarly, 1 ms pulse (- 90 degrees or 0 degrees) 
 requires a Duty Cycle = 0.001 * 50 = 5%
 2 ms pulse (+ 90 degrees or 180), Duty Cycle = 0.002 * 50 = 10%
-
 Thus the duty cycle range should be from 5 - 10% with the center at 7.5%. 
 
 Every servo is different, so you will need to calibrate it for the best performance.
-I found 7.5 for center , 
+It was found 7.5 for center , 
 11 for max duty percentage or left position (180 degress)
 and 2 for min duty percentage or right postion (0 degrees)
 Check datasheet for recommend pulse width and calibrate accordingly.
@@ -81,7 +75,6 @@ The equation of the line using the point slope formula = y-y1=m(x-x1) .
 We want to find point (x,y)
 Where y is required pulse duty cycle percentage and x is the given degree.
 For default values this works out as DutyCycle = 1/18* (DesiredAngle) + 2.
-
 So for default values 90 degree or midpoint is 7.0. 
 
  
@@ -96,11 +89,10 @@ precise control the user can pick the pigpio library
 which uses hardware based timing. The disadvantage being they must install 
 another an extra dependencies.
 
-
 The library file has a single class which controls the servo 
 The class is called SG90servo but works for all listed as tested.
 
-The class is called SG90servo and their are four methods are 
+The class is called SG90servo and their are five methods are 
 
 (1) servo_sweep - sets up a continuous sweep from two points
 Center-wait-min-wait-max-wait-min- and so on until user quits or set limit reached.
@@ -111,6 +103,8 @@ Center-wait-min-wait-max-wait-min- and so on until user quits or set limit reach
 
 (4) servo_move_step - moves servo from two points in timed steps.
 
+(5) servo_stop - this will stop the servo if you wish to stop servo before end of its run. 
+You can also stop with keyboard interrupt.
 
 ### Import library and intialise the class 
 

@@ -3,37 +3,42 @@
 
 import time 
 import RPi.GPIO as GPIO
+
+# Next 3 lines for development, local library testing import
+# Comment out in production release and change RpiMotorLib.A4988Nema to A4988Nema
 #import sys
 #sys.path.insert(0, '/home/pi/Documents/tech/RpiMotorLib/RpiMotorLib')
+#from RpiMotorLib import A4988Nema 
 
-
+# Production installed library import 
 from RpiMotorLib import RpiMotorLib
 
-# 200 steps full revolution
-# 400 half
-# 800 1/4
-# 1600 1/8
-# 3200 1/16
-# 6400 1/32
-# __init__(self, direction_pin, step_pin, mode_pins ,motor_type):
-# motor_go(clockwise=False, steptype="Full", steps=200, stepdelay=.005, verbose=False, initdelay=.05)
+"""
+# Comment in to Test motor stop put push button to VCC on GPIO 17 
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+"""
 
 def main():
     """main function loop"""
+    # Comment in to Test motor stop , put push button to VCC on GPIO 17 
+    # GPIO.add_event_detect(17, GPIO.RISING, callback=button_callback)
     
-    # ====== tests for motor ====
-    
+    # ====== Tests for motor ====
     #GPIO pins 
-    GPIO_pins = (14, 15, 18) # Microstep Resolution MS1-MS3 -> GPIO Pin
+    GPIO_pins = (14, 15, 18) # Microstep Resolution M0-M1-M2 -> GPIO Pin
     direction= 20       # Direction -> GPIO Pin
     step = 21      # Step -> GPIO Pin
-    
+
     # Declare an named instance of class pass GPIO-PINs
+    #( self, direction_pin, step_pin, mode_pins ,motor_type)
     mymotortest = RpiMotorLib.A4988Nema(direction, step, GPIO_pins, "DRV8825")
-    
+
     # ====================== section A ===================
     print("TEST SECTION A")
     
+    # motor_go(clockwise, steptype, steps, stepdelay, verbose, initdelay)
     input("TEST: Press <Enter> to continue  Full 180 turn Test1")
     mymotortest.motor_go(False, "Full" , 100, .005, True, .05)
     time.sleep(1)
@@ -53,6 +58,7 @@ def main():
     # ========================== section B =========================
     print("TEST SECTION B")
     
+    # motor_go(clockwise, steptype, steps, stepdelay, verbose, initdelay)
     input("TEST: Press <Enter> to continue  half Test1")
     mymotortest.motor_go(False, "Half" , 400, .005, True, .05)
     time.sleep(1)
@@ -65,10 +71,16 @@ def main():
     input("TEST: Press <Enter> to continue  1/16 Test1")
     mymotortest.motor_go(False, "1/16" , 3200, .005, True, .05) 
     time.sleep(1)
-    
     input("TEST: Press <Enter> to continue  1/32 Test1")
     mymotortest.motor_go(False, "1/32" , 6400, .005, True, .05) 
     time.sleep(1)
+    
+"""
+# needed for testing motor stop 
+def button_callback(channel): 
+    print("Test file: Stopping motor")
+    mymotortest.motor_stop()   
+"""
     
 # ===================MAIN===============================
 

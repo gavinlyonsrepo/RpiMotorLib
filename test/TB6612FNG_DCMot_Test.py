@@ -2,11 +2,12 @@
 """ test example file for rpiMotorlib.py TB6612FNG DC motor
 3 functions Motorone =one motor running , motortwo =second motor running, motorboth = both motors running"""
 
-import time 
+import time
 import RPi.GPIO as GPIO
 #import sys
 #sys.path.insert(0, '/home/pi/Documents/tech/RpiMotorLib/RpiMotorLib')
-from RpiMotorLib import rpi_dc_lib 
+#import rpi_dc_lib 
+from RpiMotorLib import rpi_dc_lib
 
 # ====== tests for  DC motor driven by TB6612FNG ====
 # TB66 -- GPIO RPI
@@ -23,14 +24,14 @@ Freq = 50
 
 def motorone():
     """ set of tests to run on one DC motor connected to A channel """
-    print(" TEST: testing motor 1") 
+    print(" TEST: testing motor 1")
     # Motorssetup
     MotorOne = rpi_dc_lib.TB6612FNGDc(AI1 ,AI2 ,PWA ,Freq,True, "motor_one")
     # ================ Motors one test  section 1=============
     try:
         print("1. motor forward")
         MotorOne.forward(15)
-        input("press key to stop") 
+        input("press key to stop")
         print("motor stop\n")
         MotorOne.stop(0)
         time.sleep(3)
@@ -42,10 +43,10 @@ def motorone():
         MotorOne.stop(0)
         print("motor stoped\n")
         time.sleep(3)
-        
+
         print("3. motor backward")
         MotorOne.backward(15)
-        input("press key to stop") 
+        input("press key to stop")
         MotorOne.stop(0)
         print("motor stopped\n")
         time.sleep(3)
@@ -57,13 +58,13 @@ def motorone():
         MotorOne.stop(0)
         print("motor stopped\n")
         time.sleep(3)
-         
+
         print("5  brake check")
         MotorOne.forward(50)
         time.sleep(3)
         MotorOne.brake(0)
         print("motor brake\n")
-      
+
     except KeyboardInterrupt:
             print("CTRL-C: Terminating program.")
     except Exception as error:
@@ -72,22 +73,22 @@ def motorone():
     finally:
         MotorOne.cleanup(False)
 
-    
+
 def motortwo():
     """ set of tests to run on one DC motor connected to B channel """
-    print(" TEST: testing motor ") 
+    print(" TEST: testing motor ")
     # Motorssetup
     MotorTwo = rpi_dc_lib.TB6612FNGDc(BI1 ,BI2 ,PWB ,Freq ,True, "motor_two")
-    
+
     # ================ Motors two test  section 1=============
     try:
         print("1. motor forward")
         MotorTwo.forward(15)
-        input("press key to stop") 
+        input("press key to stop")
         MotorTwo.stop(0)
         print("motor stop\n")
         time.sleep(3)
-       
+
 
         print("2. motor forward speed up")
         for i in range(15,30):
@@ -95,16 +96,16 @@ def motortwo():
             time.sleep(1)
         MotorTwo.stop(0)
         print("motor stop\n")
-        time.sleep(3)  
-          
-        
+        time.sleep(3)
+
+
         print("3. motor backward")
         MotorTwo.backward(15)
-        input("press key to stop") 
+        input("press key to stop")
         MotorTwo.stop(0)
         print("motor stop\n")
         time.sleep(3)
-        
+
 
         print("4. motor backward speed up")
         for i in range(15,30):
@@ -113,14 +114,14 @@ def motortwo():
         MotorTwo.stop(0)
         print("motor stop\n")
         time.sleep(3)
-        
-         
+
+
         print("5 .brake check")
         MotorTwo.forward(50)
         time.sleep(3)
         MotorTwo.brake(0)
         print("motor brake\n")
-        
+
     except KeyboardInterrupt:
             print("CTRL-C: Terminating program.")
     except Exception as error:
@@ -128,26 +129,26 @@ def motortwo():
             print("Unexpected error:")
     finally:
         MotorTwo.cleanup(False)
-        
- 
+
+
 def motorboth():
     """ set of tests to run on two DC motors connected to A and B channel """
-    print(" TEST: testing motor ") 
+    print(" TEST: testing motor ")
     # Motorssetup
     MotorOne = rpi_dc_lib.TB6612FNGDc(AI1 ,AI2 ,PWA ,Freq,True, "motor_one both")
     MotorTwo = rpi_dc_lib.TB6612FNGDc(BI1 ,BI2 ,PWB ,Freq ,True, "motor_two both")
-    
+
     # ================ Both Motors running =============
     try:
         print("Both motors forward")
         MotorOne.forward(25)
         MotorTwo.forward(25)
-        input("press key to stop") 
+        input("press key to stop")
         print("motor stop\n")
         MotorOne.stop(0)
         MotorTwo.stop(0)
         time.sleep(3)
-       
+
 
     except KeyboardInterrupt:
             print("CTRL-C: Terminating program.")
@@ -157,7 +158,7 @@ def motorboth():
     finally:
         MotorOne.cleanup(False)
         MotorTwo.cleanup(False)
-    
+
 # ===================MAIN===============================
 
 if __name__ == '__main__':
@@ -176,8 +177,8 @@ if __name__ == '__main__':
     finally:
         rpi_dc_lib.TB6612FNGDc.standby(Standby, False)
         GPIO.cleanup()
-        
+
     exit()
-    
+
 
 # =====================END===============================

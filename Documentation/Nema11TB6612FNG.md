@@ -107,7 +107,7 @@ Same software as 28BYJ-48  but with
 minor change in class definition for verbose output.
 
 The library file RpiMotorLib.py has a class which controls the motor with one 
-main function.
+main function. The test file in the test folder is called TB6612FNG_Nema_Test.py
 
 When initializing the class pass a name and motor type.
 The class is called BYJMotor.
@@ -120,7 +120,7 @@ BYJMotor(name, motor_type)
 to calculate degree in verbose output two options currently
 Nema and 28BYJ. NB **Set to Nema for this component** 
 
-The function is called motor_run- moves stepper motor based on 7 inputs.
+The 1st function is called motor_run- moves stepper motor based on 7 inputs.
 motor_run(GPIOPins, wait, steps, counterclockwise, verbose, steptype, initdelay)
 
 (1) GpioPins, type=list of ints 4 long, help="list of
@@ -150,6 +150,8 @@ help="Turn stepper counterclockwise"
 GPIO pins initialized but before motor is moved, gives time for GPIO
 to initialize. 
 
+The second function is called to stop the motor when the motor is moving.
+motor_stop(), if you wish to stop motor before end of its run. You can also stop with keyboard interrupt.
 
 Example: 
 

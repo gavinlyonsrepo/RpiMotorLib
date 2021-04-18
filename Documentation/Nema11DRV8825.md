@@ -22,11 +22,7 @@ Info.
 
 
 The DRV8825 is a very common and inexpensive stepper motor controller,
-designed by pololu.
-Other than the controller and motor it only requires one other part, 
-a decoupling capacitor that is mounted physically close to the controller.  
-With a heatsink the device can handle up to 1.5 amps per coil.
-Six different step resolutions: full-step, half-step, 1/4-step, 1/8-step, 1/16-step, and 1/32-step
+designed by pololu.With a heatsink the device can handle up to 1.5 amps per coil.
 
 Pinout of the DRV8825 module:
 
@@ -58,31 +54,29 @@ that is common on several bipolar motors
 but you should check your motor connections to be sure they are correct.
 
 Connect 5 GPIO pins to MS0, MS1, MS2, STEP and DIR.
-NOTE in this figure MS pins are not connected.
-
 Connect pi gnd to DRV8825 at GND. 
 Connect Reset and sleep together and to pi 5V.
+Connect up capacitor and Motor leads.
 
-Note that there is an additional component not shown , in this circuit. 
-This is essential to decouple the power supply. Any value from 47uf up will suffice, 
+The capacitor  is essential to decouple the power supply. Any value from 47uf up will suffice, 
 try and mount the capacitor as close to the DRV8825 VMOT and GND pins as possible.
-Connect up capacitor and Motor leads
-
 Advisable to carry out a DRV8825 Current Adjustment before using motor see info links at top of section.
 
 Also do not disconnect motor when in operation, as it will damage controller. 
-
 It is also possible and valid to connect up the DRV8825 in another alternative minimal wiring type as per A4988 section
 see first info links at top of section bottom of page.
 
-![ScreenShot DRV8825 mircostep data](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/Microstepping_Data.jpg)
+There are 6 step modes for DRV8825, 
+Six different step resolutions: full-step, half-step, 1/4-step, 1/8-step, 1/16-step, and 1/32-step
 
-There are 6 step modes for DRV8825, NOTE the DRV8825 only goes as far as 1/32 step
-Above is the step-resolution of Motor step per degree,
- 
-* Full mode: 200 steps is one revolution. 1.8 degree per step = 360
-* Half mode: 400 steps is one revolution 0.9 degree per step = 360
-*  ... and so on.
+| MicroStep| Step increment degrees | Steps for 1 revolution(360) |
+| ------ | ------ |  ------ |
+| Full | 1.8 |  200 |
+| Half | 0.9 |  400 |
+| 1/4 | 0.45 |  800 |
+| 1/8 | 0.225 |  1600 |
+| 1/16 | 0.1125 |  3200 |
+| 1/32 | 0.05625 |  6400 |
 
 Resolution truth table used in code.
 
@@ -96,7 +90,7 @@ The library file RpiMotorLib.py contains the class which controls
 the motor. The class is called A4988Nema. This class handles both A4988 
 and Drv8825. The only difference from a user POV is when you instantiate 
 the class the user passes the motor type and also user can now use 
-1/32 microstep for DRV8825.
+1/32 microstep for DRV8825. The test file is called DRV8825_Nema_Test.py
 
 See for more details [A4988 software Section](Nema11A4988.md) 
 

@@ -233,6 +233,7 @@ class TranDc():
         self.motor_pwm.stop()
         GPIO.output(self.pin, False)
 
+
 class TB6612FNGDc():
     """ Class to control DC motor via TB6612FNGDC motor controller
     6 methods 1. __init__ 2. forward

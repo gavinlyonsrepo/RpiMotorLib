@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" 
+"""
 # ========================= HEADER ===================================
 # title             :rpiservolib.py
 # description       :Part of a RpiMotorLib python 3 library for motors
@@ -18,6 +18,10 @@ import RPi.GPIO as GPIO
 
 # ==================== CLASS SECTION ===============================
 
+class StopServoInterrupt(Exception):
+    """ Stop the servo """
+    pass
+
 
 class SG90servo(object):
     """class to control a servo with GPIO PWM by raspberry pi"""
@@ -30,13 +34,17 @@ class SG90servo(object):
         (3) y_one, type=float, default = 2 ,help=pulse min duty cycle of servo % for 0 degrees
         (4) y_two type=float, default = 12, help=pulse max duty cycle of servo % for 180 degrees
           """
-
         self.name = name
         self.freq = freq
         self.y_one = y_one
         self.y_two = y_two
+        self.stop_servo = False
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
+
+    def servo_stop(self):
+        """ Stop the servo """
+        self.stop_servo = True
 
     def servo_sweep(self, servo_pin=7, center=7.5, minduty=3,
                     maxduty=11, delay=0.5, verbose=False, initdelay=.05, sweeplen=1000000):
@@ -60,7 +68,8 @@ class SG90servo(object):
          help=  is number of times to execute sweep.
         """
         if verbose:
-            print("RpiMotorLib: Servo Sweep running , press ctrl+c to quit")
+            print("RpiMotorLib: Servo Sweep running")
+        self.stop_servo = False
         GPIO.setup(servo_pin, GPIO.OUT)
         time.sleep(initdelay)
         # set pin and freq
@@ -72,19 +81,24 @@ class SG90servo(object):
         time.sleep(delay)
         try:
             while sweeplen > 0:
-                pwm_servo.ChangeDutyCycle(minduty)
-                if verbose:
-                    print("Moved to min position = {}".format(minduty))
-                time.sleep(delay)
-                pwm_servo.ChangeDutyCycle(maxduty)
-                if verbose:
-                    print("Moved to max position = {}".format(maxduty))
-                    print("Number of loops left = {}".format(sweeplen))
-                sweeplen -= 1
-                time.sleep(delay)
+                if self.stop_servo:
+                    raise StopServoInterrupt
+                else:
+                    pwm_servo.ChangeDutyCycle(minduty)
+                    if verbose:
+                        print("Moved to min position = {}".format(minduty))
+                    time.sleep(delay)
+                    pwm_servo.ChangeDutyCycle(maxduty)
+                    if verbose:
+                        print("Moved to max position = {}".format(maxduty))
+                        print("Number of loops left = {}".format(sweeplen))
+                    sweeplen -= 1
+                    time.sleep(delay)
 
         except KeyboardInterrupt:
             print("CTRL-C: RpiMotorLib: Terminating program.")
+        except StopServoInterrupt:
+            print("Stop Servo Interrupt : RpiMotorLib: ")
         finally:
             if verbose:
                 print("\nRpiMotorLib, Servo Sweep finished, Details:.\n")
@@ -93,6 +107,7 @@ class SG90servo(object):
                 print("min position = {}".format(minduty))
                 print("max position = {}".format(maxduty))
                 print("Time delay = {}".format(delay))
+                print("Init delay = {}".format(delay))
                 print("Verbose  = {}".format(verbose))
                 print("Servo control frequency = {}".format(self.freq))
                 print("Number of Sweeps not completed = {}".format(sweeplen))
@@ -112,33 +127,38 @@ class SG90servo(object):
          (2) position, type=float, default=7.5,
          help=The  dutycycle position of servo to move to
          (3) delay, type=int, default=0.5,
-         help=Time to wait (in seconds) before move after setup
+         help=Time to wait (in seconds) after move
          (4) verbose, type=bool  type=bool default=False
           help="Output actions & details",
          (5) initdelay, type=float, default 50mS
          help= A delay after Gpio setup and before servo moves
-         
+
          example: to move the servo connected to GPIO pins 7
          for step delay of .5 second to postion 11
          with non-verbose output
          servoMove(7, 11, .5, False)
         """
-
+        self.stop_servo = False
         GPIO.setup(servo_pin, GPIO.OUT)
         time.sleep(initdelay)
         pwm_servo = GPIO.PWM(servo_pin, self.freq)
-
         try:
-            pwm_servo.start(position)
-            time.sleep(delay)
+            if self.stop_servo:
+                raise StopServoInterrupt
+            else:
+                pwm_servo.start(position)
+                time.sleep(delay)
         except KeyboardInterrupt:
             print("CTRL-C: RpiServoLib: Terminating program.")
+        except StopServoInterrupt:
+            print("Stop Servo Interrupt : RpiMotorLib: ")
         else:
             if verbose:
                 print("\nRpiMotorLib, Servo Single Move finished, Details:.\n")
                 print("Moved to position = {}".format(position))
                 print("servo pin = {}".format(servo_pin))
                 print("Time delay = {}".format(delay))
+                print("Init delay = {}".format(initdelay))
                 print("Verbose  = {}".format(verbose))
         finally:
             if verbose:
@@ -186,23 +206,29 @@ class SG90servo(object):
             stepsize = (stepsize)*-1
 
         GPIO.setup(servo_pin, GPIO.OUT)
+        self.stop_servo = False
         time.sleep(initdelay)
         pwm_servo = GPIO.PWM(servo_pin, self.freq)
         try:
             start_dc = self.convert_from_degree(start)
             pwm_servo.start(start_dc)
             for i in range(start, end+stepsize, stepsize):
-                end_pwm = self.convert_from_degree(i)
-                if verbose:
-                    print("Servo moving: {}  {} ".format(end_pwm, i))
-                pwm_servo.ChangeDutyCycle(end_pwm)
-                time.sleep(stepdelay)
+                if self.stop_servo:
+                    raise StopServoInterrupt
+                else:
+                    end_pwm = self.convert_from_degree(i)
+                    if verbose:
+                        print("Servo moving: {:.5f}  {} ".format(end_pwm, i))
+                    pwm_servo.ChangeDutyCycle(end_pwm)
+                    time.sleep(stepdelay)
         except KeyboardInterrupt:
-            print("CTRL-C: RpiServoLib: Terminating program.")
+            print("CTRL-C: RpiMotorLib: Terminating program.")
+        except StopServoInterrupt:
+            print("Stop Servo Interrupt : RpiMotorLib: ")
         except Exception as error:
             print(sys.exc_info()[0])
             print(error)
-            print("RpiServoLib  : Unexpected error:")
+            print("RpiMotorLib  : Unexpected error:")
         else:
             if verbose:
                 print("\nRpiMotorLib, Servo move finished, Details:.\n")

@@ -17,7 +17,9 @@ import time
 import pigpio
 
 # ==================== CLASS SECTION ===============================
-
+class StopServoInterrupt(Exception):
+    """ Stop the servo """
+    pass
 
 class ServoPigpio(object):
     """A Class to control a servo with pigpio library PWM by raspberry pi
@@ -26,21 +28,42 @@ class ServoPigpio(object):
     5. servo_move_step
     """
 
-    def __init__(self, name="servoY", freq=50, y_one=1000, y_two=2000):
+    def __init__(self, name="servoY", freq=50, y_one=1000, y_two=2000,
+                 pigpio_addr=None, pigpio_port=None):
         """ init method for class
-        4 inputs
+        6 inputs
         (1) name, default=servoY, type=string, help=name of instance
         (2) Freq, type=int, default=50,  help=control freq of servo in Hz
         (3) y_one, type=float, default = 1000 ,
         help=pulse width min in uS of servo % for 0 degrees
         (4) y_two type=float, default = 2000 ,
         help=pulse width max in uS of servo % for 180 degrees
+        (5) pigpio_addr, type=string default=None, help=host name where pigpio is running
+        (6) pigpio_port, type=int default=None, help=port number where pigpio is running
           """
-
         self.name = name
         self.freq = freq
         self.y_one = y_one
         self.y_two = y_two
+        self.pigpio_addr = pigpio_addr
+        self.pigpio_port = pigpio_port
+        self.stop_servo = False
+
+    def servo_stop(self):
+        """ Stop the servo """
+        self.stop_servo = True
+
+    def _get_pi_servo(self):
+        """ Function to set make pigpio host and port configurable """
+        args = {}
+
+        if self.pigpio_addr is not None:
+            args["host"] = self.pigpio_addr
+
+        if self.pigpio_port is not None:
+            args["port"] = self.pigpio_port
+
+        return pigpio.pi(**args)
 
     def servo_sweep(self, servo_pin=7, center=1500, minduty=1000, maxduty=2000,
                     delay=0.5, verbose=False, initdelay=.05, sweeplen=1000000):
@@ -63,8 +86,9 @@ class ServoPigpio(object):
          help=  is number of times to execute sweep.
         """
         if verbose:
-            print("RpiMotorLib: Servo Sweep running , press ctrl+c to quit")
-        pi_servo = pigpio.pi()  # Connect to local Pi.
+            print("RpiMotorLib: Servo Sweep running")
+        self.stop_servo = False
+        pi_servo = self._get_pi_servo()
         if not pi_servo.connected:
             print("RpiMotorLib : failed to connect to pigpio Daemon")
             exit()
@@ -79,19 +103,23 @@ class ServoPigpio(object):
         time.sleep(delay)
         try:
             while sweeplen > 0:
-                pi_servo.set_servo_pulsewidth(servo_pin, minduty)
-                if verbose:
-                    print("Moved to min Pulse width = {}".format(minduty))
-                time.sleep(delay)
-                pi_servo.set_servo_pulsewidth(servo_pin, maxduty)
-                if verbose:
-                    print("Moved to max Pulse width = {}".format(maxduty))
-                    print("Number of loops left = {}".format(sweeplen))
-                sweeplen -= 1
-                time.sleep(delay)
-
+                if self.stop_servo:
+                    raise StopServoInterrupt
+                else:
+                    pi_servo.set_servo_pulsewidth(servo_pin, minduty)
+                    if verbose:
+                        print("Moved to min Pulse width = {}".format(minduty))
+                    time.sleep(delay)
+                    pi_servo.set_servo_pulsewidth(servo_pin, maxduty)
+                    if verbose:
+                        print("Moved to max Pulse width = {}".format(maxduty))
+                        print("Number of loops left = {}".format(sweeplen))
+                    sweeplen -= 1
+                    time.sleep(delay)
         except KeyboardInterrupt:
             print("CTRL-C: RpiMotorLib: Terminating program.")
+        except StopServoInterrupt:
+            print("Stop Servo Interrupt : RpiMotorLib: ")
         finally:
             if verbose:
                 print("\nRpiMotorLib, Servo Sweep finished, Details:.\n")
@@ -100,6 +128,7 @@ class ServoPigpio(object):
                 print("min Pulse width = {}".format(minduty))
                 print("max Pulse width = {}".format(maxduty))
                 print("Time delay = {}".format(delay))
+                print("Init delay = {}".format(initdelay))
                 print("Verbose  = {}".format(verbose))
                 print("Servo control frequency = {}".format(self.freq))
                 print("Number of Sweeps not completed = {}".format(sweeplen))
@@ -125,22 +154,29 @@ class ServoPigpio(object):
          (5) initdelay, type=float, default 50mS
          help= A delay after Gpio setup and before servo moves
         """
-        pi_servo = pigpio.pi()
+        self.stop_servo = False
+        pi_servo = self._get_pi_servo()
         pi_servo.set_mode(servo_pin, pigpio.OUTPUT)
         time.sleep(initdelay)
         pi_servo.set_PWM_frequency(servo_pin, self.freq)
 
         try:
-            pi_servo.set_servo_pulsewidth(servo_pin, position)
-            time.sleep(delay)
+            if self.stop_servo:
+                raise StopServoInterrupt
+            else:
+                pi_servo.set_servo_pulsewidth(servo_pin, position)
+                time.sleep(delay)
         except KeyboardInterrupt:
             print("CTRL-C: RpiServoLib: Terminating program.")
+        except StopServoInterrupt:
+            print("Stop Servo Interrupt : RpiMotorLib: ")
         else:
             if verbose:
                 print("\nRpiMotorLib, Servo Single Move finished, Details:.\n")
                 print("Moved to pulse width = {}".format(position))
                 print("servo pin = {}".format(servo_pin))
                 print("Time delay = {}".format(delay))
+                print("Init delay = {}".format(initdelay))
                 print("Verbose  = {}".format(verbose))
         finally:
             if verbose:
@@ -180,8 +216,8 @@ class ServoPigpio(object):
         """
         if start > end:
             stepsize = (stepsize)*-1
-
-        pi_servo = pigpio.pi()
+        self.stop_servo = False
+        pi_servo = self._get_pi_servo()
         pi_servo.set_mode(servo_pin, pigpio.OUTPUT)
         time.sleep(initdelay)
         pi_servo.set_PWM_frequency(servo_pin, self.freq)
@@ -189,13 +225,18 @@ class ServoPigpio(object):
             start_dc = self.convert_from_degree(start)
             pi_servo.set_servo_pulsewidth(servo_pin, start_dc)
             for i in range(start, end+stepsize, stepsize):
-                end_pwm = self.convert_from_degree(i)
-                if verbose:
-                    print("Servo moving: {}  {} ".format(end_pwm, i))
-                pi_servo.set_servo_pulsewidth(servo_pin, end_pwm)
-                time.sleep(stepdelay)
+                if self.stop_servo:
+                    raise StopServoInterrupt
+                else:
+                    end_pwm = self.convert_from_degree(i)
+                    if verbose:
+                        print("Servo moving: {:.5f}  {} ".format(end_pwm, i))
+                    pi_servo.set_servo_pulsewidth(servo_pin, end_pwm)
+                    time.sleep(stepdelay)
         except KeyboardInterrupt:
             print("CTRL-C: RpiServoLib: Terminating program.")
+        except StopServoInterrupt:
+            print("Stop Servo Interrupt : RpiMotorLib: ")
         except Exception as error:
             print(sys.exc_info()[0])
             print(error)
