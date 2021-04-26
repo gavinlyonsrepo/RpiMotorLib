@@ -45,10 +45,13 @@ Raspbian jessie 8.0 and python 3.4.2.
 It was also tested for Python (3.5.3) and Raspbian stretch 9.
 Also for Windows 10 users See issue number 2 at project Github URL.
 
-Make sure that python 3 and pip have been installed on your machine, then:
+Rpimotorlib is in the PYPI [Link](https://pypi.org/project/rpimotorlib/)
+The Python Package Index (PyPI) is a repository of software for the Python programming language.
+
+Make sure that python3 and pip3 have been installed on your machine, then:
 
 ```sh
-sudo pip install rpimotorlib
+sudo pip3 install rpimotorlib
 ```
 
 Files
