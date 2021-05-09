@@ -27,7 +27,11 @@ def main():
     
     # ====== Tests for motor ====
     #GPIO pins 
-    GPIO_pins = (14, 15, 18) # Microstep Resolution M0-M1-M2 -> GPIO Pin
+    # Microstep Resolution M0-M1-M2 -> GPIO Pin
+    # Note: you can Pass in (-1,-1,-1) if you wish to hardwire Ms-X to logic and 
+    # Save GPIO pins. 
+    GPIO_pins = (14, 15, 18)
+    
     direction= 20       # Direction -> GPIO Pin
     step = 21      # Step -> GPIO Pin
 
@@ -59,19 +63,19 @@ def main():
     print("TEST SECTION B")
     
     # motor_go(clockwise, steptype, steps, stepdelay, verbose, initdelay)
-    input("TEST: Press <Enter> to continue  half Test1")
+    input("TEST: Press <Enter> to continue  half Test6")
     mymotortest.motor_go(False, "Half" , 400, .005, True, .05)
     time.sleep(1)
-    input("TEST: Press <Enter> to continue 1/ 4 Test1")
+    input("TEST: Press <Enter> to continue 1/ 4 Test7")
     mymotortest.motor_go(False, "1/4" , 800, .005, True, .05)
     time.sleep(1)
-    input("TEST: Press <Enter> to continue 1/8 Test1")
+    input("TEST: Press <Enter> to continue 1/8 Test8")
     mymotortest.motor_go(False, "1/8" , 1600, .005, True, .05)
     time.sleep(1)
-    input("TEST: Press <Enter> to continue  1/16 Test1")
+    input("TEST: Press <Enter> to continue  1/16 Test9")
     mymotortest.motor_go(False, "1/16" , 3200, .005, True, .05) 
     time.sleep(1)
-    input("TEST: Press <Enter> to continue  1/32 Test1")
+    input("TEST: Press <Enter> to continue  1/32 Test10")
     mymotortest.motor_go(False, "1/32" , 6400, .005, True, .05) 
     time.sleep(1)
     

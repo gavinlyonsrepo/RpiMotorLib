@@ -54,6 +54,10 @@ that is common on several bipolar motors
 but you should check your motor connections to be sure they are correct.
 
 Connect 5 GPIO pins to MS0, MS1, MS2, STEP and DIR.
+If you do not wish to use GPIO for MS_X pins 
+and hard wire MS-X to logic levels.
+You can also pass in (-1, -1, -1) to software. 
+Do this if your project only uses one type of resolution and you wish to save GPIO pins.
 Connect pi gnd to DRV8825 at GND. 
 Connect Reset and sleep together and to pi 5V.
 Connect up capacitor and Motor leads.
