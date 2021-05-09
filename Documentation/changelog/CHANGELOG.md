@@ -24,18 +24,20 @@ Version control history:
 	* Added DC motors driven by DRV8833 module
 
 * Version 2.4-5 121218
-	* minor update
+	* Minor update
 	* Added Support for installation on Windows 10 by changing Setup.py
 	* See issue 2 at Github Project URL.
 	
 * version 2.5-6 310319
-	* Minor update, correcting the error message in class "A4988Nema"
+	* Minor update, 
+	* Correcting the error message in class "A4988Nema"
 	,method "resolution_set". The latter half was reporting the "step type"
 	instead of "motor type" to user. This error message was only displayed 
 	if user initialized class with a unknown motor type(user typo).
 	
 * version 2.6-7 210519
-	* Minor update addressing concerns raised by issue 4 on github.
+	* Minor update
+	* Addressing concerns raised by issue 4 on github.
 	In class "BYJMotor" changed error handling in 
 	method  "motor_run" so Verbose reporting is in the "else" code block
 	instead of the "finally" code block as sometimes this reporting code
@@ -51,4 +53,10 @@ Version control history:
 	* Added Motor-stop method to all stepper motors classes 
 	* Added Servo-Stop method to all servo classes
 	* Servo pigpio: make pigpio host and port configurable
+
+* version 3.1-2 110521
+	* Added an option to hard-wire to logic MS-X resolution pins 
+	on some stepper motors where applicable to save GPIO pins 
+	* Added support for LV8729 motor controller.
+	* Added basic test file for threading example.
 

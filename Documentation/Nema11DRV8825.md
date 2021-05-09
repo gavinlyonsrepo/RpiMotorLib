@@ -78,9 +78,18 @@ Six different step resolutions: full-step, half-step, 1/4-step, 1/8-step, 1/16-s
 | 1/16 | 0.1125 |  3200 |
 | 1/32 | 0.05625 |  6400 |
 
-Resolution truth table used in code.
-
-![ScreenShot DRV8825 truth table  data](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/DRV8825step.jpg)
+Microstep Resolution Truth Table.
+ 
+| MS1 | MS2 | MS3 |  Resolution |
+| --- | --- | --- | --- |
+| Low | Low |Low | Full step | 
+| High | Low | Low | Half step |
+| Low | High | Low | 1/4 |
+| High | High | Low | 1/8 |
+| Low | Low | High | 1/16 |
+| High | Low | High | 1/32 |
+| Low | High | High | 1/32 |
+| High | High | High | 1/32 |
 
 
 Software

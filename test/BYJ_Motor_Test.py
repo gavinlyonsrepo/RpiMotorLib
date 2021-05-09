@@ -17,9 +17,9 @@ from RpiMotorLib import RpiMotorLib
 
 """
 # To Test motor stop put push button to VCC on GPIO 17 
- GPIO.setwarnings(False)
- GPIO.setmode(GPIO.BCM)
- GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 """
 
 # Declare an named instance of class pass your name and type of motor

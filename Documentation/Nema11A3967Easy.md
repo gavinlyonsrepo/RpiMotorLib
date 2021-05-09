@@ -66,7 +66,8 @@ The level if this signal (high/low) is sampled on each rising edge of STEP to de
 
 MS1/MS2 : These digital inputs control the microstepping mode. Connect to RPI GPIO
 Possible settings are (MS1/MS2) : full step (0,0), half step (1,0), 1/4 step (0,1), and 1/8 step 
-(1,1).
+(1,1).You can also pass in (-1, -1) to software here if you do not wish to use GPIO and wish to hard wire MS-X to logic levels.
+Do this if your project only uses one type of resolution and you wish to save GPIO pins.  
 
 
 Enable, Reset, PFD and Sleep pins can be left unconnected. 
@@ -121,7 +122,8 @@ init method 3 inputs.
 1.  direction type=int , help=GPIO pin connected to DIR pin of IC
 2. step_pin type=int , help=GPIO pin connected to STEP of IC
 3. mode_pins type=tuple of 2 ints, help=GPIO pins connected to
-Microstep Resolution pins MS1-MS2 of IC
+Microstep Resolution pins MS1-MS2 of IC, You can also pass in (-1, -1) here if
+you do not wish to use GPIO to set MSO. 
 
  motor_move method 6 inputs.
  1. stepdelay type=float, default=0.05, help=Time to wait

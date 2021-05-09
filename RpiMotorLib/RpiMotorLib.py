@@ -11,6 +11,7 @@
 # Bipolar Nema Stepper motor TB6612FNG = BYJMotor class
 # Bipolar Nema Stepper motor A4988  Driver = A4988Nema class
 # Bipolar Nema Stepper motor DRV8825 Driver = A4988Nema class
+# Bipolar Nema Stepper motor LV8729  Driver = A4988Nema class
 # Bipolar Nema Stepper motor A3967 Easy Driver = A3967EasyNema class
 # Main author       :Gavin Lyons
 # Version           :See changelog at url
@@ -38,17 +39,7 @@ class BYJMotor(object):
         self.motor_type = motor_type
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
-        self.curser_spin = ["/", "-", "|", "\\", "|"]
-        self.spin_position = 0
         self.stop_motor = False
-
-    def print_cursor_spin(self):
-        """ Prints a spinning cursor. Used when verbose not set to false.
-        NOTE: deprecated version 2.2-3 left in code for reference """
-        # print(self.curser_spin[self.spin_position], end="\r", flush=True)
-        self.spin_position += 1
-        if self.spin_position > 4:
-            self.spin_position = 0
 
     def motor_stop(self):
         """ Stop the motor """
@@ -139,8 +130,6 @@ class BYJMotor(object):
                             print("GPIO pin on {}".format(pin_print))
                         else:
                             print("GPIO pin off {}".format(pin_print))
-                else:
-                    self.print_cursor_spin()
 
             # Iterate through the pins turning them on and off.
             steps_remaining = steps
@@ -195,13 +184,19 @@ class A4988Nema(object):
         (1) direction type=int , help=GPIO pin connected to DIR pin of IC
         (2) step_pin type=int , help=GPIO pin connected to STEP of IC
         (3) mode_pins type=tuple of 3 ints, help=GPIO pins connected to
-        Microstep Resolution pins MS1-MS3 of IC
+        Microstep Resolution pins MS1-MS3 of IC, can be set to (-1,-1,-1) to turn off
+        GPIO resolution.
         (4) motor_type type=string, help=Type of motor two options: A4988 or DRV8825
         """
         self.motor_type = motor_type
         self.direction_pin = direction_pin
         self.step_pin = step_pin
-        self.mode_pins = mode_pins
+
+        if mode_pins[0] != -1:
+            self.mode_pins = mode_pins
+        else:
+            self.mode_pins = False
+
         self.stop_motor = False
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
@@ -226,6 +221,15 @@ class A4988Nema(object):
                           '1/8': (1, 1, 0),
                           '1/16': (0, 0, 1),
                           '1/32': (1, 0, 1)}
+        elif self.motor_type == "LV8729":
+            resolution = {'Full': (0, 0, 0),
+                          'Half': (1, 0, 0),
+                          '1/4': (0, 1, 0),
+                          '1/8': (1, 1, 0),
+                          '1/16': (0, 0, 1),
+                          '1/32': (1, 0, 1),
+                          '1/64': (0, 1, 1),
+                          '1/128': (1, 1, 1)}
         else:
             print("Error invalid motor_type: {}".format(self.motor_type))
             quit()
@@ -237,7 +241,8 @@ class A4988Nema(object):
             print("Error invalid steptype: {}".format(steptype))
             quit()
 
-        GPIO.output(self.mode_pins, resolution[steptype])
+        if self.mode_pins != False:
+            GPIO.output(self.mode_pins, resolution[steptype])
 
     def motor_go(self, clockwise=False, steptype="Full",
                  steps=200, stepdelay=.005, verbose=False, initdelay=.05):
@@ -263,7 +268,9 @@ class A4988Nema(object):
         GPIO.setup(self.direction_pin, GPIO.OUT)
         GPIO.setup(self.step_pin, GPIO.OUT)
         GPIO.output(self.direction_pin, clockwise)
-        GPIO.setup(self.mode_pins, GPIO.OUT)
+        if self.mode_pins != False:
+            GPIO.setup(self.mode_pins, GPIO.OUT)
+
         try:
             # dict resolution
             self.resolution_set(steptype)
@@ -304,8 +311,9 @@ class A4988Nema(object):
             # cleanup
             GPIO.output(self.step_pin, False)
             GPIO.output(self.direction_pin, False)
-            for pin in self.mode_pins:
-                GPIO.output(pin, False)
+            if self.mode_pins != False:
+                for pin in self.mode_pins:
+                    GPIO.output(pin, False)
 
 
 class A3967EasyNema(object):
@@ -317,11 +325,18 @@ class A3967EasyNema(object):
         (1) direction type=int , help=GPIO pin connected to DIR pin of IC
         (2) step_pin type=int , help=GPIO pin connected to STEP of IC
         (3) mode_pins type=tuple of 2 ints, help=GPIO pins connected to
-        Microstep Resolution pins MS1-MS2 of IC"""
+        Microstep Resolution pins MS1-MS2 of IC, can be set to (-1,-1) to turn off
+        GPIO resolution.
+        """
 
         self.direction_pin = direction_pin
         self.step_pin = step_pin
-        self.mode_pins = mode_pins
+
+        if mode_pins[0] != -1:
+            self.mode_pins = mode_pins
+        else:
+            self.mode_pins = False
+
         self.stop_motor = False
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
@@ -362,14 +377,17 @@ class A3967EasyNema(object):
                 print("Error invalid steptype: {}".format(steptype))
                 quit()
 
-            GPIO.output(self.mode_pins, resolution[steptype])
+            if self.mode_pins != False:
+                GPIO.output(self.mode_pins, resolution[steptype])
 
         # setup GPIO
         self.stop_motor = False
         GPIO.setup(self.direction_pin, GPIO.OUT)
         GPIO.setup(self.step_pin, GPIO.OUT)
         GPIO.output(self.direction_pin, clockwise)
-        GPIO.setup(self.mode_pins, GPIO.OUT)
+
+        if self.mode_pins != False:
+            GPIO.setup(self.mode_pins, GPIO.OUT)
 
         ms_steps_pins()
         time.sleep(initdelay)
@@ -409,8 +427,9 @@ class A3967EasyNema(object):
             # cleanup
             GPIO.output(self.step_pin, False)
             GPIO.output(self.direction_pin, False)
-            for pin in self.mode_pins:
-                GPIO.output(pin, False)
+            if self.mode_pins != False:
+                for pin in self.mode_pins:
+                    GPIO.output(pin, False)
 
 
 def degree_calc(steps, steptype):
@@ -421,7 +440,9 @@ def degree_calc(steps, steptype):
                     '1/4': .45,
                     '1/8': .225,
                     '1/16': 0.1125,
-                    '1/32': 0.05625}
+                    '1/32': 0.05625,
+                    '1/64': 0.028125,
+                    '1/128': 0.0140625}
     degree_value = (steps*degree_value[steptype])
     return degree_value
 

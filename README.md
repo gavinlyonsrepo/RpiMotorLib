@@ -23,7 +23,7 @@ Overview
 * Title: Raspberry pi motor library.
 * Description: 
 
-A python 3 library for various common motor controllers and servos to connect to a raspberry pi.
+A python 3 library for various motor controllers and servos to connect to a raspberry pi.
 These components are some of the most widely used by community.
 There are three categories in library.
 Stepper motors, DC Motors and Servos.
@@ -34,7 +34,7 @@ The library is modular so user can just import/use the section they need.
 * Main Author: Gavin Lyons , [website.](https://gavinlyonsrepo.github.io/).
 * Project URL: [URL LINK](https://github.com/gavinlyonsrepo/RpiMotorLib)
 * History: CHANGELOG.md is at repository in documentation.
-* Copyright: Copyright (C) 2018 Gavin Lyons. See LICENSE.md in documentation.
+* Copyright: See LICENSE.md in documentation.
 * Pull requests,bug reports, suggestions for new components and features welcome. 
 
 Installation
@@ -64,8 +64,8 @@ rpiMotorLib files are listed below:
 | RPiMotorLib/rpiservolib.py | servo python library RPi.GPIO  PWM file |
 | RPiMotorLib/rpi_pservo_lib.py | servo python library pigpio PWM file |
 | RPiMotorLib/rpi_dc_lib.py  |    DC python motor library  file |
-| documentation/*.md | 14 markdown library documentation files |
-| test/*Test.py | 12 python test files |
+| documentation/*.md | 15 markdown library documentation files |
+| test/*Test.py | 14 python test files |
 | /usr/share/doc/RpiMotorLib/README.md | This help file |
 | RPiMotorLib/RpiMotorScriptLib.py | small script with meta data about library |
 
@@ -88,7 +88,7 @@ A module to control Raspberry Pi GPIO channels.
 This package provides a class to control the GPIO on a Raspberry Pi.
 This should already be installed on most Raspberry Pis.
 
-2. pigpio 1.60-1 [Homepage](http://abyz.co.uk/rpi/pigpio/)
+2. pigpio 1.64-1 [Homepage](http://abyz.co.uk/rpi/pigpio/)
 
 This Dependency is *Optional*, it is currently 
 only used in one of the two servo control options.
@@ -108,14 +108,15 @@ or consult the docstring of the appropriate python file.
 
 1. Stepper motors
 
-| Motor | Motor controller| Help File URL link |
+| Motor tested | Motor controller| Help File URL link |
 | ----- | ----- | ----- |
-| Unipolar 28BYJ-48 | ULN2003 driver module | [ URL ](Documentation/28BYJ.md)| 
-| Bipolar Nema 11 | TB6612FNG Dual Driver Carrier | [ URL ](Documentation/Nema11TB6612FNG.md) |
-| Bipolar Nema 11 | L298N H-Bridge controller module | [ URL ](Documentation/Nema11L298N.md) |
-| Bipolar Nema 11 | A4988 Stepper Driver Carrier | [ URL ](Documentation/Nema11A4988.md)|
-| Bipolar Nema 11 | DRV8825 Stepper Driver Carrier | [ URL ](Documentation/Nema11DRV8825.md) |
-| Bipolar Nema 11 | A3967 Stepper Driver aka "easy driver v4.4" | [ URL ](Documentation/Nema11A3967Easy.md)|
+| Unipolar 28BYJ-48 | ULN2003 driver module | [URL](Documentation/28BYJ.md)| 
+| Bipolar Nema 11 | TB6612FNG Dual Driver Carrier | [URL](Documentation/Nema11TB6612FNG.md) |
+| Bipolar Nema 11 | L298N H-Bridge controller module | [URL](Documentation/Nema11L298N.md) |
+| Bipolar Nema 11 | A4988 Stepper Driver Carrier | [URL](Documentation/Nema11A4988.md)|
+| Bipolar Nema 11 | DRV8825 Stepper Driver Carrier | [URL](Documentation/Nema11DRV8825.md) |
+| Bipolar Nema 11 | A3967 Stepper Driver aka "easy driver v4.4" | [URL](Documentation/Nema11A3967Easy.md)|
+| n/a | LV8729 Stepper Driver Carrier  | [URL](Documentation/Nema11LV8729.md)|
 
 Note: NEMA 11 bipolar stepper motors where used in tests but most other bipolar 4-pin motors of similar type 
 should work as well.
@@ -128,7 +129,7 @@ should work as well.
 | DC Brushed Motor | L9110S Motor controller module. | [ URL ](Documentation/L9110S_DC.md) |
 | DC Brushed Motor | DV8833 Motor controller module. | [ URL ](Documentation/DRV8833_DC.md) |
 | DC Brushed Motor | TB6612FNG Dual Motor Driver Carrier| [ URL ](Documentation/TB6612FNG_DC.md) |
-| DC Brushed Motor | A transistor. | [ URL ](Documentation/Transistor_DC.md) |
+| DC Brushed Motor | Transistor control | [ URL ](Documentation/Transistor_DC.md) |
 
 3. Servos
 
@@ -144,4 +145,10 @@ implementation of the RPIO PWM software timing. If the application requires
 precise control the user can pick the pigpio library
 which uses hardware based timing. The disadvantage being they must install 
 a dependency.
- 
+
+
+Notes
+------------------------
+
+If you want to control two steppers simultaneously there is a basic setup
+file for using threading in test folder called MultiMotorThreading.py.
