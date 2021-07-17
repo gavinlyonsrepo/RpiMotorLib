@@ -150,5 +150,13 @@ a dependency.
 Notes
 ------------------------
 
-If you want to control two steppers simultaneously there is a basic setup
-file for using threading in test folder called MultiMotorThreading.py.
+** Note 1 Running two motors simultaneously **
+
+See github issue #11
+
+If you want to control two steppers simultaneously, there are two basic setup
+file for using threading in test folder. 
+
+1. For Unipolar 28BYJ-48  MultiMotorThreading_BYJ.py
+2. For Bipolar DRV8825 Stepper MultiMotorThreading_DRV8825.py
+
