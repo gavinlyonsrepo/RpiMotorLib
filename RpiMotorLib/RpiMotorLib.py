@@ -23,7 +23,14 @@
 # Import the system modules needed to run rpiMotorlib.py
 import sys
 import time
-import RPi.GPIO as GPIO
+try:
+    import RPi.GPIO as GPIO
+except ImportError:
+    # Mock the GPIO module for dev on Windows, because we don't actually need it anyway.
+    import sys
+    from unittest.mock import MagicMock
+    sys.modules['RPi'] = MagicMock()
+    import RPi.GPIO as GPIO
 
 # ==================== CLASS SECTION ===============================
 
