@@ -1,3 +1,5 @@
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/paypalme/whitelight976)
+
 RpiMotorLib, A Raspberry pi python motor library
 --------------------------------------------------
 
@@ -150,7 +152,7 @@ a dependency.
 Notes
 ------------------------
 
-** Note 1 Running two motors simultaneously **
+**Note 1 Running two motors simultaneously**
 
 See github issue #11
 
@@ -160,3 +162,11 @@ file for using threading in test folder.
 1. For Unipolar 28BYJ-48  MultiMotorThreading_BYJ.py
 2. For Bipolar DRV8825 Stepper MultiMotorThreading_DRV8825.py
 
+**Note 2 Potential Issue with  GPIO.cleanup() not working** 
+
+See github issue #18 
+
+Some users are reporting that GPIO.cleanup() does not work.
+This is external function from  RPi.GPIO used in test scripts , 
+I have left it in scripts for the moment as I am not seeing the issue.
+If you see this issue simply remove GPIO.cleanup and clear the GPIO you set  manually.
