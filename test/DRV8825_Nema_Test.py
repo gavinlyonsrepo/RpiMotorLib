@@ -92,7 +92,7 @@ if __name__ == '__main__':
    
     print("TEST START")
     main()
-    GPIO.cleanup()
+    GPIO.cleanup() # Optional
     print("TEST END")
     exit()
     

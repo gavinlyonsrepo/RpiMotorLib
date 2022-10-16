@@ -71,7 +71,7 @@ if __name__ == '__main__':
 
     print("START")
     main()
-    GPIO.cleanup()
+    GPIO.cleanup() # Optional
     print("END")
     exit()
 

@@ -6,8 +6,7 @@
 # display the version and help for Rpi package RpiMotorlib
 # author            :Gavin Lyons
 # web               :https://github.com/gavinlyonsrepo/RpiMotorLib
-# mail              :glyons66@hotmail.com
-# python_version    :3.5.3
+# python_version    :3.7.3
 """
 
 # ==========================IMPORTS======================
@@ -15,7 +14,7 @@
 import argparse
 import sys
 
-__version__ = "3.1-2"
+__version__ = "3.2-3"
 __author__ = "Gavin Lyons"
 __url__ = "https://github.com/gavinlyonsrepo/RpiMotorLib"
 

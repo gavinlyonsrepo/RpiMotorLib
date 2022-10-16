@@ -70,6 +70,10 @@ class BYJMotor(object):
          GPIO pins initialized but before motor is moved.
 
         """
+        if steps < 0:
+            print("Error BYJMotor 101: Step number must be greater than 0")
+            quit()
+                
         try:
             self.stop_motor = False
             for pin in gpiopins:
@@ -102,7 +106,8 @@ class BYJMotor(object):
                 step_sequence[2] = [gpiopins[2]]
                 step_sequence[3] = [gpiopins[3]]
             else:
-                print("Error: unknown step type ; half, full or wave")
+                print("Error: BYJMotor 102 : unknown step type : half, full or wave")
+                print(steptype)
                 quit()
 
             #  To run motor in reverse we flip the sequence order.
@@ -119,7 +124,8 @@ class BYJMotor(object):
                     print("Size of turn in degrees = {}".format(round(steps*degree, 2)))
                 else:
                     # Unknown Motor type
-                    print("Size of turn in degrees = N/A Motor: {}".format(self.motor_type))
+                    print("Warning 201 : Unknown Motor Type : {}".format(self.motor_type))
+                    print("Size of turn in degrees = N/A")
 
             def print_status(enabled_pins):
                 """   Print status of pins."""
@@ -154,7 +160,7 @@ class BYJMotor(object):
         except Exception as motor_error:
             print(sys.exc_info()[0])
             print(motor_error)
-            print("RpiMotorLib  : Unexpected error:")
+            print("Error : BYJMotor 103 : RpiMotorLib  : Unexpected error:")
         else:
             # print report status if everything went well
             if verbose:

@@ -168,7 +168,5 @@ mymotortest = RpiMotorLib.A3967EasyNema(direction, step, GPIO_pins)
 
 mymotortest.motor_move(.005, 200 , False, True, "Full", .05)
 
-# good practise to cleanup GPIO at some point before exit
-GPIO.cleanup()
 
 ```

@@ -7,8 +7,7 @@
 # This file is for servos controlled by GPIO PWM
 # author            :Gavin Lyons
 # web               :https://github.com/gavinlyonsrepo/RpiMotorLib
-# mail              :glyons66@hotmail.com
-# python_version    :3.4.2
+# python_version    :3.7.3
 """
 # ========================== IMPORTS ======================
 # Import the system modules needed to run rpiMotorlib.py

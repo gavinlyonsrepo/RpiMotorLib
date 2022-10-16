@@ -60,3 +60,8 @@ Version control history:
 	* Added support for LV8729 motor controller.
 	* Added basic test file for threading example.
 
+* version 3.2-3 151022
+	* Minor update.
+	* Added pwm.stop command to all DC motor classes, see github issue 21
+	* Added check for negative step numbers in the BYJMotor class, see github issue 20
+

@@ -166,7 +166,7 @@ def motorone():
         print("No errors")
     finally:
         print("cleaning up")
-        MotorOne.cleanup(True)
+        MotorOne.cleanup(False)
     
 if __name__ == '__main__':
     motorone()

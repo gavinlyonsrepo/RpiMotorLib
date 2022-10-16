@@ -1,4 +1,5 @@
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/paypalme/whitelight976)
+
+[![Website](https://img.shields.io/badge/Website-Link-blue.svg)](https://gavinlyonsrepo.github.io/)  [![Rss](https://img.shields.io/badge/Subscribe-RSS-yellow.svg)](https://gavinlyonsrepo.github.io//feed.xml)  [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/paypalme/whitelight976)
 
 RpiMotorLib, A Raspberry pi python motor library
 --------------------------------------------------
@@ -17,7 +18,7 @@ Table of contents
   * [Files](#files)
   * [Dependencies](#dependencies)
   * [Components](#components)
-  * [Notes](#notes)
+  * [Notes and Issues](#notes-and-issues)
 
 Overview
 --------------------------------------------
@@ -36,7 +37,7 @@ The library is modular so user can just import/use the section they need.
 * Main Author: Gavin Lyons , [website.](https://gavinlyonsrepo.github.io/).
 * Project URL: [URL LINK](https://github.com/gavinlyonsrepo/RpiMotorLib)
 * History: CHANGELOG.md is at repository in documentation.
-* Copyright: See LICENSE.md in documentation.
+* Copyright: See LICENSE.md 
 * Pull requests,bug reports, suggestions for new components and features welcome. 
 
 Installation
@@ -149,7 +150,7 @@ which uses hardware based timing. The disadvantage being they must install
 a dependency.
 
 
-Notes
+Notes and Issues
 ------------------------
 
 **Note 1 Running two motors simultaneously**
@@ -162,11 +163,14 @@ file for using threading in test folder.
 1. For Unipolar 28BYJ-48  MultiMotorThreading_BYJ.py
 2. For Bipolar DRV8825 Stepper MultiMotorThreading_DRV8825.py
 
-**Note 2 Potential Issue with  GPIO.cleanup() not working** 
+**Note 2 Potential Issue with GPIO.cleanup() not working** 
 
-See github issue #18 
+See github issue #18 and #21
 
 Some users are reporting that GPIO.cleanup() does not work.
-This is external function from  RPi.GPIO used in test scripts , 
-I have left it in scripts for the moment as I am not seeing the issue.
-If you see this issue simply remove GPIO.cleanup and clear the GPIO you set  manually.
+It does not switch off or "cleanup" GPIO as it should.
+This is external function from RPi.GPIO. It is mainly used in the test scripts.
+It is also called by the classes in DC motor if the cleanup method is passed argument "true".
+If you see this issue simply don't use GPIO.cleanup() or remove GPIO.cleanup 
+and clear the GPIO you set manually or use python "del" method to destroy the relevant class object,
+to free resources if you need them again.

@@ -16,13 +16,14 @@ import RPi.GPIO as GPIO
 from RpiMotorLib import RpiMotorLib
 
 """
+# Needed for testing motor stop 
 # To Test motor stop put push button to VCC on GPIO 17 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 """
 
-# Declare an named instance of class pass your name and type of motor
+# Declare an named instance of class pass your custom name and type of motor
 mymotortest = RpiMotorLib.BYJMotor("MyMotorOne", "28BYJ")
 
 def main():
@@ -30,7 +31,7 @@ def main():
     
     # ====== tests for motor 28BYJ48 ====
     
-    # To Test motor stop , put push button to VCC on GPIO 17 
+    # Needed for testing motor stop
     # GPIO.add_event_detect(17, GPIO.RISING, callback=button_callback)
     
     # Connect GPIO to [IN1 , IN2 , IN3 ,IN4] on Motor PCB
@@ -68,9 +69,8 @@ if __name__ == '__main__':
    
     print("START")
     main()
-    GPIO.cleanup()
+    GPIO.cleanup() # Optional 
     exit()
     
     
-
 # =====================END===============================

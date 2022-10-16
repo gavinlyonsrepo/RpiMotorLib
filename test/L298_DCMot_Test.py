@@ -3,8 +3,16 @@
 
 import time 
 import RPi.GPIO as GPIO
-#import sys
-#sys.path.insert(0, '/home/pi/Documents/tech/RpiMotorLib/RpiMotorLib')
+
+"""
+# Next 3 lines for development local library path testing import
+# Comment out in production release and change rpi_dc_lib.L298NMDc to L298NMDc 
+import sys
+sys.path.insert(0, '/home/pi/Documents/tech/RpiMotorLib/RpiMotorLib')
+from rpi_dc_lib import L298NMDc
+"""
+
+# Production installed library import 
 from RpiMotorLib import rpi_dc_lib 
 
 # ====== tests for  DC motor L298 ====
@@ -124,7 +132,7 @@ def motortwo():
             print(error)
             print("Unexpected error:")
     finally:
-        MotorTwo.cleanup(True)
+        MotorTwo.cleanup(False)
     
 # ===================MAIN===============================
 

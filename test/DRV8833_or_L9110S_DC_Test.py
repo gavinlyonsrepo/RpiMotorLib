@@ -4,13 +4,18 @@ testfile for  DC motor run by DRV8833 or L9110s test"""
 
 import time 
 import RPi.GPIO as GPIO
-#import sys
-#sys.path.insert(0, '/home/pi/Documents/tech/RpiMotorLib/RpiMotorLib')
 
+"""
+# Next 3 lines for development local library path testing import
+# Comment out in production release and change rpi_dc_lib.DRV8833NmDc to DRV8833NmDc
+import sys
+sys.path.insert(0, '/home/pi/Documents/tech/RpiMotorLib/RpiMotorLib')
+from rpi_dc_lib import DRV8833NmDc
+"""
 
+# Production installed library import 
 from RpiMotorLib import rpi_dc_lib 
 
-    
 # ====== tests L9110S -DRV8833   ====
 
 # my pin-outs L9110S -DRV8833
@@ -21,16 +26,15 @@ from RpiMotorLib import rpi_dc_lib
 # in4 B-1A - black = 21
 
 # L9110S B output dir A output PWM
-# ======== test motor 1 ==================
 
 
 def motorone():
     
     print(" TEST: testing motor 1") 
-    # Motorssetup
+    # Motors setup
     MotorOne = rpi_dc_lib.DRV8833NmDc(26 ,19 ,50 ,True, "motor_one")
 
-    # ================ Motors one test  section 1=============
+    # ================ Motors one test  section =============
     try:
         print("1. motor forward")
         MotorOne.forward(15)
@@ -81,10 +85,10 @@ def motorone():
 def motortwo():
       
     print(" TEST: testing motor ") 
-    # Motorssetup
+    # Motors setup
     MotorTwo = rpi_dc_lib.DRV8833NmDc(13 ,21 ,50 ,True, "motor_two")
 
-    # ================ Motors two test  section 1=============
+    # ================ Motors two test section =============
     try:
         print("1. motor forward")
         MotorTwo.forward(15)
@@ -131,7 +135,7 @@ def motortwo():
             print(error)
             print("Unexpected error:")
     finally:
-        MotorTwo.cleanup(True)
+        MotorTwo.cleanup(False)
     
 # ===================MAIN===============================
 

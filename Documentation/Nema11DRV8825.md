@@ -133,7 +133,4 @@ mymotortest = RpiMotorLib.A4988Nema(direction, step, GPIO_pins, "DRV8825")
 # call the function, pass the arguments
 mymotortest.motor_go(False, "Full" , 100, .01, False, .05)
 
-# good practise to cleanup GPIO at some point before exit
-GPIO.cleanup()
-
 ```

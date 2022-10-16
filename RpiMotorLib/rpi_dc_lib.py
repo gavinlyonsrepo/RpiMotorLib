@@ -14,8 +14,7 @@
 
  author            :Gavin Lyons
  web               :https://github.com/gavinlyonsrepo/RpiMotorLib
- mail              :glyons66@hotmail.com
- python_version    :3.5.3
+ python_version    :3.7.3
  """
 
 # ========================== IMPORTS ======================
@@ -112,6 +111,7 @@ class L298NMDc():
         GPIO.output(self.pin_one, False)
         GPIO.output(self.pin_two, False)
         self.my_pwm.ChangeDutyCycle(0)
+        self.my_pwm.stop()
         if clean_up:
             GPIO.cleanup()
 
@@ -193,8 +193,9 @@ class DRV8833NmDc():
         if self.verbose:
             print("rpi_dc_lib.py : Cleaning up")
         GPIO.output(self.pin_one, False)
-        self.my_pwm.ChangeDutyCycle(0)
         GPIO.output(self.pin_two, False)
+        self.my_pwm.ChangeDutyCycle(0)
+        self.my_pwm.stop()
         if clean_up:
             GPIO.cleanup()
 
@@ -331,6 +332,7 @@ class TB6612FNGDc():
         GPIO.output(self.pin_one, False)
         GPIO.output(self.pin_two, False)
         self.my_pwm.ChangeDutyCycle(0)
+        self.my_pwm.stop()
         if clean_up:
             GPIO.cleanup()
 

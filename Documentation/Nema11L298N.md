@@ -183,8 +183,6 @@ time.sleep(0.5)
 # call the function pass the parameters
 mymotortest.motor_run(GpioPins , 0.1, 50, False, False, "half", .05)
 
-# good practise to cleanup GPIO at some point before exit
-GPIO.cleanup()
 ```
 
 If verbose is set to True various information on pin output and status is outputted to screen at end of a run

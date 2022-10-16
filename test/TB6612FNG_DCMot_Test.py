@@ -4,9 +4,16 @@
 
 import time
 import RPi.GPIO as GPIO
-#import sys
-#sys.path.insert(0, '/home/pi/Documents/tech/RpiMotorLib/RpiMotorLib')
-#import rpi_dc_lib 
+
+"""
+# Next 3 lines for development local library path testing import
+# Comment out in production release and change rpi_dc_lib.TB6612FNGDc to TB6612FNGDc
+import sys
+sys.path.insert(0, '/home/pi/Documents/tech/RpiMotorLib/RpiMotorLib')
+from rpi_dc_lib import TB6612FNGDc
+"""
+
+# Production installed library import 
 from RpiMotorLib import rpi_dc_lib
 
 # ====== tests for  DC motor driven by TB6612FNG ====
@@ -176,7 +183,7 @@ if __name__ == '__main__':
         time.sleep(1)
     finally:
         rpi_dc_lib.TB6612FNGDc.standby(Standby, False)
-        GPIO.cleanup()
+        GPIO.cleanup() # optional
 
     exit()
 
