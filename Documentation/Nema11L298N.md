@@ -103,7 +103,6 @@ Full Step mode and wave drive: 4
 1.8 degrees per step , 200 steps = 200/4 = 50 step sequence for one revolution.
 7.2 degrees per step sequence.
 
-
 Software
 --------------------------------------------
 
@@ -114,48 +113,31 @@ The library file RpiMotorLib.py has a class which controls the motor with one
 main function. The test file in the test folder is called L298_Step_Test.py.
 
 When initializing the class pass a name and motor type.
+NB **Set motor type to Nema for this component** 
 The class is called BYJMotor.
 
-BYJMotor(name, motor_type) 
+`BYJMotor(name, motor_type)`
 
-(1) name ,type=string, default="BYJMotorX" , help= my motor_id
+| ID  | Name   | Type   | Help | 
+|-----|---------|----------|----------|
+| (1) | name   | type=string, default="BYJMotorX" | motor_id    |
+| (2) | motor_type | type=string, default="28BYJ"     |  calculate degree in verbose output 2 options , Nema and 28BYJ. Nema for this component |
 
-(2) motor_type ,type=string, default="28BYJ", used by class 
-to calculate degree in verbose output two options currently
-Nema and 28BYJ. Set to Nema for this component
+The first method is called motor_run- moves stepper motor based on 7 inputs.
+`motor_run(GPIOPins, wait, steps, counterclockwise, verbose, steptype, initdelay)`
 
-The first function is called motor_run- moves stepper motor based on 7 inputs.
-motor_run(GPIOPins, wait, steps, counterclockwise, verbose, steptype, initdelay)
+| ID  | Name  | Type | Help |
+|-----|------|-------|------|
+| (1) | GpioPins,                  | List of ints 4 long,         | 4 GPIO pins to connect to motor controller,  GPIOPins[0] is plugged into Pin IN1 on the stepper motor. |
+| (2) | wait,                      | float, default=0.001,        | Time to wait(in seconds) between steps.                       |
+| (3) | steps,                     | int, default=512,            | Number of step control signal sequence to take.                 |
+| (4) | ccwise (counterclockwise), | bool default=False           | Turn stepper counterclockwise                       |
+| (5) | verbose,                   | bool default=False | Write pin actions and provide verbose output                   |
+| (6) | steptype,                  | string , default="half"        | Type of drive to step motor 3 options <br> "full" = fullstep <br> "half" = half step <br> "wave" = wave drive.         |
+| (7) | initdelay,                 | float, default=1mS,          | Initial delay after GPIO pins initialized but before motor is moved, gives time for GPIO to initialize.                 |
 
-(1) GpioPins, type=list of ints 4 long, help="list of
- 4 GPIO pins to connect to motor controller
- These are the four GPIO pins we will
- use to drive the stepper motor, in the order
- they are plugged into the controller board. So,
- GPIOPins[0] is plugged into Pin 1 on the stepper motor.
- [18, 23, 24, 25]
-         
-(2) wait, type=float, default=0.001, help=Time to wait
-(in seconds) between steps.
-         
-(3) steps, type=int, default=512, help=Number of step control signal sequence
- to take. 
-         
-(4) ccwise (counterclockwise), type=bool default=False
-help="Turn stepper counterclockwise"
-
- (5) verbose, type=bool  type=bool default=False
- help="Write pin actions and provide verbose output",
  
- (6) steptype, type=string , default=half help= type of drive to
- step motor 3 options full step half step or wave drive
- where full = fullstep , half = half step , wave = wave drive.
-
- (7) initdelay, type=float, default=1mS, help= Intial delay after
-GPIO pins initialized but before motor is moved, gives time for GPIO
-to initialize. 
-  
- he second function is called to stop the motor when the motor is moving.
+The second method is called to stop the motor when the motor is moving.
 motor_stop(), if you wish to stop motor before end of its run. You can also stop with keyboard interrupt. 
 
  Example: To run A stepper motor connected to GPIO pins 18, 23, 24, 25
@@ -169,8 +151,6 @@ motor_stop(), if you wish to stop motor before end of its run. You can also stop
 import time 
 import RPi.GPIO as GPIO
 
-# This code snippet is for Version 1.2 
-
 # import the library
 from RpiMotorLib import RpiMotorLib
     
@@ -180,11 +160,12 @@ GpioPins = [18, 23, 24, 25]
 mymotortest = RpiMotorLib.BYJMotor("MyMotorOne", "Nema")
 time.sleep(0.5)
 
-# call the function pass the parameters
+# call the function pass the arguments
 mymotortest.motor_run(GpioPins , 0.1, 50, False, False, "half", .05)
 
 ```
 
 If verbose is set to True various information on pin output and status is outputted to screen at end of a run
 
- ![ScreenShot verbose](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/screenshot/Verbose_output_run.jpg)
+![ScreenShot verbose](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/images/screenshot/Verbose_output_run.jpg)
+

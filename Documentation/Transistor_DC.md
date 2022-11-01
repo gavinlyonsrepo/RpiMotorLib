@@ -8,7 +8,6 @@ DC motor controlled by Transistor
 Hardware
 --------------------------------------------
 
-
 ![ScreenShot sch](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/motor_gpio.jpg)
 
 DC motor controlled by Transistor connected to a GPIO pin and feed a PWM 
@@ -24,19 +23,24 @@ Software
 -------------------------------------------
 
 The file rpi_dc_lib.py contains code for this component
-It consists of a class called TranDc and two functions
-The four function is called 
-1. dc_motor_run = Drive motor forward, two args = duty cycle % , delay
-2. dc_clean_up = switchs GPIO pins off
+It consists of a class called TranDc and two methods
 
-The class is initialized with GPIO pin, frequency of PWM control signal 
-and verbose output True or false.
+Class init:
+| ID  | Name   | Type  | Default | Help  |
+| ----- | ----- | -- | --- | --- |
+| (1) | pin | int |  | GPIO pin connected base of transistor |
+| (2) | freq  | int | 50| PWM freq in Hz of control signal |
+| (3) | verbose | bool | False |  Write pin actions to console|
+
+The two methods are called 
+1. dc_motor_run = Drive motor forward, two args = duty cycle % , step delay in seconds
+2. dc_clean_up = switchs GPIO pins off
 
 More example code is in the Transistor_DC test.py file in test subfolder of 
 rpiMotorLib repository.
 
 This code will run motor up to max duty cycle % hold it for 
-5seconds and then run it down to zero and then cleanup.
+5 seconds and then run it down to zero and then cleanup.
 
 ```sh
 

@@ -101,9 +101,12 @@ Software
 
 The library file RpiMotorLib.py contains the class which controls 
 the motor. The class is called A4988Nema. This class handles both A4988 
-and Drv8825. The only difference from a user POV is when you instantiate 
-the class the user passes the motor type and also user can now use 
-1/32 microstep for DRV8825. The test file is called DRV8825_Nema_Test.py
+and Drv8825. 
+
+The two difference from a user POV is 
+
+1. When you instantiate the class the user passes the motor type ( "DRV8825") 
+2. 1/32 microstep for DRV8825 is available. The test file is called DRV8825_Nema_Test.py
 
 See for more details [A4988 software Section](Nema11A4988.md) 
 

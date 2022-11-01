@@ -72,9 +72,7 @@ Make sure that the “on/off” jumper next to the “-” pin is on.
 If you power from raspberry pi connect the grounds together.
 It is ok to power one motor from pi 5v rail.
 
-This detailed video  explains more
-
-[video](https://www.youtube.com/watch?v=B86nqDRskVU)
+This detailed [video](https://www.youtube.com/watch?v=B86nqDRskVU) explains more.
 
 Software
 --------------------------------------------
@@ -82,8 +80,8 @@ Software
 The library file RpiMotorLib.py contains the class which controls
 the motor. The test file in the test folder is called [BYJ_Motor_Test.py](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/test/BYJ_Motor_Test.py).
 
-When initialize class pass a name and motor type
-The class is called BYJMotor
+When initialize class pass a name and motor type, The class is called BYJMotor.
+NB **Set to motor type to 28BYJ for this component** 
 
 `BYJMotor(name, motor_type)`
 
@@ -91,10 +89,10 @@ The class is called BYJMotor
 mymotortest = RpiMotorLib.BYJMotor("MyMotorOne", "28BYJ")
 ```
 
-| ID  | Name       | Type                             | Help                                                                                                                      |
-|-----|------------|----------------------------------|---------------------------------------------------------------------------------------------------------------------------|
-| (1) | name       | type=string, default="BYJMotorX" | motor_id                                                                                                                  |
-| (2) | motor_type | type=string, default="28BYJ"     | Used by class to calculate degree in verbose output two options currently Nema and 28BYJ. Set to 28BYJ for this component |
+| ID  | Name   | Type  | Default | Help  |
+| ------|-------|----| --- | --- |
+| (1) | name       | string | BYJMotorX | motor_id    |
+| (2) | motor_type | string | 28BYJ     | Calculate degree in verbose output 2 options , Nema and 28BYJ. 28BYJ for this component |
 
 The main function is called motor_run- moves stepper motor based on 7 inputs.
 
@@ -102,16 +100,15 @@ The main function is called motor_run- moves stepper motor based on 7 inputs.
 mymotortest.motor_run(GPIOPins, wait, steps, counterclockwise, verbose, steptype, initdelay)
 ```
 
-
-| ID  | Name                       | Type                              | Help                                                                                                                                                                                                                                                                 |
-|-----|----------------------------|-----------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| (1) | GpioPins,                  | List of ints 4 long,         | List of 4 GPIO pins to connect to motor controller These are the four GPIO pins we will used to drive the stepper motor, in the order they are plugged into the controller board. So, GPIOPins[0] is plugged into Pin 1 on the stepper motor. <br>[18, 23, 24, 25]  |
-| (2) | wait,                      | float, default=0.001,        | Time to wait(in seconds) between steps.                                                                                                                                                                                                                         |
-| (3) | steps,                     | int, default=512,            | Number of step control signal sequence to take. Default is one revolution 512                                                                                                                                                                                   |
-| (4) | ccwise (counterclockwise), | bool default=False           | Turn stepper counterclockwise                                                                                                                                                                                                                             |
-| (5) | verbose,                   | bool default=False | Write pin actions and provide verbose output                                                                                                                                                                                                             |
-| (6) | steptype,                  | string , default="half"        | Type of drive to step motor 3 options <br> "full" = fullstep <br> "half" = half step <br> "wave" = wave drive.                                                                                                                          |
-| (7) | initdelay,                 | float, default=1mS,          | Initial delay after GPIO pins initialized but before motor is moved, gives time for GPIO to initialize.                                                                                                                                                         |
+| ID  | Name  | Type | Help |
+|-----|------|-------|------|
+| (1) | GpioPins,                  | List of ints 4 long,         | 4 GPIO pins to connect to motor controller,  GPIOPins[0] is plugged into Pin 1 on the stepper motor. [18, 23, 24, 25]  |
+| (2) | wait,                      | float, default=0.001,        | Time to wait(in seconds) between steps.    |
+| (3) | steps,                     | int, default=512,            | Number of step control signal sequence to take. Default is one revolution 512     |
+| (4) | ccwise (counterclockwise), | bool default=False           | Turn stepper counterclockwise     |
+| (5) | verbose,                   | bool default=False | Write pin actions and provide verbose output      |
+| (6) | steptype,                  | string , default="half"        | Type of drive to step motor 3 options <br> "full" = fullstep <br> "half" = half step <br> "wave" = wave driven|
+| (7) | initdelay,                 | float, default=1mS,          | Initial delay after GPIO pins initialized but before motor is moved, gives time for GPIO to initialize.  |
 
 Example: To run A stepper motor connected to GPIO pins 18, 23, 24, 25
 (18-IN1 23-IN2 24-IN3, 25-IN4)

@@ -52,7 +52,7 @@ NB!! Don't forget to connect Pis GND to pin 5 on the module as well to complete 
 
 Finally, connect the six GPIO pins on your pi  output pins to the driver module. 
 IN software code below for two DC motors, So GPIO 19, 13, 20 and 21 will be connected to pins 
-IN1, IN2, IN3 and IN4 respectively. Then connect GPIO 26 to module pin enB (remove the jumper first) 
+IN1, IN2, IN3 and IN4 respectively. Then connect GPIO 26 to module pin EnA (remove the jumper first) 
 and GPIO 16 to module pin EnB (again, remove the jumper). 
 
 The motor direction is controlled by sending a HIGH or LOW signal to the drive for each motor (or channel). 
@@ -72,9 +72,10 @@ This library was tested on a RF-310T-11400 DC motor.
 Software
 -------------------------------------------
 
-The file rpi_dc_lib.py contains code for this component
-It consists of a class called L298NMDc and five methods
-The five functions is called: 
+The file rpi_dc_lib.py contains code for this component,
+It consists of a class called L298NMDc and five methods.
+
+The five methods in class are called: 
 1. forward = Drive motor forward,  passed one argument = duty cycle %
 2. backward = drive motor backward,  passed one argument = duty cycle %
 3. stop = stop motor, passed one argument = duty cycle %

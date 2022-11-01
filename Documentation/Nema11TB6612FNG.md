@@ -110,56 +110,41 @@ The library file RpiMotorLib.py has a class which controls the motor with one
 main function. The test file in the test folder is called TB6612FNG_Nema_Test.py
 
 When initializing the class pass a name and motor type.
+NB **Set motor type to Nema for this component** 
 The class is called BYJMotor.
 
-BYJMotor(name, motor_type) 
+`BYJMotor(name, motor_type)`
 
-(1) name ,type=string, default="BYJMotorX" , help= my motor_id
+| ID  | Name   | Type   | Help | 
+|-----|---------|----------|----------|
+| (1) | name   | type=string, default="BYJMotorX" | motor_id    |
+| (2) | motor_type | type=string, default="28BYJ"     | Used by class to calculate degree in verbose output two options currently Nema and 28BYJ. Set to Nema for this component |
 
-(2) motor_type ,type=string, default="28BYJ", used by class 
-to calculate degree in verbose output two options currently
-Nema and 28BYJ. NB **Set to Nema for this component** 
+The 1st method  is called motor_run- moves stepper motor based on 7 inputs.
 
-The 1st function is called motor_run- moves stepper motor based on 7 inputs.
-motor_run(GPIOPins, wait, steps, counterclockwise, verbose, steptype, initdelay)
+`motor_run(GPIOPins, wait, steps, counterclockwise, verbose, steptype, initdelay)`
 
-(1) GpioPins, type=list of ints 4 long, help="list of
- 4 GPIO pins to connect to motor controller
- These are the four GPIO pins we will
- use to drive the stepper motor,  So:
- GPIOPins[0] is plugged into Pin A11 on the stepper motor.
-  GpioPins = [A11, B11, A12,B12]
-         
-(2) wait, type=float, default=0.001, help=Time to wait
-(in seconds) between steps.
-         
-(3) steps, type=int, default=512, help=Number of step control signal sequence
- to take. 
-         
-(4) ccwise (counterclockwise), type=bool default=False
-help="Turn stepper counterclockwise"
+| ID  | Name  | Type | Help |
+|-----|------|-------|------|
+| (1) | GpioPins,                  | List of ints 4 long,         | 4 GPIO pins to connect to motor controller,  GPIOPins[0] is plugged into Pin A11 on the stepper motor. [A11, B11, A12,B12]  |
+| (2) | wait,                      | float, default=0.001,        | Time to wait(in seconds) between steps.                       |
+| (3) | steps,                     | int, default=512,            | Number of step control signal sequence to take.                 |
+| (4) | ccwise (counterclockwise), | bool default=False           | Turn stepper counterclockwise                       |
+| (5) | verbose,                   | bool default=False | Write pin actions and provide verbose output                   |
+| (6) | steptype,                  | string , default="half"        | Type of drive to step motor 3 options <br> "full" = fullstep <br> "half" = half step <br> "wave" = wave drive.         |
+| (7) | initdelay,                 | float, default=1mS,          | Initial delay after GPIO pins initialized but before motor is moved, gives time for GPIO to initialize.                 |
 
- (5) verbose, type=bool  type=bool default=False
- help="Write pin actions and provide verbose output",
- 
- (6) steptype, type=string , default=half help= type of drive to
- step motor 3 options full step half step or wave drive
- where full = fullstep , half = half step , wave = wave drive.
 
- (7) initdelay, type=float, default=1mS, help= Intial delay after
-GPIO pins initialized but before motor is moved, gives time for GPIO
-to initialize. 
-
-The second function is called to stop the motor when the motor is moving.
+The second method is called to stop the motor when the motor is moving.
 motor_stop(), if you wish to stop motor before end of its run. You can also stop with keyboard interrupt.
 
 Example: 
 
-There is a detailed example code is in the **TB6612FNG_Nema_Test.py** file in test subfolder of 
-rpiMotorLib repository. 
+There is a detailed example code is in the **TB6612FNG_Nema_Test.py** file in test subfolder of  rpiMotorLib repository. 
 
 To run this test file type **python3 TB6612FNG_Nema_Test.py** in a terminal.
 
 If verbose is set to True various information on pin output and status is outputted to screen at end of a run
 
- ![ScreenShot verbose](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/screenshot/Verbose_output_run.jpg)
+![ScreenShot verbose](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/images/screenshot/Verbose_output_run.jpg)
+

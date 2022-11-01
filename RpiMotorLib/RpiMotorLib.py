@@ -258,7 +258,7 @@ class A4988Nema(object):
          help="Turn stepper counterclockwise"
          (2) steptype, type=string , default=Full help= type of drive to
          step motor 5 options
-            (Full, Half, 1/4, 1/8, 1/16) 1/32 for DRV8825 only
+            (Full, Half, 1/4, 1/8, 1/16) 1/32 for DRV8825 only 1/64 1/128 for LV8729 only
          (3) steps, type=int, default=200, help=Number of steps sequence's
          to execute. Default is one revolution , 200 in Full mode.
          (4) stepdelay, type=float, default=0.05, help=Time to wait

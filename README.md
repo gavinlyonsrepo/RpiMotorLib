@@ -18,6 +18,7 @@ Table of contents
   * [Files](#files)
   * [Dependencies](#dependencies)
   * [Components](#components)
+  * [Software matrix](#software-matrix)
   * [Notes and Issues](#notes-and-issues)
 
 Overview
@@ -43,10 +44,8 @@ The library is modular so user can just import/use the section they need.
 Installation
 -----------------------------------------------
 
-The library was initially tested and built on a raspberry pi 3 model b,
-Raspbian jessie 8.0 and python 3.4.2.
+The library was  tested and built on a raspberry pi 3 model b,
 It was also tested for Python (3.5.3) and Raspbian stretch 9.
-Also for Windows 10 users See issue number 2 at project Github URL.
 
 Rpimotorlib is in the PYPI [Link](https://pypi.org/project/rpimotorlib/)
 The Python Package Index (PyPI) is a repository of software for the Python programming language.
@@ -104,9 +103,7 @@ Components
 Şeparate help files are in documentation folder to learn how to use library.
 Click on the relevant URL link in tables below.
 Test files used during development are in test folder of repo.
-Example snippets are also available in some of the documentation files.
-There is a libre office spreadsheet file in the Documentation folder called Matrix, 
-which shows which class is used for which controller, 
+There is a software matrix section below which shows which class is used for which controller, 
 or consult the docstring of the appropriate python file.
 
 1. Stepper motors
@@ -114,16 +111,15 @@ or consult the docstring of the appropriate python file.
 | Motor tested | Motor controller| Help File URL link |
 | ----- | ----- | ----- |
 | Unipolar 28BYJ-48 | ULN2003 driver module | [URL](Documentation/28BYJ.md)| 
-| Bipolar Nema 11 | TB6612FNG Dual Driver Carrier | [URL](Documentation/Nema11TB6612FNG.md) |
-| Bipolar Nema 11 | L298N H-Bridge controller module | [URL](Documentation/Nema11L298N.md) |
-| Bipolar Nema 11 | A4988 Stepper Driver Carrier | [URL](Documentation/Nema11A4988.md)|
-| Bipolar Nema 11 | DRV8825 Stepper Driver Carrier | [URL](Documentation/Nema11DRV8825.md) |
-| Bipolar Nema 11 | A3967 Stepper Driver aka "easy driver v4.4" | [URL](Documentation/Nema11A3967Easy.md)|
-| n/a | LV8729 Stepper Driver Carrier  | [URL](Documentation/Nema11LV8729.md)|
+| Bipolar Nema  | TB6612FNG Dual Driver Carrier | [URL](Documentation/Nema11TB6612FNG.md) |
+| Bipolar Nema  | L298N H-Bridge controller module | [URL](Documentation/Nema11L298N.md) |
+| Bipolar Nema  | A4988 Stepper Driver Carrier | [URL](Documentation/Nema11A4988.md)|
+| Bipolar Nema  | DRV8825 Stepper Driver Carrier | [URL](Documentation/Nema11DRV8825.md) |
+| Bipolar Nema  | A3967 Stepper Driver aka "easy driver v4.4" | [URL](Documentation/Nema11A3967Easy.md)|
+| Bipolar (untested on hw)| LV8729 Stepper Driver Carrier  | [URL](Documentation/Nema11LV8729.md)|
+| Bipolar (untested)| DV8833 Motor controller module | WIP |
+| Bipolar (untested)| L9110S Motor controller module | WIP |
 
-Note: NEMA 11 bipolar stepper motors where used in tests but most other bipolar 4-pin motors of similar type 
-should work as well.
-    
 2. DC motors
 
 | Motor | Motor controller| Help File URL link |
@@ -134,20 +130,31 @@ should work as well.
 | DC Brushed Motor | TB6612FNG Dual Motor Driver Carrier| [ URL ](Documentation/TB6612FNG_DC.md) |
 | DC Brushed Motor | Transistor control | [ URL ](Documentation/Transistor_DC.md) |
 
-3. Servos
+3. Servos (two different options see Note  3 below)
 
 | Servo | Link |
 | ----- | ----- |
 | Servo software timing | [  RPi.GPIO module PWM ](Documentation/Servo_RPI_GPIO.md) |
 | Servo hardware timing | [  pigpio library module PWM ](Documentation/Servo_pigpio.md) |
 
-Note: There are two different options for controlling the servo.
-When using Rpi_GPIO option you may notice twitching at certain
-delays and stepsizes. This is the result of the 
-implementation of the RPIO PWM software timing. If the application requires
-precise control the user can pick the pigpio library
-which uses hardware based timing. The disadvantage being they must install 
-a dependency.
+
+Software matrix
+---------------------------------
+
+Software matrix showing which classes are used to drive which components.
+
+| Controller/Motor | DC motor    | Stepper Nema bipolar | Stepper 28BYJ Unipolar 5 |
+| --------------- | ----------- | -------------------- | ------------------------ |
+| transistor       | TranDc      | n/a                  | n/a                      |
+| l298             | L298NMDc    | BYJMotor             | n/a                      |
+| ULN2003          | n/a         | n/a                  | BYJMotor                 |
+| a4988            | n/a         | A4988Nema            | n/a                      |
+| a3967            | n/a         | A3967EasyNema        | n/a                      |
+| Drv8825          | n/a         | A4988Nema            | n/a                      |
+| L9110S           | DRV8833     | BYJMotor? WIP                  | n/a                      |
+| Drv8833          | DRV8833     | BYJMotor? WIP                  | n/a                      |
+| TB6612FNG        | TB6612FNGDc | BYJMotor             | n/a                      |
+| LV8729           | n/a         | A4988Nema            | n/a                      |
 
 
 Notes and Issues
@@ -174,3 +181,13 @@ It is also called by the classes in DC motor if the cleanup method is passed arg
 If you see this issue simply don't use GPIO.cleanup() or remove GPIO.cleanup 
 and clear the GPIO you set manually or use python "del" method to destroy the relevant class object,
 to free resources if you need them again.
+
+**Note 3 Servo options**
+
+There are two different options for controlling the servo.
+When using Rpi_GPIO option you may notice twitching at certain
+delays and stepsizes. This is the result of the 
+implementation of the RPIO PWM software timing. If the application requires
+precise control the user can pick the pigpio library
+which uses hardware based timing. The disadvantage being they must install 
+a dependency.

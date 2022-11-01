@@ -7,14 +7,8 @@ Hardware
 ------------------------------------
 
 Should Work on any servo with 20mS duty cycle or 50Hz frequency, tested on.
-
-Tower pro Digital micro servo SG90
-Hitec HS422 servo
-Tower pro MG996R Servo
-(Check if your servo has a range of 0-180 degrees and matches the freq/duty cycle specifications, most should)
-
-Datasheet SG90 Datasheet Hs422 Datasheet MG996R
-
+Tower pro Digital micro servo SG90.
+(Check if your servo has a range of 0-180 degrees and matches the freq/duty cycle specifications, most should).
 The following HW description applies to the ultra common SG90 servo.
 
 The servo has 3 wires one for gnd(brown) 5v power(red) and signal(orange/yellow).
@@ -50,7 +44,6 @@ To get slope of line m = (y2-y1)/(x2-x1). The equation of the line using the poi
 
 So for default values 90 degree or midpoint is 1500.
 
-
 Software for Servo by pigpio library
 --------------------------------------------
 
@@ -60,19 +53,15 @@ startup. By typing sudo pigpiod in terminal
 The library file rpi_pservo_lib.py has a single class 
 which controls the servo. Test file is called ServoPIGPIOTest.py.
 
-The class is called ServoPigpio and it contains four methods:
+The class is called ServoPigpio and it contains five methods:
 
-(1) servo_sweep - sets up a continuous sweep from two points
-Center-wait-min-wait-max-wait-min- and so on until user quits or set limit reached.
-
-(2) servo_move - moves to a specified location in a single sweep
-
-(3) convert_from_degree - converts degrees to pulse width 
-
-(4) servo_move_step - moves servo from two points in timed steps.
-
-(5) servo_stop - this will stop the servo if you wish to stop servo before end of its run. 
-You can also stop with keyboard interrupt.
+| ID  | Method  |  Help  | 
+| --- | ---------- |  ----- |
+| (1) |  servo_sweep |   sets up a continuous sweep from two points |
+| (2) |  servo_move |   moves to a specified location in a single sweep   |
+| (3) |  convert_from_degree |  converts degrees to duty cycle percentage   |
+| (4) |  servo_move_step |  moves servo from two points in timed steps.  |
+| (5) |  servo_stop |   this will stop the servo  |
 
 ### Import library and intialise the class 
 
@@ -81,48 +70,37 @@ from RpiMotorLib import rpi_pservo_lib
 myservotest  = rpi_pservo_lib.ServoPigpio("Sone", 50, 1000, 2000)
 ```
 
-The class takes four parameters on init
-1. name, type=string, default=servoY,  
-2. Freq, type=int, default=50, help=control freq of servo in Hz
-3. y_one, type=float, default = 1000 ,help=pulse width min in uS of servo % for 0 degrees
-4. y_two type=float, default = 2000 , help=pulse width max in uS of servo % for 180 degrees
-5. pigpio_addr, type=string default=None, help=host name where pigpio is running
-6. pigpio_port, type=int default=None, help=port number where pigpio is running
+The class takes 6 parameters on init.
+| ID  | Name  | Type  | default  | Help   |       
+| --- | --- | --- | --- | --- | 
+| (1) | name |string | servoY | |
+| (2) | freq | int  | 50 | control freq of servo in Hz |
+| (3) | y_one | float | 1000 | pulse width min in uS of servo % for 0 degrees|
+| (4) | y_two | float | 2000 | pulse width max in uS of servo % for 180 degrees |
+| (5) | pigpio_addr | string | none | host name where pigpio is running | 
+| (6) | pigpio_port | int | none | port number where pigpio is running | 
 
 y_one and y-two are used by methods numbered 3 and 4. 
 
 ### 1 - servo_sweep
 
-function, servo_sweep, 8 inputs
+Method, servo_sweep, 8 inputs
 sets up asweep from two points, 
 Center-delay-min-delay-max-delay- and so on until user quits or set-limit reached.
 
  servo_sweep(servo_pin, center, minduty, maxduty, delay, verbose, initdelay, sweeplen)
 
- (1) servo_pin, type=int help=GPIO pin
- we will contect to signal line of servo
- 
- (2) center, type=float, default=1500,
- help=The center pulse width position of servo in uS.
- 
- (3) minduty, type=float, default=1000,
- help=The min pulse width position of servo in uS.
- 
- (4) maxduty, type=float, default=2000,
- help=The max pulse width position of servo in uS.
- 
- (5) delay, type=float, default=0.5,
- help=Time to wait (in seconds) between steps.
- 
- (6) verbose, type=bool  type=bool default=False
-  help="Output actions & details",
+| ID  | Name  | Type  | Default  | Help   |       
+| --- | --- | --- | --- | --- | 
+| (1) | servo_pin | int | 7 | GPIO pin we will contect to signal line of servo |
+| (2)  | center | float | 1500 | The center pulse width  position of servo in uS |
+| (3)  | minduty  | float | 1000 | The min pulse width position of servo in uS |
+| (4)  | maxduty  | float | 2000 | The max pulse width position of servo in uS.|
+| (5)  | delay | float | 0.5 | Time to wait (in seconds) between steps. |
+| (6)  | verbose | bool | False  | Output actions & details |
+| (7)  | initdelay  | float | 50mS | A delay after Gpio setup and before servo moves |
+| (8)  | sweeplen | int | 1 million |   is number of times to execute sweep. |
 
- (7) initdelay, type=float, default 50mS
-    help= A delay after Gpio setup and before servo moves
-    
- (8)  sweeplen, type=integer , default one million
-     help=  is number of times to execute sweep.
- 
  example:Setup a class instance called servoone with control freq 50mS
  with y_one set to 3 and Y_two to 11. Next call method
  to sweep the servo connected to GPIO pins 7
@@ -139,25 +117,17 @@ myservotest.servo_sweep(7, 1500, 1000, 2000, 0.5, True, 0.01, 100)
 
 ### 2 - servo_move
 
+Method servo_move 5 inputs
 
-function servo_move 5 inputs
+servo_move(servo_pin, position, delay, verbose, initdelay)
 
- servo_move(servo_pin, position, delay, verbose, initdelay)
-
- (1) servo_pin, type=int help=GPIO pin
- we will contect to signal line of servo
- 
- (2) position, type=float, default=7.5,
- help=The  pulse width position of servo to move to, in uS.
- 
- (3) delay, type=float, default=0.5,
- help=Time to wait (in seconds) before move and after setup
- 
- (4) verbose, type=bool  type=bool default=False
-  help="Output actions & details",
-
- (5) initdelay, type=float, default 50mS
-    help= A delay after Gpio setup and before servo moves
+| ID  | Name  | Type  | Default  | Help   |       
+| --- | --- | --- | --- | --- | 
+| (1) | servo_pin | int | 7 | GPIO pin we will contect to signal line of servo |
+| (2)  | position  | float | 1500 | The  pulse width position of servo to move to, in uS.|
+| (3)  | delay | float | 0.5 | Time to wait (in seconds) after move |
+| (4)  | verbose | bool | False  | Output actions & details |
+| (5)  | init delay  | float | 50mS | A delay after Gpio setup and before servo moves |
 
  example: to move the servo connected to GPIO pins 7
  for step delay of 1 second to pulse width of 1200uS
@@ -186,28 +156,16 @@ servo_move_step(servo_pin, start, end, stepdelay, stepsize, initdelay, verbose)
 servo_move_step - moves servo from two points in timed steps,
 seven inputs. 
 
+| ID  | Name  | Type  | Default  | Help   |       
+| --- | --- | --- | --- | --- | 
+| (1) | servo_pin | int | n/a | GPIO pin we will contect to signal line of servo |
+| (2)  | start | float | 10 | start position of servo in degree |
+| (3)  | end  | float | 170 | end position of servo in degrees  |
+| (4)  | stepdelay  | float | 1 | Time to wait (in seconds) between steps |
+| (5)  | stepsize | int | 1 | The size of steps between start and end in degrees |
+| (6)  | initdelay  | float | 50mS | A delay after Gpio setup and before servo moves |
+| (7)  | verbose | bool | False  | Output actions & details |
 
-(1) servo_pin, type=int help=GPIO pin
-we will contect to signal line of servo
-
-(2) start, type=float, default=10,
-help=start position of servo in degree
-
-(3) end, type=float, default=170,
-help=end position of servo in degrees 
-
-(4) stepdelay, type=float, default=1,
-help=Time to wait (in seconds) between steps.
-
-(5) stepsize, type=int, default=1.
-help=the size of steps between start and end in degrees
-
-(6) initdelay, type=float, default 50mS
-help= A delay after Gpio setup and before servo moves
-
-(7) verbose, type=bool  type=bool default=False
- help="Output actions & details",
-         
 Example: to move a servo on GPIO pin 26 from 10 degrees to 170 
 degrees in 3 degree steps every two seconds, with an initial delay 
 of one second and verbose output.   

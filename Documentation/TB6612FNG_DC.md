@@ -72,7 +72,7 @@ Software
 
 The file rpi_dc_lib.py contains code for this component.
 It consists of a class called TB6612FNGDc and six methods.
-The Six functions are called: 
+The Six methods are called: 
 1. forward = Drive motor forward,  passed one argument = duty cycle %
 2. backward = drive motor backward,  passed one argument = duty cycle %
 3. stop = stop motor, passed one argument = duty cycle %
@@ -91,13 +91,9 @@ rpiMotorLib repository.
 
 To run this test file type **python3 TB6612FNG_DCMot_Test.py** in a terminal.
 
-
 In event of error or keyboard interrupt call "cleanup function"
 NOTE their is no error handling in this class but their is the "cleanup" 
 function, Its left to user to catch exceptions and call "cleanup" if they 
 want. The cleanup function executes GPIO.cleanup() if passed True.if passed false it just
 sets the pins in play low. The standby function is independent of the class object
 and is set on and off by user. One class object is declared for each motor.
-
-
-

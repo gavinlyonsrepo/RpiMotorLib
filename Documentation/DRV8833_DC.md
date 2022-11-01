@@ -42,7 +42,7 @@ Software
 -------------------------------------------
 The file rpi_dc_lib.py contains code for this component
 It consists of a class called DRV8833NmDc and five methods
-The five functions is called: 
+The five methods are called: 
 1. forward = Drive motor forward,  passed one argument = duty cycle %
 2. backward = drive motor backward,  passed one argument = duty cycle %
 3. stop = stop motor, passed one argument = duty cycle %

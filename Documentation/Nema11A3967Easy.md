@@ -119,28 +119,26 @@ the motor. The class is called A3967EasyNema.
 The test file is called A3967_Nema_Test.py.
 
 init method 3 inputs.
-1.  direction type=int , help=GPIO pin connected to DIR pin of IC
-2. step_pin type=int , help=GPIO pin connected to STEP of IC
-3. mode_pins type=tuple of 2 ints, help=GPIO pins connected to
-Microstep Resolution pins MS1-MS2 of IC, You can also pass in (-1, -1) here if
-you do not wish to use GPIO to set MSO. 
+
+| ID  | Name   | Type   | Help | 
+|-----|---------|----------|----------|
+| (1) | direction | int | GPIO pin connected to DIR pin of IC |
+| (2) | step_pin | int | GPIO pin connected to STEP of IC |
+| (3) | mode_pins | tuple of 2 ints | GPIO pins connected to Microstep Resolution pins MS1-MS2 of IC, You can also pass in (-1, -1) here if you do not wish to use GPIO to set MS. | 
 
  motor_move method 6 inputs.
- 1. stepdelay type=float, default=0.05, help=Time to wait
- in seconds between steps.
- 2. steps, type=int, default=200, help=Number of steps sequence's
- to execute. Default is 200 ,
- 3. clockwise, type=bool default=False
- help="Turn stepper counterclockwise"
- 4. verbose, type=bool  type=bool default=False
- help="Write pin actions",
- 5. steptype, type=string , default=Full help= type of drive to
- step motor 4 options
-    (Full, Half, 1/4, 1/8)
- 6. initdelay, type=float, default=1mS, help= Initial delay after
- GPIO pins initialized but before motor is moved.
  
-Another function is called to stop the motor when the motor is moving.
+| ID  | Name   | Type  | Default  | Help | 
+|-----|---------|----------|----------| ---- |
+| (1) | stepdelay | float | .05 | Time to wait in seconds between steps |
+| (2) | steps| int |  200| Number of steps sequence's  to execute. |
+| (3) | clockwise | bool | false | Turn stepper counterclockwise |
+| (4) | verbose | bool | false | Write pin actions to console |
+| (5) | steptype | string | Full |  type of drive to step motor 4 options(Full, Half, 1/4, 1/8) |
+| (6) | initdelay | float | 1mS | Initial delay after GPIO pins initialized but before motor is moved. |
+
+ 
+Another method is called to stop the motor when the motor is moving.
 motor_stop(), if you wish to stop motor before end of its run. 
 You can also stop with keyboard interrupt.
 
