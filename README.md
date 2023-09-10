@@ -1,7 +1,7 @@
 
 [![Website](https://img.shields.io/badge/Website-Link-blue.svg)](https://gavinlyonsrepo.github.io/)  [![Rss](https://img.shields.io/badge/Subscribe-RSS-yellow.svg)](https://gavinlyonsrepo.github.io//feed.xml)  [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/paypalme/whitelight976)
 
-# RpiMotorLib,
+# RpiMotorLib
 
 
 ![ScreenShot dcmotor](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/RF310T11400.jpg)
@@ -9,18 +9,22 @@
 ![ScreenShot L298N](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/L298N.jpg)
 ![ScreenShot A4988](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/A4988.jpg)
 
-Table of contents
----------------------------
+## Table of contents
 
   * [Table of contents](#table-of-contents)
   * [Overview](#overview)
   * [Installation](#installation)
   * [Hardware](#hardware)
+      * [Stepper motors](#stepper-motors)
+      * [DC motors](#dc-motors)
+      * [Servos](#servos)
   * [Software](#software)
-  * [Notes](#notes-and-issues)
+      * [Files](#files)
+      * [Dependencies](#dependencies)
+  * [Notes](#notes)
 
-Overview
---------------------------------------------
+## Overview
+
 * Name: RpiMotorLib
 * Title: Raspberry pi motor library.
 * Description: 
@@ -35,8 +39,7 @@ The library is modular so user can just import/use the section they need.
 
 * Project URL: [URL LINK](https://github.com/gavinlyonsrepo/RpiMotorLib)
 
-Installation
------------------------------------------------
+## Installation
 
 The library was tested and built on a raspberry pi 3 model b,
 running Python (3.5.3) and Raspbian stretch 9.
@@ -50,12 +53,11 @@ Make sure that python3 and pip3 have been installed on your machine, then for a 
 sudo pip3 install rpimotorlib
 ```
 
-Hardware
-----------------------
+## Hardware
 
 Supported Components: 
 
-1. Stepper motors
+### Stepper motors
 
 | Motor tested | Motor controller| Help File URL link |
 | ----- | ----- | ----- |
@@ -69,7 +71,7 @@ Supported Components:
 | Bipolar (untested)| DV8833 Motor controller module | TODO |
 | Bipolar (untested)| L9110S Motor controller module | TODO |
 
-2. DC motors
+### DC motors
 
 | Motor | Motor controller| Help File URL link |
 | ----- | ----- | ----- |
@@ -79,7 +81,9 @@ Supported Components:
 | DC Brushed Motor | TB6612FNG Dual Motor Driver Carrier| [ URL ](Documentation/TB6612FNG_DC.md) |
 | DC Brushed Motor | Transistor control | [ URL ](Documentation/Transistor_DC.md) |
 
-3. Servos (two different options see Note 3 in notes)
+### Servos 
+
+Two different options see Note 3 in notes
 
 | Servo | Link |
 | ----- | ----- |
@@ -87,8 +91,7 @@ Supported Components:
 | Servo hardware timing | [  pigpio library module PWM ](Documentation/Servo_pigpio.md) |
 
 
-Software
------------------------------------
+## Software
 
 1. Separate help files are in documentation folder to learn how to use library.
     Click on the relevant URL link in tables in hardware section.
@@ -96,7 +99,7 @@ Software
 3. There is a "Software matrix" showing which classes are used to drive which components.
     This is in the Software_Matrix.md file in documentation folder.
 
-**Files**
+### Files
 
 rpiMotorLib files are listed below:
 
@@ -121,7 +124,7 @@ RpiMotorScriptLib.py -[options]
 | -v  | Print version information and exit |
 
 
-**Dependencies**
+### Dependencies
 
 
 1. RPi.GPIO 0.6.3  [Rpi.GPIO pypi page](https://pypi.python.org/pypi/RPi.GPIO)
@@ -138,8 +141,7 @@ pigpio is a library for the Raspberry which allows
 control of the General Purpose Input Outputs (GPIO).
 
 
-Notes
-------------------------
+## Notes
 
 1. Running two motors simultaneously.
 2. Potential Issue with GPIO.cleanup() not working.
