@@ -3,6 +3,7 @@
 
 # RpiMotorLib
 
+
 ![ScreenShot dcmotor](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/RF310T11400.jpg)
 ![ScreenShot Nema](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/nema11.jpg)
 ![ScreenShot L298N](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/L298N.jpg)
@@ -43,6 +44,7 @@ and then control the components with short snippets of code.
 The library is modular so user can just import/use the section they need.
 
 * Project URL: [URL LINK](https://github.com/gavinlyonsrepo/RpiMotorLib)
+
 
 * Tested on Toolchains: 
     1. RPI 3 model B. Raspbian 10 Buster, 32 bit. Python 3.7.3.
@@ -112,6 +114,7 @@ precise control the user can pick the pigpio library
 which uses hardware based timing. The disadvantage being they must install 
 a dependency(pigpio) and start its daemon.
 
+
 | Servo | Link |
 | ----- | ----- |
 | Servo software timing | [  RPi.GPIO module PWM ](Documentation/Servo_RPI_GPIO.md) |
@@ -126,7 +129,9 @@ a dependency(pigpio) and start its daemon.
 3. There is a "Software matrix" showing which classes are used to drive which components.
     This is in the Software_Matrix.md file in documentation folder.
 
+
 ### File System
+
 
 RpiMotorLib files are listed below:
 
