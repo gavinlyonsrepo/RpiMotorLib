@@ -1,26 +1,35 @@
 
 [![Website](https://img.shields.io/badge/Website-Link-blue.svg)](https://gavinlyonsrepo.github.io/)  [![Rss](https://img.shields.io/badge/Subscribe-RSS-yellow.svg)](https://gavinlyonsrepo.github.io//feed.xml)  [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/paypalme/whitelight976)
 
-# RpiMotorLib,
-
+# RpiMotorLib
 
 ![ScreenShot dcmotor](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/RF310T11400.jpg)
 ![ScreenShot Nema](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/nema11.jpg)
 ![ScreenShot L298N](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/L298N.jpg)
 ![ScreenShot A4988](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/A4988.jpg)
 
-Table of contents
----------------------------
+## Table of contents
 
   * [Table of contents](#table-of-contents)
   * [Overview](#overview)
   * [Installation](#installation)
+    * [From PyPi with pip or pipx](from-pypi-with-pip-or-pipx)
+    * [From Github](from-github)
   * [Hardware](#hardware)
+    * [Stepper motors](stepper-motors)
+    * [DC motors](dc-motors)
+    * [Servos](servos)
   * [Software](#software)
-  * [Notes](#notes-and-issues)
+    * [File System](file-system)
+    * [Dependencies](dependencies)
+  * [Notes and issues](#notes-and-issues)
+    * [Two Motors simultaneously](two-motors-simultaneously)
+    * [GPIO cleanup method](gpio-cleanup-method)
+    * [pipx](pipx)
 
-Overview
---------------------------------------------
+
+## Overview
+
 * Name: RpiMotorLib
 * Title: Raspberry pi motor library.
 * Description: 
@@ -35,27 +44,41 @@ The library is modular so user can just import/use the section they need.
 
 * Project URL: [URL LINK](https://github.com/gavinlyonsrepo/RpiMotorLib)
 
-Installation
------------------------------------------------
+* Tested on Toolchains: 
+    1. RPI 3 model B. Raspbian 10 Buster, 32 bit. Python 3.7.3.
+    2. RPI 3 model B. Raspbian 12 Bookworm, 64 bit. Python 3.11.2.
 
-The library was tested and built on a raspberry pi 3 model b,
-running Python (3.5.3) and Raspbian stretch 9.
+## Installation
 
-Rpimotorlib is in the PYPI [Link](https://pypi.org/project/rpimotorlib/)
+Latest version 3.2 (10-2022)
+
+### From PyPi with pip or pipx
+
 The Python Package Index (PyPI) is a repository of software for the Python programming language.
+The program is present in python package index, Pypi.
+Install using *pip* or *pipx* to the location or environment of your choice.
+Package name = rpimotorlib [Link](https://pypi.org/project/rpimotorlib/).
 
-Make sure that python3 and pip3 have been installed on your machine, then for a global install:
+NB see notes section for more on pipx. 
+
+### From Github
+
+Manually install from github
+The package is also archived on github and can be manually download and installed 
+via python and setup.py. Not recommended.
 
 ```sh
-sudo pip3 install rpimotorlib
+curl -sL https://github.com/gavinlyonsrepo/RpiMotorLib/archive/3.2.tar.gz | tar xz
+cd RpiMotorLib-3.2
+python3 setup.py build 
+python3 setup.py install --user
 ```
 
-Hardware
-----------------------
+## Hardware
 
 Supported Components: 
 
-1. Stepper motors
+### Stepper motors
 
 | Motor tested | Motor controller| Help File URL link |
 | ----- | ----- | ----- |
@@ -69,7 +92,7 @@ Supported Components:
 | Bipolar (untested)| DV8833 Motor controller module | TODO |
 | Bipolar (untested)| L9110S Motor controller module | TODO |
 
-2. DC motors
+### DC motors
 
 | Motor | Motor controller| Help File URL link |
 | ----- | ----- | ----- |
@@ -79,7 +102,15 @@ Supported Components:
 | DC Brushed Motor | TB6612FNG Dual Motor Driver Carrier| [ URL ](Documentation/TB6612FNG_DC.md) |
 | DC Brushed Motor | Transistor control | [ URL ](Documentation/Transistor_DC.md) |
 
-3. Servos (two different options see Note 3 in notes)
+### Servos
+
+There are two different options for controlling the servo.
+When using Rpi_GPIO option you may notice twitching at certain
+delays and stepsizes. This is the result of the 
+implementation of the RPIO PWM software timing. If the application requires
+precise control the user can pick the pigpio library
+which uses hardware based timing. The disadvantage being they must install 
+a dependency(pigpio) and start its daemon.
 
 | Servo | Link |
 | ----- | ----- |
@@ -87,8 +118,7 @@ Supported Components:
 | Servo hardware timing | [  pigpio library module PWM ](Documentation/Servo_pigpio.md) |
 
 
-Software
------------------------------------
+## Software
 
 1. Separate help files are in documentation folder to learn how to use library.
     Click on the relevant URL link in tables in hardware section.
@@ -96,9 +126,9 @@ Software
 3. There is a "Software matrix" showing which classes are used to drive which components.
     This is in the Software_Matrix.md file in documentation folder.
 
-**Files**
+### File System
 
-rpiMotorLib files are listed below:
+RpiMotorLib files are listed below:
 
 | File Path | Description |
 | ------ | ------ |
@@ -121,7 +151,7 @@ RpiMotorScriptLib.py -[options]
 | -v  | Print version information and exit |
 
 
-**Dependencies**
+### Dependencies
 
 
 1. RPi.GPIO 0.6.3  [Rpi.GPIO pypi page](https://pypi.python.org/pypi/RPi.GPIO)
@@ -130,7 +160,7 @@ A module to control Raspberry Pi GPIO channels.
 This package provides a class to control the GPIO on a Raspberry Pi.
 This should already be installed on most Raspberry Pis.
 
-2. pigpio 1.64-1 [Homepage](http://abyz.co.uk/rpi/pigpio/)
+2. pigpio 1.64-1 [Homepage](abyz.co.uk/rpi/pigpio/)
 
 This Dependency is *Optional*, it is currently 
 only used in one of the two servo control options.
@@ -138,26 +168,21 @@ pigpio is a library for the Raspberry which allows
 control of the General Purpose Input Outputs (GPIO).
 
 
-Notes
-------------------------
+## Notes and issues
 
-1. Running two motors simultaneously.
-2. Potential Issue with GPIO.cleanup() not working.
-3. Servo options.
+### Two Motors simultaneously
 
-**Note 1 Running two motors simultaneously**
+Running two motors simultaneously, See github issue #11
 
-See github issue #11
-
-If you want to control two steppers simultaneously, there are two basic setup
-file for using threading in test folder. 
+If you want to control two or more steppers simultaneously, there are two basic setup
+files for using threading in test folder. 
 
 1. For Unipolar 28BYJ-48  MultiMotorThreading_BYJ.py
 2. For Bipolar DRV8825 Stepper MultiMotorThreading_DRV8825.py
 
-**Note 2 Potential Issue with GPIO.cleanup() not working** 
+### GPIO cleanup method
 
-See github issue #18 and #21
+Potential Issue with GPIO.cleanup() method not working* See github issue #18 and #21
 
 Some users are reporting that GPIO.cleanup() does not work.
 It does not switch off or "cleanup" GPIO as it should.
@@ -167,12 +192,25 @@ If you see this issue simply don't use GPIO.cleanup() or remove GPIO.cleanup
 and clear the GPIO you set manually or use python "del" method to destroy the relevant class object,
 to free resources if you need them again.
 
-**Note 3 Servo options**
+### pipx
 
-There are two different options for controlling the servo.
-When using Rpi_GPIO option you may notice twitching at certain
-delays and stepsizes. This is the result of the 
-implementation of the RPIO PWM software timing. If the application requires
-precise control the user can pick the pigpio library
-which uses hardware based timing. The disadvantage being they must install 
-a dependency.
+As of pep668, Users on many systems will now get an error if they try and install packages on system
+with pip("~environment is externally managed"). One solution is to use pip to install to a virtual environment.
+
+Another is to use package. **PIPX**, which installs packages globally into isolated Virtual Environments.
+
+The first problem I had was getting my test files to "see" this Virtual environment so they could import the modules. In test/pipx
+I have created two pipx examples files showing my temporary "solution". In example 1 I append the package location to sys.path using sys.path.insert
+and in example 2 I simply change the shebang at first line of file. I will learn more about pipx and see if there is a better solution.
+
+The second problem after finding the correct path is the RPi.GPIO is not in the pipx venv. So must be "injected" into the venv.
+this is because I did not include RPi.GPIO in the setup.py as it is always there globally(for most users).
+I will correct this in next update.
+
+```sh
+pipx install rpimotorlib
+pipx inject rpimotorlib RPi.GPIO
+```
+
+ 
+
