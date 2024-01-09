@@ -1,4 +1,10 @@
-#!/home/gavin/.local/pipx/venvs/rpimotorlib/bin/python3.11
+#!/home/gavin/.local/pipx/venvs/rpimotorlib/bin/python
+
+"""
+or
+//#!/home/gavin/.local/pipx/venvs/rpimotorlib/bin/python3.11
+"""
+
 """ test example file for module : rpiMotorlib.py
 file : rpiservolib.py class : SG90servo 
 This file is for servos controlled by GPIO PWM"""

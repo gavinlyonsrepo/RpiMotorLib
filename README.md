@@ -204,9 +204,10 @@ with pip("~environment is externally managed"). One solution is to use pip to in
 
 Another is to use package. **PIPX**, which installs packages globally into isolated Virtual Environments.
 
-The first problem I had was getting my test files to "see" this Virtual environment so they could import the modules. In test/pipx
-I have created two pipx examples files showing my temporary "solution". In example 1 I append the package location to sys.path using sys.path.insert
-and in example 2 I simply change the shebang at first line of file. I will learn more about pipx and see if there is a better solution.
+The first problem I had was getting my test files to "see" this isolated Virtual environment so they could import the modules. In test/pipx
+I have created two pipx examples files showing a solution. In example 1 I append the package location to sys.path using sys.path.insert
+and in example 2 I simply change the shebang at first line of file(the new shebang is from the pipx installed RpiMotorScriptLib.py file at .local/bin) . 
+I will learn more about pipx and see if there is a better solution.
 
 The second problem after finding the correct path is the RPi.GPIO is not in the pipx venv. So must be "injected" into the venv.
 this is because I did not include RPi.GPIO in the setup.py as it is always there globally(for most users).
