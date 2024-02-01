@@ -1,15 +1,22 @@
 #!/usr/bin/env python3
-""" test example file for rpiMotorlib.py   motor A3967 NEMA """
+""" 
+Test example file for rpiMotorlib.py  Stepper motor A3967 NEMA 
+
+Comment in code  blocks marked: 
+"EMERGENCY STOP BUTTON CODE" to Test motor stop method with Push Button
+and place push button to VCC on GPIO 17 :: VCC - PB1Pin1 , GPIO17 - PB1Pin2
+"""
 
 import time
 import RPi.GPIO as GPIO
 
 """
-# Next 3 lines for development, local library testing import
-# Comment out in production release and change RpiMotorLib.A3967EasyNema 
-# to A3967EasyNema below
+# For development USE local library testing import
+# 1. Comment in Next 3 lines 
+# 2. Comment out in "Production installed library import"
+# 3. change RpiMotorLib.A3967EasyNema  to A3967EasyNema below
 import sys
-sys.path.insert(0, '/home/pi/Documents/tech/RpiMotorLib/RpiMotorLib')
+sys.path.insert(0, '/home/gavin/Documents/tech/RpiMotorLib/RpiMotorLib')
 from RpiMotorLib import A3967EasyNema
 """
 
@@ -17,35 +24,34 @@ from RpiMotorLib import A3967EasyNema
 from RpiMotorLib import RpiMotorLib
 
 """
-# Comment in To Test motor stop, put push button to VCC on GPIO 17
+# EMERGENCY STOP BUTTON CODE: See docstring
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 """
+
+#GPIO pins
+direction= 26       # Direction -> GPIO Pin
+step = 19           # Step -> GPIO Pin
+GPIO_pins = (6, 13) # Microstep Resolution MS1-MS2 -> GPIO Pin Set, Can be set to (-1,-1) 
+
+# Declare an named instance of class pass GPIO-PINs
+# (direction_pin, step_pin, mode_pins):
+mymotortest = RpiMotorLib.A3967EasyNema(direction, step, GPIO_pins)
 
 def main():
     """main function loop"""
 
     # ====== Tests for motor A3967 NEMA ====
     """
-    # Comment in To Test motor stop , put push button to VCC on GPIO 17
+    # # EMERGENCY STOP BUTTON CODE:  See docstring
     GPIO.add_event_detect(17, GPIO.RISING, callback=button_callback)
     """
-    
+
     # Full = 200 steps per revolution
     # Half = 400
     # 1/4 =  800
     # 1/8 =  1600
-
-    #GPIO pins
-    GPIO_pins = (6, 13) # Microstep Resolution MS1-MS2 -> GPIO Pin Set, Can be set to (-1,-1) 
-    direction= 26       # Direction -> GPIO Pin
-    step = 19           # Step -> GPIO Pin
-
-    # Declare an named instance of class pass GPIO-PINs
-    # (direction_pin, step_pin, mode_pins):
-    mymotortest = RpiMotorLib.A3967EasyNema(direction, step, GPIO_pins)
-    
     
     # ====================== section A ===================
     print("TEST SECTION A")
@@ -89,7 +95,7 @@ def main():
 
 
 """
-# Comment in for testing motor stop function ,  put push button to VCC on GPIO 17
+# EMERGENCY STOP BUTTON CODE: See docstring
 def button_callback(channel):
     print("Test file: Stopping motor")
     mymotortest.motor_stop()

@@ -2,39 +2,48 @@
 """ test example file for: module rpiMotorlib.py 
 file: rpi_pservo_lib class:ServoPigpio,
 Run a servo using pigpio library RPI
-make sure to start pigpio dameon """
+make sure to start the pigpio dameon , sudo pigpiod
+
+Comment in code  blocks marked:
+"EMERGENCY STOP BUTTON CODE" to Test motor stop method with Push Button
+and place push button to VCC on GPIO 17 :: VCC - PB1Pin1 , GPIO17 - PB1Pin2
+"""
 
 import time
 
-# Next 3 lines for development, local library testing import
-#Comment out in production release and change rpi_pservo_lib.ServoPigpio to ServoPigpio
-#import sys
-#sys.path.insert(0, '/home/pi/Documents/tech/RpiMotorLib/RpiMotorLib')
-#from rpi_pservo_lib import ServoPigpio
+"""
+# For development USE local library testing import
+# 1. Comment in Next 3 lines 
+# 2. Comment out in "Production installed library import"
+# 3. change rpi_pservo_lib.ServoPigpio to ServoPigpio below
+import sys
+sys.path.insert(0, '/home/gavin/Documents/tech/RpiMotorLib/RpiMotorLib')
+from rpi_pservo_lib import ServoPigpio
+"""
 
 # Production installed library import
 from RpiMotorLib import rpi_pservo_lib
 
-
-# Comment in To Test servo stop put push button to VCC on GPIO 17
 """
+# EMERGENCY STOP BUTTON CODE: See docstring
 import RPi.GPIO as GPIO
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-myservotest  = ServoPigpio("servoone", 50, 1000, 2000)
 """
+
+# initialize(name freq, y_one, y_two)
+myservotest  = rpi_pservo_lib.ServoPigpio("servoone", 50, 1000, 2000 )
 
 def main():
     """main function loop"""
 
     # ===== Tests for servo  ==========
     
-    # Comment in To Test servo stop method
-    # GPIO.add_event_detect(17, GPIO.RISING, callback=button_callback)
-    
-    # initialize(name freq, y_one, y_two)
-    myservotest  = rpi_pservo_lib.ServoPigpio("servoone", 50, 1000, 2000 )
+    """
+    # EMERGENCY STOP BUTTON CODE:  See docstring
+    GPIO.add_event_detect(17, GPIO.RISING, callback=button_callback)
+    """
     
     # == Test Section 1 method servo_move_step==
     
@@ -89,11 +98,12 @@ def main():
     myservotest.servo_move(26, 1500, .5, True,4)
     
     time.sleep(1)
-    
+
+
 """
-# Comment in for testing servo stop
+# EMERGENCY STOP BUTTON CODE: See docstring
 def button_callback(channel):
-    print("Test file: Stopping servo")
+    print("Test file: Stopping motor")
     myservotest.servo_stop()
 """
 

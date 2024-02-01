@@ -1,15 +1,22 @@
 #!/usr/bin/env python3
-""" test example file for rpiMotorlib.py LV8729 NEMA"""
+""" 
+test example file for rpiMotorlib.py LV8729 NEMA
+
+Comment in code  blocks marked:
+"EMERGENCY STOP BUTTON CODE" to Test motor stop method with Push Button
+and place push button to VCC on GPIO 17 :: VCC - PB1Pin1 , GPIO17 - PB1Pin2
+"""
 
 import time
 import RPi.GPIO as GPIO
 
 """
-# Next 3 lines for development, local library testing import
-# Comment out in production release and change RpiMotorLib.A4988Nema to A4988Nema 
-# below when declaring mymotortest
+# For development USE local library testing import
+# 1. Comment in Next 3 lines 
+# 2. Comment out in "Production installed library import"
+# 3. change RpiMotorLib.A4988Nema to A4988Nema below
 import sys
-sys.path.insert(0, '/home/pi/Documents/tech/RpiMotorLib/RpiMotorLib')
+sys.path.insert(0, '/home/gavin/Documents/tech/RpiMotorLib/RpiMotorLib')
 from RpiMotorLib import A4988Nema
 """
 
@@ -17,31 +24,31 @@ from RpiMotorLib import A4988Nema
 from RpiMotorLib import RpiMotorLib
 
 """
-# Comment in To Test motor stop, put push button to VCC on GPIO 17
+# EMERGENCY STOP BUTTON CODE: See docstring
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 """
 
+# Microstep Resolution MS1-MS3 -> GPIO Pin , can be set to (-1,-1,-1) to turn off 
+GPIO_pins = (14, 15, 18) 
+direction= 20       # Direction -> GPIO Pin
+step = 21      # Step -> GPIO Pin
+
+# Declare an named instance of class pass GPIO-PINs
+# (self, direction_pin, step_pin, mode_pins , motor_type):
+mymotortest = RpiMotorLib.A4988Nema(direction, step, GPIO_pins, "LV8729")
+
+
 def main():
     """main function loop"""
 
     """
-    # Comment in To Test motor stop , put push button to VCC on GPIO 17
+    # EMERGENCY STOP BUTTON CODE:  See docstring
     GPIO.add_event_detect(17, GPIO.RISING, callback=button_callback)
     """
     
     # ====== Tests for motor ======
-
-    # Microstep Resolution MS1-MS3 -> GPIO Pin , can be set to (-1,-1,-1) to turn off 
-    GPIO_pins = (14, 15, 18) 
-    direction= 20       # Direction -> GPIO Pin
-    step = 21      # Step -> GPIO Pin
-    
-    # Declare an named instance of class pass GPIO-PINs
-    # (self, direction_pin, step_pin, mode_pins , motor_type):
-    
-    mymotortest = RpiMotorLib.A4988Nema(direction, step, GPIO_pins, "LV8729")
     
     # ====================== section A ===================
     print("TEST SECTION A")
@@ -90,7 +97,7 @@ def main():
 
 
 """
-# Comment in for testing motor stop
+# EMERGENCY STOP BUTTON CODE: See docstring
 def button_callback(channel):
     print("Test file: Stopping motor")
     mymotortest.motor_stop()

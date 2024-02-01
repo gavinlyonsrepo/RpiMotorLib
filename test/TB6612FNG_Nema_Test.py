@@ -1,44 +1,57 @@
 #!/usr/bin/env python3
-""" test example file for rpiMotorlib.py TB6612FNG stepper tests"""
+""" 
+test example file for rpiMotorlib.py TB6612FNG stepper tests
+
+Comment in code  blocks marked:
+"EMERGENCY STOP BUTTON CODE" to Test motor stop method with Push Button
+and place push button to VCC on GPIO 17 :: VCC - PB1Pin1 , GPIO17 - PB1Pin2
+"""
 
 import time 
 import RPi.GPIO as GPIO
 
-# Next 3 lines for development local library testing import
-# Comment out in production release and change RpiMotorLib.BYJMotor to BYJMotor
-#import sys
-#sys.path.insert(0, '/home/pi/Documents/tech/RpiMotorLib/RpiMotorLib')
-#from RpiMotorLib import BYJMotor
+"""
+# For development USE local library testing import
+# 1. Comment in Next 3 lines 
+# 2. Comment out in "Production installed library import"
+# 3. change RpiMotorLib.BYJMotor to BYJMotor below
+import sys
+sys.path.insert(0, '/home/gavin/Documents/tech/RpiMotorLib/RpiMotorLib')
+from RpiMotorLib import BYJMotor
+"""
 
 # Production installed library import 
 from RpiMotorLib import RpiMotorLib
 
 """
-# To Test motor stop put push button to VCC on GPIO 17 
+# EMERGENCY STOP BUTTON CODE: See docstring
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 """
 
+# Declare an named instance of class pass a name and type of motor
+Motorname = "MyMotorOne" 
+Motortype = "Nema"
+mymotortest = RpiMotorLib.BYJMotor(Motorname, Motortype)
+
+
 def main():
     """main function loop"""
 
-    
-    # To Test motor stop , put push button to VCC on GPIO 17 
-    #GPIO.add_event_detect(17, GPIO.RISING, callback=button_callback)
-    
-    # ====== tests for motor TB6612FNG StepTest ====
-
+    """
+    # EMERGENCY STOP BUTTON CODE:  See docstring
+    GPIO.add_event_detect(17, GPIO.RISING, callback=button_callback)
+    """
     # GPIO
-    # Declare an named instance of class pass a name and type of motor
-    Motorname = "MyMotorOne" 
-    Motortype = "Nema"
-    mymotortest = RpiMotorLib.BYJMotor(Motorname, Motortype)
     A11 = 19
     A12 = 26
     B11 = 21
     B12 = 13 
     GpioPins = [A11, B11, A12,B12]
+    
+    # ====== tests for motor TB6612FNG StepTest ====
+
     time.sleep(1)
     input("Press <Enter> to continue Test1")
     
@@ -103,12 +116,13 @@ def main():
     steptype = "wave"
     initdelay = 1
     mymotortest.motor_run(GpioPins, wait ,steps ,ccwise ,verbose, steptype ,initdelay)
-    
+
+
 """
-# used for testing motor stop 
-def button_callback(channel): 
+# EMERGENCY STOP BUTTON CODE: See docstring
+def button_callback(channel):
     print("Test file: Stopping motor")
-    mymotortest.motor_stop()   
+    mymotortest.motor_stop()
 """
 
 # ===================MAIN===============================

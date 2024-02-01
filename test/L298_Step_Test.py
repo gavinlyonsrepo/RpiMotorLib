@@ -1,14 +1,25 @@
 #!/usr/bin/env python3
-""" test example file for rpiMotorlib.py L298 stepper tests"""
+""" 
+test example file for rpiMotorlib.py L298 stepper tests
+
+Comment in code  blocks marked:
+"EMERGENCY STOP BUTTON CODE" to Test motor stop method with Push Button
+and place push button to VCC on GPIO 17 :: VCC - PB1Pin1 , GPIO17 - PB1Pin2
+"""
 
 import time 
 import RPi.GPIO as GPIO
 
-# Next 3 lines for development, local library testing import
-# Comment out in production release and change RpiMotorLib.BYJMotor to BYJMotor
-#import sys
-#sys.path.insert(0, '/home/pi/Documents/tech/RpiMotorLib/RpiMotorLib')
-#from RpiMotorLib import BYJMotor
+
+"""
+# For development USE local library testing import
+# 1. Comment in Next 3 lines 
+# 2. Comment out in "Production installed library import"
+# 3. change RpiMotorLib.BYJMotor to BYJMotor below
+import sys
+sys.path.insert(0, '/home/gavin/Documents/tech/RpiMotorLib/RpiMotorLib')
+from RpiMotorLib import BYJMotor
+"""
 
 # Production installed library import 
 from RpiMotorLib import RpiMotorLib
@@ -18,7 +29,7 @@ from RpiMotorLib import RpiMotorLib
 mymotortest = RpiMotorLib.BYJMotor("MyMotorOne", "Nema")
 
 """
-# To Test motor stop put push button to VCC on GPIO 17 
+# EMERGENCY STOP BUTTON CODE: See docstring
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
@@ -26,12 +37,13 @@ GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 def main():
     """main function loop"""
-    
+
     # ====== tests for motor L298STepTest ====
-    
-    # To Test motor stop , put push button to VCC on GPIO 17 
-    # GPIO.add_event_detect(17, GPIO.RISING, callback=button_callback)
-    
+
+    """
+    # EMERGENCY STOP BUTTON CODE:  See docstring
+    GPIO.add_event_detect(17, GPIO.RISING, callback=button_callback)
+    """
     # Connect GPIO to [IN1 , IN2 , IN3 ,IN4] on Motor PCB
     GpioPins = [19, 26, 21, 13]
     
@@ -54,13 +66,13 @@ def main():
 
 
 """
-# needed for testing motor stop 
-def button_callback(channel): 
+# EMERGENCY STOP BUTTON CODE: See docstring
+def button_callback(channel):
     print("Test file: Stopping motor")
-    mymotortest.motor_stop()   
+    mymotortest.motor_stop()
 """
 
-    
+
 # ===================MAIN===============================
 
 if __name__ == '__main__':

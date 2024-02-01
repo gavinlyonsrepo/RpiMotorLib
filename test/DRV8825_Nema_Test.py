@@ -1,43 +1,55 @@
 #!/usr/bin/env python3
-""" test example file for rpiMotorlib.py DRV8825 NEMA"""
+""" 
+Test example file for file: RpiMotorLib.py DRV8825 NEMA"
+
+Comment in code  blocks marked:
+"EMERGENCY STOP BUTTON CODE" to Test motor stop method with Push Button
+and place push button to VCC on GPIO 17 :: VCC - PB1Pin1 , GPIO17 - PB1Pin2
+"""
 
 import time 
 import RPi.GPIO as GPIO
 
-# Next 3 lines for development, local library testing import
-# Comment out in production release and change RpiMotorLib.A4988Nema to A4988Nema
-#import sys
-#sys.path.insert(0, '/home/pi/Documents/tech/RpiMotorLib/RpiMotorLib')
-#from RpiMotorLib import A4988Nema 
+"""
+# For development USE local library testing import
+# 1. Comment in Next 3 lines 
+# 2. Comment out in "Production installed library import"
+# 3. change RpiMotorLib.A4988Nema to A4988Nema below
+import sys
+sys.path.insert(0, '/home/gavin/Documents/tech/RpiMotorLib/RpiMotorLib')
+from RpiMotorLib import A4988Nema 
+"""
 
 # Production installed library import 
 from RpiMotorLib import RpiMotorLib
 
 """
-# Comment in to Test motor stop put push button to VCC on GPIO 17 
+# EMERGENCY STOP BUTTON CODE: See docstring
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 """
 
+#GPIO pins 
+# Microstep Resolution M0-M1-M2 -> GPIO Pin
+# Note: you can Pass in (-1,-1,-1) if you wish to hardwire Ms-X to logic and 
+# Save GPIO pins. 
+GPIO_pins = (14, 15, 18)
+direction= 20  # Direction -> GPIO Pin
+step = 21      # Step -> GPIO Pin
+
+# Declare an named instance of class pass GPIO-PINs
+#( self, direction_pin, step_pin, mode_pins ,motor_type)
+mymotortest = RpiMotorLib.A4988Nema(direction, step, GPIO_pins, "DRV8825")
+
 def main():
     """main function loop"""
-    # Comment in to Test motor stop , put push button to VCC on GPIO 17 
-    # GPIO.add_event_detect(17, GPIO.RISING, callback=button_callback)
-    
-    # ====== Tests for motor ====
-    #GPIO pins 
-    # Microstep Resolution M0-M1-M2 -> GPIO Pin
-    # Note: you can Pass in (-1,-1,-1) if you wish to hardwire Ms-X to logic and 
-    # Save GPIO pins. 
-    GPIO_pins = (14, 15, 18)
-    
-    direction= 20       # Direction -> GPIO Pin
-    step = 21      # Step -> GPIO Pin
 
-    # Declare an named instance of class pass GPIO-PINs
-    #( self, direction_pin, step_pin, mode_pins ,motor_type)
-    mymotortest = RpiMotorLib.A4988Nema(direction, step, GPIO_pins, "DRV8825")
+    # ====== Tests for motor ====
+    """
+    # EMERGENCY STOP BUTTON CODE:  See docstring
+    GPIO.add_event_detect(17, GPIO.RISING, callback=button_callback)
+    """
 
     # ====================== section A ===================
     print("TEST SECTION A")
@@ -78,14 +90,15 @@ def main():
     input("TEST: Press <Enter> to continue  1/32 Test10")
     mymotortest.motor_go(False, "1/32" , 6400, .005, True, .05) 
     time.sleep(1)
-    
+
+
 """
-# needed for testing motor stop 
-def button_callback(channel): 
+# EMERGENCY STOP BUTTON CODE: See docstring
+def button_callback(channel):
     print("Test file: Stopping motor")
-    mymotortest.motor_stop()   
+    mymotortest.motor_stop()
 """
-    
+
 # ===================MAIN===============================
 
 if __name__ == '__main__':

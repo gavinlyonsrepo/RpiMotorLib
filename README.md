@@ -1,4 +1,5 @@
 
+
 [![Website](https://img.shields.io/badge/Website-Link-blue.svg)](https://gavinlyonsrepo.github.io/)  [![Rss](https://img.shields.io/badge/Subscribe-RSS-yellow.svg)](https://gavinlyonsrepo.github.io//feed.xml)  [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/paypalme/whitelight976)
 
 # RpiMotorLib
@@ -180,7 +181,7 @@ control of the General Purpose Input Outputs (GPIO).
 Running two motors simultaneously, See github issue #11
 
 If you want to control two or more steppers simultaneously, there are two basic setup
-files for using threading in test folder. 
+files for using threading in test/Multi_Threading_Example folder. 
 
 1. For Unipolar 28BYJ-48  MultiMotorThreading_BYJ.py
 2. For Bipolar DRV8825 Stepper MultiMotorThreading_DRV8825.py
@@ -206,10 +207,10 @@ Another is to use package. **PIPX**, which installs packages globally into isola
 
 The first problem I had was getting my test files to "see" this isolated Virtual environment so they could import the modules. In test/pipx
 I have created two pipx examples files showing a solution. In example 1 I append the package location to sys.path using sys.path.insert
-and in example 2 I simply change the shebang at first line of file(the new shebang is from the pipx installed RpiMotorScriptLib.py file at .local/bin) . 
+and in example 2 I simply change the shebang at first line of file(the new shebang is from the pipx installed RpiMotorScriptLib.py file at .local/bin).
 I will learn more about pipx and see if there is a better solution.
 
-The second problem after finding the correct path is the RPi.GPIO is not in the pipx venv. So must be "injected" into the venv.
+The second problem after finding the correct path is the dependency RPi.GPIO module is not in the pipx venv. So must be "injected" into the venv.
 this is because I did not include RPi.GPIO in the setup.py as it is always there globally(for most users).
 I will correct this in next update.
 
