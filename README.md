@@ -25,6 +25,7 @@
     * [File System](#file-system)
     * [Dependencies](#dependencies)
   * [Notes and issues](#notes-and-issues)
+    * [RPI 5](#rpi-5)
     * [Two Motors simultaneously](#two-motors-simultaneously)
     * [GPIO cleanup method](#gpio-cleanup-method)
     * [pipx](#pipx)
@@ -175,6 +176,10 @@ control of the General Purpose Input Outputs (GPIO).
 
 
 ## Notes and issues
+
+### RPI 5
+
+Will NOT work on raspberry pi 5's at present as  RPi.GPIO does not work anymore due to change's in way raspberry pi 5  handles the peripheral access. See github issue #26
 
 ### Two Motors simultaneously
 
