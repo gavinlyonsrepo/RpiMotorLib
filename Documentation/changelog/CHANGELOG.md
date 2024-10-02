@@ -65,3 +65,5 @@ Version control history:
 	* Added pwm.stop command to all DC motor classes, see github issue 21
 	* Added check for negative step numbers in the BYJMotor class, see github issue 20
 
+* version 3.3-4 011024
+	* Added Support for MX1508 Motor controller

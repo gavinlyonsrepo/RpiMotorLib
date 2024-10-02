@@ -1,7 +1,8 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3 env
 """ 
 Test example file for rpiMotorlib.py  Stepper motor A4988 NEMA 
 
+Note:
 Comment in code  blocks marked:
 "EMERGENCY STOP BUTTON CODE" to Test motor stop method with Push Button
 and place push button to VCC on GPIO 17 :: VCC - PB1Pin1 , GPIO17 - PB1Pin2
@@ -10,17 +11,22 @@ and place push button to VCC on GPIO 17 :: VCC - PB1Pin1 , GPIO17 - PB1Pin2
 import time
 import RPi.GPIO as GPIO
 
+
 """
-# For development USE local library testing import
-# 1. Comment in Next 3 lines 
-# 2. Comment out in "Production installed library import"
-# 3. change RpiMotorLib.A4988Nema to A4988Nema below
+# local install path For development USE 
+# library testing import
+# 1. Comment in Next 2 lines 
 import sys
-sys.path.insert(0, '/home/gavin/Documents/tech/RpiMotorLib/RpiMotorLib')
-from RpiMotorLib import A4988Nema
+sys.path.insert(0, '/home/gavin/Documents/tech/RpiMotorLib/')
 """
 
-# Production installed library import
+"""
+# pipx installed path, use this if you have installed package with pipx
+import sys
+sys.path.insert(0, '/home/gavin/.local/pipx/venvs/rpimotorlib/lib/python3.11/site-packages/')
+"""
+
+# library import
 from RpiMotorLib import RpiMotorLib
 
 """
@@ -33,8 +39,8 @@ GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 # ====== Tests for motor ======
 # Microstep Resolution MS1-MS3 -> GPIO Pin , can be set to (-1,-1,-1) to turn off 
 GPIO_pins = (14, 15, 18)
-direction= 20       # Direction -> GPIO Pin
-step = 21      # Step -> GPIO Pin
+direction= 20 # Direction -> GPIO Pin
+step = 21     # Step -> GPIO Pin
 
 # Declare an named instance of class pass GPIO-PINs
 # (self, direction_pin, step_pin, mode_pins , motor_type):
@@ -52,7 +58,6 @@ def main():
 
     # ====================== section A ===================
     print("TEST SECTION A")
-    
     # motor_go(clockwise, steptype", steps, stepdelay, verbose, initdelay)
     input("TEST: Press <Enter> to continue  Full 180 turn Test1")
     mymotortest.motor_go(False, "Full" , 100, .05, False, .05)

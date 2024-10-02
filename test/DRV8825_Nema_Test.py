@@ -13,11 +13,14 @@ import RPi.GPIO as GPIO
 """
 # For development USE local library testing import
 # 1. Comment in Next 3 lines 
-# 2. Comment out in "Production installed library import"
-# 3. change RpiMotorLib.A4988Nema to A4988Nema below
 import sys
-sys.path.insert(0, '/home/gavin/Documents/tech/RpiMotorLib/RpiMotorLib')
-from RpiMotorLib import A4988Nema 
+sys.path.insert(0, '/home/gavin/Documents/tech/RpiMotorLib/')
+"""
+
+"""
+# pipx installed path, use this if you have installed package with pipx
+import sys
+sys.path.insert(0, '/home/gavin/.local/pipx/venvs/rpimotorlib/lib/python3.11/site-packages/')
 """
 
 # Production installed library import 
