@@ -95,7 +95,7 @@ Supported Components:
 | Bipolar (untested on hw)| LV8729 Stepper Driver Carrier  | [URL](Documentation/Nema11LV8729.md)|
 | Bipolar (untested)| DV8833 Motor controller module | TODO |
 | Bipolar (untested)| L9110S Motor controller module | TODO |
-| Bipolar | MX1508 Motor controller module | [URL](Documentation/Nema11MX1508.md) |
+| Bipolar | MX1508 Motor controller module | [URL](Documentation/Nema11MC150X.md) |
 
 ### DC motors
 
