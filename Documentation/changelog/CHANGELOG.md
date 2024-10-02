@@ -66,4 +66,4 @@ Version control history:
 	* Added check for negative step numbers in the BYJMotor class, see github issue 20
 
 * version 3.3-4 011024
-	* Added Support for MX1508 Motor controller
+	* Added Support for MC1508 Motor controller
