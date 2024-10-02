@@ -95,7 +95,7 @@ Supported Components:
 | Bipolar (untested on hw)| LV8729 Stepper Driver Carrier  | [URL](Documentation/Nema11LV8729.md)|
 | Bipolar (untested)| DV8833 Motor controller module | TODO |
 | Bipolar (untested)| L9110S Motor controller module | TODO |
-| Bipolar | MX1508 Motor controller module | [URL](Documentation/Nema11MX1508.md |
+| Bipolar | MX1508 Motor controller module | [URL](Documentation/Nema11MX1508.md) |
 
 ### DC motors
 
@@ -106,7 +106,7 @@ Supported Components:
 | DC Brushed Motor | DV8833 Motor controller module. | [ URL ](Documentation/DRV8833_DC.md) |
 | DC Brushed Motor | TB6612FNG Dual motor driver carrier| [ URL ](Documentation/TB6612FNG_DC.md) |
 | DC Brushed Motor | MX1508 Motor controller module| [ URL ](Documentation/MC1508_DC.md) |
-| DC Brushed Motor | Transistor control | [ URL ](Documentation/Transistor_DC.md)) |
+| DC Brushed Motor | Transistor control | [ URL ](Documentation/Transistor_DC.md) |
 
 ### Servos
 
