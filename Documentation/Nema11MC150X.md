@@ -2,7 +2,7 @@ Bipolar Nema 11 Stepper motor controlled by MC1508 Motor controller module.
 ---------------------------------------
 
 ![ScreenShot motor](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/images/nema11.jpg)
-![ScreenShot controller](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/MC15083.jpg)
+![ScreenShot controller](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/MX15083.jpg)
 
 
 Hardware
