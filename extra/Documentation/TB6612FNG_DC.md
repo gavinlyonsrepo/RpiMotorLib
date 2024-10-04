@@ -1,8 +1,8 @@
 DC motor controlled by a TB6612FNG Dual Motor Driver Carrier
 -------------------------------------------------
 
-![ScreenShot dcmotor](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/RF310T11400.jpg)
-![ScreenShot TB6612FNG](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/TB6612FNG.jpg)
+![ScreenShot dcmotor](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/extra/images/RF310T11400.jpg)
+![ScreenShot TB6612FNG](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/extra/images/TB6612FNG.jpg)
 
 
 Hardware
@@ -33,7 +33,7 @@ The STBY pin must be driven high to take the driver out of standby mode.
 
 Module pinout
 
-![ScreenShot TB6612FNGpinout](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/TB6612FNGpinout.jpg)
+![ScreenShot TB6612FNGpinout](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/extra/images/TB6612FNGpinout.jpg)
 
 
 | Pin Label | Function | Notes|

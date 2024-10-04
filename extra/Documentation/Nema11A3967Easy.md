@@ -1,8 +1,8 @@
 Bipolar Nema11 Stepper motor with A3967  Driver Carrier 
 --------------------------------------------  
 
-![ScreenShot Nema](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/nema11.jpg)
-![ScreenShot A3967](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/A3967.jpg)
+![ScreenShot Nema](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/extra/images/nema11.jpg)
+![ScreenShot A3967](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/extra/images/A3967.jpg)
 
 Hardware
 ------------------------------------
@@ -13,7 +13,7 @@ This library was tested
 with a typical bipolar NEMA-11 stepper motor with four wires:
 should work with any similar type motor.
 
- ![ScreenShot motor pinout ](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/images/nema11pinout.jpg)
+ ![ScreenShot motor pinout ](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/extra/images/nema11pinout.jpg)
 
 It has 200 steps per revolution, and can operate at at 60 RPM. 
 It was a step to angle ratio of 1.8 degrees per step. 
@@ -82,7 +82,7 @@ PFD : This one is complicated - please see the datasheet for more information.
 
 Also do NOT disconnect motor when in operation, as it will damage controller. 
 
-![ScreenShot motor pinout](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/images/a3967pinout.jpg)
+![ScreenShot motor pinout](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/extra/images/a3967pinout.jpg)
 
 In addition there are two bridges/jumpers on the Easy driver SJ1 and SJ2. 
 SJ1 is jumper APWR and can be left alone, see datasheet for details.
@@ -90,7 +90,7 @@ SJ2 decides wheter the input Logic is 5v  or 3.3V. The RPI needs 3.3v
 *NP* The SJ2 is open and set to 5v by default. The user must bridge this jumper
 to work with RPI, note diagram for location of SJ2 in bottom left.
 
-![ScreenShot motor pinout](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/images/a3967jumper.jpg)
+![ScreenShot motor pinout](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/extra/images/a3967jumper.jpg)
 
 There are 4 step modes for A3967.
 

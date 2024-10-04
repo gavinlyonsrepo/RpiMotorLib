@@ -1,7 +1,7 @@
 Servos
 ----------------------------------
 
-![ScreenShot servo](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/sg90.jpg)
+![ScreenShot servo](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/extra/images/sg90.jpg)
 
 Hardware
 ------------------------------------

@@ -6,9 +6,9 @@
 
 
 ![ScreenShot dcmotor](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/RF310T11400.jpg)
-![ScreenShot Nema](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/nema11.jpg)
-![ScreenShot L298N](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/L298N.jpg)
-![ScreenShot A4988](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/A4988.jpg)
+![ScreenShot Nema](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/extra/images/nema11.jpg)
+![ScreenShot L298N](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/extra/images/L298N.jpg)
+![ScreenShot A4988](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/extra/images/A4988.jpg)
 
 ## Table of contents
 
@@ -51,10 +51,11 @@ The library is modular so user can just import/use the section they need.
 * Tested on Toolchains: 
     1. RPI 3 model B. Raspbian 10 Buster, 32 bit. Python 3.7.3.
     2. RPI 3 model B. Raspbian 12 Bookworm, 64 bit. Python 3.11.2.
+    3. See notes for RPI 5 
 
 ## Installation
 
-Latest version 3.2 (10-2022)
+Latest version 3.3 (10-2024)
 
 ### From PyPi with pip or pipx
 
@@ -86,27 +87,27 @@ Supported Components:
 
 | Motor tested | Motor controller| Help File URL link |
 | ----- | ----- | ----- |
-| Unipolar 28BYJ-48 | ULN2003 driver module | [URL](Documentation/28BYJ.md)| 
-| Bipolar Nema  | TB6612FNG Dual Driver Carrier | [URL](Documentation/Nema11TB6612FNG.md) |
-| Bipolar Nema  | L298N H-Bridge controller module | [URL](Documentation/Nema11L298N.md) |
-| Bipolar Nema  | A4988 Stepper Driver Carrier | [URL](Documentation/Nema11A4988.md)|
-| Bipolar Nema  | DRV8825 Stepper Driver Carrier | [URL](Documentation/Nema11DRV8825.md) |
-| Bipolar Nema  | A3967 Stepper Driver aka "easy driver v4.4" | [URL](Documentation/Nema11A3967Easy.md)|
-| Bipolar (untested on hw)| LV8729 Stepper Driver Carrier  | [URL](Documentation/Nema11LV8729.md)|
+| Unipolar 28BYJ-48 | ULN2003 driver module | [URL](extra/Documentation/28BYJ.md)| 
+| Bipolar Nema  | TB6612FNG Dual Driver Carrier | [URL](extra/Documentation/Nema11TB6612FNG.md) |
+| Bipolar Nema  | L298N H-Bridge controller module | [URL](extra/Documentation/Nema11L298N.md) |
+| Bipolar Nema  | A4988 Stepper Driver Carrier | [URL](extra/Documentation/Nema11A4988.md)|
+| Bipolar Nema  | DRV8825 Stepper Driver Carrier | [URL](extra/Documentation/Nema11DRV8825.md) |
+| Bipolar Nema  | A3967 Stepper Driver aka "easy driver v4.4" | [URL](extra/Documentation/Nema11A3967Easy.md)|
+| Bipolar (untested on hw)| LV8729 Stepper Driver Carrier  | [URL](extra/Documentation/Nema11LV8729.md)|
 | Bipolar (untested)| DV8833 Motor controller module | TODO |
 | Bipolar (untested)| L9110S Motor controller module | TODO |
-| Bipolar | MX1508 Motor controller module | [URL](Documentation/Nema11MC150X.md) |
+| Bipolar | MX1508 Motor controller module | [URL](extra/Documentation/Nema11MC150X.md) |
 
 ### DC motors
 
 | Motor | Motor controller| Help File URL link |
 | ----- | ----- | ----- |
-| DC Brushed Motor | L298N Motor controller module. | [ URL ](Documentation/L298N_DC.md) |
-| DC Brushed Motor | L9110S Motor controller module. | [ URL ](Documentation/L9110S_DC.md) |
-| DC Brushed Motor | DV8833 Motor controller module. | [ URL ](Documentation/DRV8833_DC.md) |
-| DC Brushed Motor | TB6612FNG Dual motor driver carrier| [ URL ](Documentation/TB6612FNG_DC.md) |
-| DC Brushed Motor | MX1508 Motor controller module| [ URL ](Documentation/MC1508_DC.md) |
-| DC Brushed Motor | Transistor control | [ URL ](Documentation/Transistor_DC.md) |
+| DC Brushed Motor | L298N Motor controller module. | [ URL ](extra/Documentation/L298N_DC.md) |
+| DC Brushed Motor | L9110S Motor controller module. | [ URL ](extra/Documentation/L9110S_DC.md) |
+| DC Brushed Motor | DV8833 Motor controller module. | [ URL ](extra/Documentation/DRV8833_DC.md) |
+| DC Brushed Motor | TB6612FNG Dual motor driver carrier| [ URL ](extra/Documentation/TB6612FNG_DC.md) |
+| DC Brushed Motor | MX1508 Motor controller module| [ URL ](extra/Documentation/MC1508_DC.md) |
+| DC Brushed Motor | Transistor control | [ URL ](extra/Documentation/Transistor_DC.md) |
 
 ### Servos
 
@@ -121,8 +122,8 @@ a dependency(pigpio) and start its daemon.
 
 | Servo | Link |
 | ----- | ----- |
-| Servo software timing | [  RPi.GPIO module PWM ](Documentation/Servo_RPI_GPIO.md) |
-| Servo hardware timing | [  pigpio library module PWM ](Documentation/Servo_pigpio.md) |
+| Servo software timing | [  RPi.GPIO module PWM ](extra/Documentation/Servo_RPI_GPIO.md) |
+| Servo hardware timing | [  pigpio library module PWM ](extra/Documentation/Servo_pigpio.md) |
 
 
 ## Software
@@ -131,7 +132,7 @@ a dependency(pigpio) and start its daemon.
     Click on the relevant URL link in tables in hardware section.
 2. Test files used during development are in test folder of repository.
 3. There is a "Software matrix" showing which classes are used to drive which components.
-    This is in the Software_Matrix.md file in documentation folder.
+    This is in the Software_Matrix.md file in extra/Documentation folder.
 
 
 ### File System

@@ -1,8 +1,8 @@
 Bipolar Nema 11 Stepper motor controlled by TB6612FNG Motor controller module.
 ---------------------------------------
 
-![ScreenShot motor](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/images/nema11.jpg)
-![ScreenShot TB6612FNG](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/TB6612FNG.jpg)
+![ScreenShot motor](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/extra/images/nema11.jpg)
+![ScreenShot TB6612FNG](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/extra/images/TB6612FNG.jpg)
 
 
 Hardware
@@ -26,7 +26,7 @@ of these pins. The STBY pin can be used to put it into Standby mode.
 
 Module pinout
 
-![ScreenShot TB6612FNGpinout](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/TB6612FNGpinout.jpg)
+![ScreenShot TB6612FNGpinout](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/extra/images/TB6612FNGpinout.jpg)
 
 | Pin Label | Function | Notes|
 | ------ | ------ | ------ |
@@ -62,7 +62,7 @@ HW Connection (for stepper motor) for the test file(see software section below) 
 Now the stepper motor , This library was tested  
 with a typical bipolar NEMA-11 stepper motor with four wires:
 
-![ScreenShot motor pinout ](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/images/nema11pinout.jpg)
+![ScreenShot motor pinout ](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/extra/images/nema11pinout.jpg)
 
 It has 200 steps per revolution, and can operate at at 60 RPM. 
 It was a step to angle ratio of 1.8 degrees per step. 
@@ -83,7 +83,7 @@ Full gives the most torque. Half gives less torque but more accuracy
 and wave drive is best for low power applications. half step mode is recommend 
 for most projects.
 
-![screenshot steps](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/images/figure3.jpg)
+![screenshot steps](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/extra/images/figure3.jpg)
 
 half-step takes twice as many steps to complete same distance.
 
@@ -146,5 +146,5 @@ To run this test file type **python3 TB6612FNG_Nema_Test.py** in a terminal.
 
 If verbose is set to True various information on pin output and status is outputted to screen at end of a run
 
-![ScreenShot verbose](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/images/screenshot/Verbose_output_run.jpg)
+![ScreenShot verbose](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/extra/images/screenshot/Verbose_output_run.jpg)
 

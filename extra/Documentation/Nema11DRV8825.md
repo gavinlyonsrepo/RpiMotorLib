@@ -1,8 +1,8 @@
 Bipolar Nema11 Stepper motor with DRV8825  Driver Carrier 
 --------------------------------------------  
 
-![ScreenShot Nema](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/nema11.jpg)
-![ScreenShot DRV8825](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/DRV8825.jpg)
+![ScreenShot Nema](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/extra/images/nema11.jpg)
+![ScreenShot DRV8825](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/extra/images/DRV8825.jpg)
 
 Hardware
 ------------------------------------
@@ -26,7 +26,7 @@ designed by pololu.With a heatsink the device can handle up to 1.5 amps per coil
 
 Pinout of the DRV8825 module:
 
-![ScreenShot DRV8825 pinout](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/DRV8825pinout2.jpg)
+![ScreenShot DRV8825 pinout](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/extra/images/DRV8825pinout2.jpg)
 
 We see the following pins:
 
@@ -45,7 +45,7 @@ We see the following pins:
 
 DRV8825 wiring diagram:
 
-![ScreenShot DRV8825 wiring diagram](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/DRV8825pinout.jpg)
+![ScreenShot DRV8825 wiring diagram](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/extra/images/DRV8825pinout.jpg)
 
 
 Make sure to observe the motor connections, described in Motor section above

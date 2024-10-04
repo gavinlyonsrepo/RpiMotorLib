@@ -1,8 +1,8 @@
 Bipolar Nema 11 Stepper motor controlled by L298N Motor controller module.
 ---------------------------------------
 
-![ScreenShot motor](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/images/nema11.jpg)
-![ScreenShot L298N](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/L298N.jpg)
+![ScreenShot motor](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/extra/images/nema11.jpg)
+![ScreenShot L298N](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/extra/images/L298N.jpg)
 
 Hardware
 ------------------------------------
@@ -26,7 +26,7 @@ Module pinouts
 Consider the following image - match the numbers against the list below the image:
 
 
-![ScreenShot L298Npinout](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/298pinout.jpg)
+![ScreenShot L298Npinout](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/extra/images/298pinout.jpg)
 
 1. DC motor 1 "+" or stepper motor C
 2. DC motor 1 "-" or stepper motor D
@@ -46,7 +46,7 @@ Consider the following image - match the numbers against the list below the imag
 Now the stepper motor , This library was tested  
 with a typical bipolar NEMA-11 stepper motor with four wires:
 
- ![ScreenShot motor pinout ](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/images/nema11pinout.jpg)
+ ![ScreenShot motor pinout ](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/extra/images/nema11pinout.jpg)
 
 
 It has 200 steps per revolution, and can operate at at 60 RPM. 
@@ -87,7 +87,7 @@ Full gives the most torque. Half gives less torque but more accuracy
 and wave drive is best for low power applications. half step mode is recommend 
 for most projects.
 
-![screenshot steps](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/images/figure3.jpg)
+![screenshot steps](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/extra/images/figure3.jpg)
 
 half-step takes twice as many steps to complete same distance.
 
@@ -167,5 +167,5 @@ mymotortest.motor_run(GpioPins , 0.1, 50, False, False, "half", .05)
 
 If verbose is set to True various information on pin output and status is outputted to screen at end of a run
 
-![ScreenShot verbose](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/images/screenshot/Verbose_output_run.jpg)
+![ScreenShot verbose](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/extra/images/screenshot/Verbose_output_run.jpg)
 

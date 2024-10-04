@@ -1,8 +1,8 @@
 Bipolar Nema 11 Stepper motor controlled by MC1508 Motor controller module.
 ---------------------------------------
 
-![ScreenShot motor](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/images/nema11.jpg)
-![ScreenShot controller](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/images/MX15083.jpg)
+![ScreenShot motor](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/extra/images/nema11.jpg)
+![ScreenShot controller](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/extra/images/MX15083.jpg)
 
 
 Hardware
@@ -41,7 +41,7 @@ HW Connection (for stepper motor) for the test file(see software section below) 
 Now the stepper motor , This library was tested  
 with a typical bipolar NEMA-11 stepper motor with four wires:
 
-![ScreenShot motor pinout ](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/images/nema11pinout.jpg)
+![ScreenShot motor pinout ](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/extra/images/nema11pinout.jpg)
 
 It has 200 steps per revolution, and can operate at at 60 RPM. 
 It was a step to angle ratio of 1.8 degrees per step. 
@@ -62,7 +62,7 @@ Full gives the most torque. Half gives less torque but more accuracy
 and wave drive is best for low power applications. half step mode is recommend 
 for most projects.
 
-![screenshot steps](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/images/figure3.jpg)
+![screenshot steps](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/extra/images/figure3.jpg)
 
 half-step takes twice as many steps to complete same distance.
 
