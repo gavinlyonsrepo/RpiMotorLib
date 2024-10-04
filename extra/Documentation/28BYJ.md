@@ -1,7 +1,7 @@
 28BYJ-48 Stepper motor + ULN2003 driver board
 ---------------------------------------
 
-![ScreenShot motor](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/extra/master/images/28BYJ.jpg)
+![ScreenShot motor](https://raw.githubusercontent.com/gavinlyonsrepo/RpiMotorLib/master/extra/images/28BYJ.jpg)
 
 
 Hardware
