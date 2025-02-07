@@ -9,7 +9,7 @@
 # 28BYJ-48 unipolar stepper motor with ULN2003  = BYJMotor class
 # Bipolar Nema stepper motor with L298N = BYJMotor class.
 # Bipolar Nema Stepper motor TB6612FNG = BYJMotor class
-# Bipolar Nema Stepper motor MC1508 = BYJMotor class
+# Bipolar Nema Stepper motor MX1508 = BYJMotor class
 # Bipolar Nema Stepper motor A4988  Driver = A4988Nema class
 # Bipolar Nema Stepper motor DRV8825 Driver = A4988Nema class
 # Bipolar Nema Stepper motor LV8729  Driver = A4988Nema class

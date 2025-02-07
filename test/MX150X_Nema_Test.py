@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-test example file for rpiMotorlib.py MC1508 stepper tests
+test example file for rpiMotorlib.py MX1508 stepper tests
 
 Comment in code  blocks marked:
 "EMERGENCY STOP BUTTON CODE" to Test motor stop method with Push Button
@@ -53,7 +53,7 @@ def main():
     IN4 = 26
     GpioPins = [IN3, IN1, IN4,IN2]
 
-    # ====== tests for motor MC1508 StepTest ====
+    # ====== tests for motor MX1508 StepTest ====
 
     time.sleep(1)
     input("Press <Enter> to continue Test1")

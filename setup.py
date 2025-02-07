@@ -9,7 +9,7 @@ setup(
     long_description="""# python 3 library\n for various motors and servos\n to connect to a raspberry pi\n""",
     long_description_content_type="text/markdown",
     license="GPL",
-    keywords="MC1508 TB6612FNG L9110S DRV8833 A3967 L298 servo motor library raspberry pi 28BYJ-48 A4988 stepper DRV8825",
+    keywords="MX1508 TB6612FNG L9110S DRV8833 A3967 L298 servo motor library raspberry pi 28BYJ-48 A4988 stepper DRV8825",
     url="https://github.com/gavinlyonsrepo/RpiMotorLib",
     download_url='https://github.com/gavinlyonsrepo/RpiMotorLib/archive/3.3.tar.gz',
     packages=['RpiMotorLib'],

@@ -29,7 +29,7 @@
     * [Two Motors simultaneously](#two-motors-simultaneously)
     * [GPIO cleanup method](#gpio-cleanup-method)
     * [pipx](#pipx)
-
+  * [See Also](#see-also)
 
 ## Overview
 
@@ -96,7 +96,7 @@ Supported Components:
 | Bipolar (untested on hw)| LV8729 Stepper Driver Carrier  | [URL](extra/Documentation/Nema11LV8729.md)|
 | Bipolar (untested)| DV8833 Motor controller module | TODO |
 | Bipolar (untested)| L9110S Motor controller module | TODO |
-| Bipolar | MX1508 Motor controller module | [URL](extra/Documentation/Nema11MC150X.md) |
+| Bipolar Nema | MX1508 Motor controller module | [URL](extra/Documentation/Nema11MX150X.md) |
 
 ### DC motors
 
@@ -106,7 +106,7 @@ Supported Components:
 | DC Brushed Motor | L9110S Motor controller module. | [ URL ](extra/Documentation/L9110S_DC.md) |
 | DC Brushed Motor | DV8833 Motor controller module. | [ URL ](extra/Documentation/DRV8833_DC.md) |
 | DC Brushed Motor | TB6612FNG Dual motor driver carrier| [ URL ](extra/Documentation/TB6612FNG_DC.md) |
-| DC Brushed Motor | MX1508 Motor controller module| [ URL ](extra/Documentation/MC1508_DC.md) |
+| DC Brushed Motor | MX1508 Motor controller module| [ URL ](extra/Documentation/MX1508_DC.md) |
 | DC Brushed Motor | Transistor control | [ URL ](extra/Documentation/Transistor_DC.md) |
 
 ### Servos
@@ -227,5 +227,7 @@ pipx install rpimotorlib
 pipx inject rpimotorlib RPi.GPIO
 ```
 
- 
 
+## See Also
+
+1. Partial port to Raspberry pi PICO SDK C++ at [link.](https://github.com/gavinlyonsrepo/Stepper_Motor_Control_PICO)
