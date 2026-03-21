@@ -30,7 +30,7 @@ pipx inject rpimotorlib pigpio
 ## Importing from a pipx environment
 
 When running your own scripts outside the pipx venv, Python may not be able
-to find the installed package. Two solutions are provided as example scripts
+to find the installed package. 2 solutions are provided as example scripts
 in `examples/pipx_example/`.
 
 ### Method 1 — sys.path.insert (PIPXExample_1_ServoGPIOTest.py)
@@ -40,14 +40,14 @@ Append the pipx package location to `sys.path` before importing:
 ```python
 import sys
 # Adjust this path to match your username and Python version
-sys.path.insert(0, '/home/<username>/.local/pipx/venvs/rpimotorlib/lib/python3.11/site-packages/RpiMotorLib')
+sys.path.insert(0, '/home/<username>/.local/pipx/venvs/rpimotorlib/lib/python3.11/site-packages/')
 
-from rpiservolib import SG90servo
+from RpiMotorLib.rpiservolib import SG90servo
 ```
 
 The path format is:
 ```
-/home/<username>/.local/pipx/venvs/rpimotorlib/lib/python<version>/site-packages/RpiMotorLib
+/home/<username>/.local/pipx/venvs/rpimotorlib/lib/python<version>/site-packages/
 ```
 
 ### Method 2 — pipx shebang (PIPXExample_2_ServoGPIOTest.py)
@@ -66,6 +66,17 @@ cat ~/.local/bin/rpimotorscript | head -1
 
 This method uses the standard `from RpiMotorLib import ...` import syntax
 with no `sys.path` manipulation needed.
+
+
+### Method 3 -- Inject rpiMotorLib into project
+
+If your project is an installable project with pipx
+you can simply inject rpimotorlib into it, after install.
+
+```sh
+pipx inject my_project rpimotorlib
+```
+
 
 ## Finding your pipx venv path
 

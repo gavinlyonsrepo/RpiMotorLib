@@ -22,6 +22,7 @@
     * [File System](#file-system)
     * [Dependencies](#dependencies)
   * [Notes and issues](#notes-and-issues)
+    * [Servo trace back issue](#servo-trace-back-issue)
     * [Two Motors simultaneously](#two-motors-simultaneously)
     * [GPIO cleanup method](#gpio-cleanup-method)
     * [Emergency Stop](#emergency-stop)
@@ -55,6 +56,12 @@ Latest version 4.0.0
 
 **Raspberry Pi compatibility:**
 
+Before the Raspberry pi 5 rpimotorlib used RPi.GPIO as low level
+dependency. but it wont work on Raspberry 5 and will not be upgraded
+so we switched to rpi-lgpio which works on all in Version 4.0.0.
+Using a gpio_adpater, we maintained backwards compatibility
+and capability to use RPi.GPIO.
+
 | Raspberry Pi | Supported | Recommended GPIO library |
 | ----- | ----- | ----- |
 | Pi 1 / 2 / 3 / 4 | ✅ | `rpi-lgpio` (recommended) or `RPi.GPIO` (legacy) |
@@ -68,7 +75,9 @@ all new installations regardless of Pi model.
 
 The Python Package Index (PyPI) is a repository of software for the Python
 programming language. Install using *pip* or *pipx* to the location or
-environment of your choice. Recommend set up a virtual environment or use pipx
+environment of your choice. Recommend set up a
+[virtual environment](extra/Documentation/venv_help/venv_helpreadme.md)
+or use pipx. NB see notes section for more on pipx.
 Package name = rpimotorlib [Link](https://pypi.org/project/rpimotorlib/).
 
 **Recommended install (all Pi models including Pi 5):**
@@ -92,8 +101,6 @@ pip install rpimotorlib[legacy]
 | `legacy` | Installs RPi.GPIO — Pi 1-4 only, not supported on Pi 5 |
 | `pigpio` | Installs pigpio — optional hardware PWM servo, Pi 1-4 only |
 | `dev` | Installs pytest, pytest-cov, pylint — for development |
-
-NB see notes section for more on pipx.
 
 ### From Github
 
@@ -172,9 +179,7 @@ RpiMotorLib files are listed below:
 | RpiMotorLib/settings.py | Settings manager — reads ~/.config/rpiMotorLib/config.ini |
 | RpiMotorLib/rpi_emergency_stop.py | Emergency stop push button class |
 | RpiMotorLib/RpiMotorScriptLib.py | Script to display version and help information |
-| extra/Documentation/*.md | Markdown library documentation files |
-| extra/Documentation/estop/estopreadme.md | Emergency stop documentation |
-| extra/Documentation/pipx/pipxreadme.md | pipx installation documentation |
+| extra/Documentation/ | Markdown library documentation files |
 | examples/ | Hardware example scripts organised by motor type |
 | tests/ | Pytest unit tests with mocked GPIO — run on any machine |
 
@@ -208,10 +213,17 @@ Valid backend values in config: `null` (auto-detect), `rpigpio`, `lgpio`.
 
 ## Notes and issues
 
+### Servo trace back issue
+
+rpi-lgpio 0.6 may produces a harmless `TypeError` traceback
+after `GPIO.cleanup()` when PWM has been used. This is a known upstream
+bug in rpi-lgpio (see [PR #23](https://github.com/waveform80/rpi-lgpio/pull/23))
+and does not affect motor or servo operation. A fix exists in the PR but
+has not yet been merged by the upstream maintainer.
+
 ### Two Motors simultaneously
 
-Running two motors simultaneously — see github issue #11.
-
+Running two stepper motors simultaneously — see github issue #11.
 If you want to control two or more steppers simultaneously, there are two
 example scripts using threading in `examples/Multi_Threading_Example/`:
 
@@ -231,15 +243,11 @@ issues #18 and #21.
 ### Emergency Stop
 
 All example scripts include support for an motor movement stop push button.
-See the dedicated documentation:
+
 [Emergency Stop README](extra/Documentation/estop/estopreadme.md)
 
 ### pipx
 
-As of PEP 668, users on many systems will get an error if they try to
-install packages system-wide with pip. pipx installs packages into isolated
-virtual environments and is a clean solution.
-See the dedicated documentation:
 [pipx README](extra/Documentation/pipx/pipxreadme.md)
 
 ## See Also

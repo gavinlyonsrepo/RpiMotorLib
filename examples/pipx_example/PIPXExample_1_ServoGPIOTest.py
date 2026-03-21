@@ -9,16 +9,16 @@ using sys.path.insert. Adjust the path below to match your machine.
 See README for more details on pipx installation.
 
 Note: path format is:
-/home/<username>/.local/pipx/venvs/rpimotorlib/lib/python<version>/site-packages/RpiMotorLib
+/home/<username>/.local/pipx/venvs/rpimotorlib/lib/python<version>/site-packages/
 """
 
 import sys
 import time
 
 # Adjust this path to match your machine and Python version
-sys.path.insert(0, '/home/gavin/.local/pipx/venvs/rpimotorlib/lib/python3.11/site-packages/RpiMotorLib') # pylint: disable=line-too-long
+sys.path.insert(0, '/home/gavin/.local/pipx/venvs/rpimotorlib/lib/python3.11/site-packages/') # pylint: disable=line-too-long
 
-from rpiservolib import SG90servo  # pylint: disable=import-error,wrong-import-position
+from RpiMotorLib.rpiservolib import SG90servo  # pylint: disable=import-error,wrong-import-position
 
 def main():
     """main function loop"""
