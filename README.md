@@ -76,7 +76,7 @@ all new installations regardless of Pi model.
 The Python Package Index (PyPI) is a repository of software for the Python
 programming language. Install using *pip* or *pipx* to the location or
 environment of your choice. Recommend set up a
-[virtual environment](extra/Documentation/venv_help/venv_helpreadme.md)
+[virtual environment](extra/Documentation/venv_help/venv_help_readme.md)
 or use pipx. NB see notes section for more on pipx.
 Package name = rpimotorlib [Link](https://pypi.org/project/rpimotorlib/).
 
