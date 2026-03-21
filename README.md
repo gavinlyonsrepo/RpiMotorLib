@@ -1,4 +1,4 @@
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/paypalme/whitelight976) [![CI](https://github.com/gavinlyonsrepo/raspberrypi_tempmon/actions/workflows/ci.yml/badge.svg)](https://github.com/gavinlyonsrepo/raspberrypi_tempmon/actions/workflows/ci.yml) [![PyPI version](https://img.shields.io/pypi/v/rpi-tempmon.svg)](https://pypi.org/project/rpi-tempmon/)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/paypalme/whitelight976) [![CI](https://github.com/gavinlyonsrepo/RpiMotorLib/actions/workflows/ci.yml/badge.svg)](https://github.com/gavinlyonsrepo/RpiMotorLib/actions/workflows/ci.yml) [![PyPI version](https://img.shields.io/pypi/v/rpimotorlib.svg)](https://pypi.org/project/rpimotorlib/)
 
 # RpiMotorLib
 
