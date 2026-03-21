@@ -1,20 +1,20 @@
 Version control history:
 ====================
 
-* Version 1.0-1 150318 
+* Version 1.0-1 150318
 	* First version, 28BYJ-48 + servos.
-	
+
 * Version 2.0-1 090418
 	* Added DC motors driven by L298N + transistor
 	* Added Nema stepper driven by motor controller A4988
 	* Added Nema stepper driven by motor controller  L298N
 	* Added new functions to Servo section.
-	
+
 * Version 2.1-2 280518
 	* Added Nema stepper driven by motor controller A3967 "Easy Driver"
-	* Added Nema stepper driven by motor controller DRV8825 
-	* Added new option (sweeplen) to servo_sweep method. Defines a fixed 
-	length to the sweep rather than continuous.  
+	* Added Nema stepper driven by motor controller DRV8825
+	* Added new option (sweeplen) to servo_sweep method. Defines a fixed
+	length to the sweep rather than continuous.
 
 * Version 2.2-3 200618
 	* Added support for pigpio library option for servo control
@@ -27,36 +27,36 @@ Version control history:
 	* Minor update
 	* Added Support for installation on Windows 10 by changing Setup.py
 	* See issue 2 at Github Project URL.
-	
+
 * version 2.5-6 310319
-	* Minor update, 
+	* Minor update,
 	* Correcting the error message in class "A4988Nema"
 	,method "resolution_set". The latter half was reporting the "step type"
-	instead of "motor type" to user. This error message was only displayed 
+	instead of "motor type" to user. This error message was only displayed
 	if user initialized class with a unknown motor type(user typo).
-	
+
 * version 2.6-7 210519
 	* Minor update
 	* Addressing concerns raised by issue 4 on github.
-	In class "BYJMotor" changed error handling in 
+	In class "BYJMotor" changed error handling in
 	method  "motor_run" so Verbose reporting is in the "else" code block
 	instead of the "finally" code block as sometimes this reporting code
-	was throwing exceptions after a keyboard exception was interrupted: 
+	was throwing exceptions after a keyboard exception was interrupted:
 	For example before the motor started.
 	"UnboundLocalError: local variable 'step_sequence' referenced before assignment"
-	
+
 * version 2.7-8 050919
 	* Added Support for TB6612FNG motor controller both stepper and DC motor
-	
+
 * version 3.0-1 150421
-	* Pull request number eight merged. 
-	* Added Motor-stop method to all stepper motors classes 
+	* Pull request number eight merged.
+	* Added Motor-stop method to all stepper motors classes
 	* Added Servo-Stop method to all servo classes
 	* Servo pigpio: make pigpio host and port configurable
 
 * version 3.1-2 110521
-	* Added an option to hard-wire to logic MS-X resolution pins 
-	on some stepper motors where applicable to save GPIO pins 
+	* Added an option to hard-wire to logic MS-X resolution pins
+	on some stepper motors where applicable to save GPIO pins
 	* Added support for LV8729 motor controller.
 	* Added basic test file for threading example.
 
@@ -67,3 +67,26 @@ Version control history:
 
 * version 3.3-4 011024
 	* Added Support for MX1508 Motor controller
+
+* version 4.0.0 2025
+	* Raspberry Pi 5 support via rpi-lgpio backend
+	* Added GPIO abstraction layer (gpio_adapter.py)
+	  supporting RPi.GPIO, rpi-lgpio and lgpio backends
+	* Added settings manager (settings.py) with config file
+	  at ~/.config/rpiMotorLib/config.ini
+	* Added EmergencyStop class (rpi_emergency_stop.py)
+	  for push button motor stop on any GPIO pin
+	* Added motor_stop() method to all DC motor classes
+	* Replaced setup.py with pyproject.toml (PEP 517/518)
+	* Added pytest unit test suite with mocked GPIO (72 tests)
+	* Added GitHub Actions CI workflow
+	* All modules pass pylint
+	* All example files updated — removed RPi.GPIO direct imports,
+	  removed local path hacks, added EmergencyStop support
+	* Example files reorganised into dc_motors/, steppers/, servos/,
+	  pipx_example/ and Multi_Threading_Example/ subfolders
+	* pigpio servo path (rpi_pservo_lib.py) remains Pi 1-4 only,
+	  pigpio does not support Raspberry Pi 5
+	* Known issue: rpi-lgpio 0.6 produces a harmless TypeError traceback
+	  after GPIO.cleanup() when PWM has been used. Fix pending upstream
+	  in rpi-lgpio PR #23.

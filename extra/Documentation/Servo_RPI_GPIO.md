@@ -86,7 +86,7 @@ another an extra dependencies.
 
 The library file has a single class which controls the servo 
 The class is called SG90servo but works for all listed as tested.
-The test file is ServoGPIOTest.py.
+The example file is ServoGPIOTest.py.
 
 The class is called SG90servo and their are five methods are 
 
@@ -134,26 +134,6 @@ Center-delay-min-delay-max-delay- and so on until user quits or set-limit reache
 | (7)  | initdelay  | float | 50mS | A delay after Gpio setup and before servo moves |
 | (8)  | sweeplen | int | 1 million |   is number of times to execute sweep. |
 
- example:Setup a class instance called servoone with control freq 50mS
- with y_one set to 3 and Y_two to 11. Next call method
- to sweep the servo connected to GPIO pins 7
- for step delay of 0.5 second from minduty position
- 2 to maxduty position 12 and center position 6
- with verbose output set to True and initdelay set to 0.01mS , 100 times
- 
-```sh
-
-import RPi.GPIO as GPIO
-from RpiMotorLib import rpiservolib 
-
-myservotest  = rpiservolib.SG90servo("servoone", 50, 3, 11)
-
-# call the function pass by value in this case.
-myservotest.servo_sweep(7, 6, 2, 12, 0.5, True, 0.01, 100)
-
-# good practise to cleanup GPIO at some point before exit
-GPIO.cleanup()
-```
 
 ### 2 - servo_move
 
@@ -169,38 +149,11 @@ Method servo_move 5 inputs.
 | (4)  | verbose | bool | False  | Output actions & details |
 | (5)  | init delay  | float | 50mS | A delay after Gpio setup and before servo moves |
 
- example: to move the servo connected to GPIO pins 7
- for step delay of 1 second to postion 11
- with non-verbose output and initdelay of 10mS
- 
-```sh
-import RPi.GPIO as GPIO
-
-# import the library
-from RpiMotorLib import rpiservolib 
-
-# initialize an instance of the class passing a name
-myservotest = rpiservolib.SG90servo("servoone", 50, 3, 11)
-
-# call the function pass by value in this case.
-myservotest.servo_move(7, 11, 1, False, .01)
-
-# good practise to cleanup GPIO at some point before exit
-GPIO.cleanup()
-```
-
 ### 3 convert_from_degree
 
 converts degrees to duty cycle percentage
 Input degrees,
 returns duty cycle percentage as floats
-
-```sh
-from RpiMotorLib import rpiservolib 
-myservotest = rpiservolib.SG90servo("servoone", 50, 3, 11)
-degree = float(input("What degree do you want?\t"))
-print("Duty cycle percent = {} ".format(myservotest.convert_from_degree(degree)))
-```
 
 ### 4 servo_move_step 
 
@@ -218,20 +171,3 @@ seven inputs.
 | (5)  | stepsize | int | 1 | The size of steps between start and end in degrees |
 | (6)  | initdelay  | float | 50mS | A delay after Gpio setup and before servo moves |
 | (7)  | verbose | bool | False  | Output actions & details |
-
-Example: to move a servo on GPIO pin 26 from 10 degrees to 170 
-degrees in 3 degree steps every two seconds, with an initial delay 
-of one second and verbose output.   
-
-```sh
-import RPi.GPIO as GPIO
-
-# import the library
-from RpiMotorLib import rpiservolib 
-
-# initialize an instance of the class 
-myservotest = rpiservolib.SG90servo("servoone", 50, 3, 11) 
-
-myservotest.servo_move_step.servo_move_step(26, 10, 173, 2, 3, 1, True)
-
-```        

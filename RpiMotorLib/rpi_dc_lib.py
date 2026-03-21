@@ -10,25 +10,32 @@
  DC motor via L298n motor controller  = L298NMDc class
  DC motor via L9110S and DRV8833 motor controller = DRV8833 class.
  DC motor via TB6612FNG motor controller = TB6612FNGDc class.
-  DC motor via MX1508 motor controller = MC150XDc class.
+ DC motor via MX1508 motor controller = MC150XDc class.
  DC motor via a transistor = TranDc class.
+
+ stop_motor flag rules:
+   False — set in __init__, cleanup, forward(), backward(), dc_motor_run()
+   True  — set in motor_stop(), stop(), brake(), standby()
+
+ motor_stop() halts output immediately but does NOT destroy the PWM object,
+ so the motor can be reused in subsequent tests without re-initialisation.
+ Call cleanup() for full teardown at end of program.
 
  author            :Gavin Lyons
  web               :https://github.com/gavinlyonsrepo/RpiMotorLib
  """
 
 # ========================== IMPORTS ======================
-# Import the system modules needed to run rpiMotorlib.py
 import time
-import RPi.GPIO as GPIO
+from RpiMotorLib.gpio_adapter import GPIO
 
 # ==================== CLASS SECTION ===============================
 
 
 class L298NMDc():
     """ Class to control DC motor via L298n motor controller
-    6 methods 1. __init__ 2. forward
-    3.backward 4.stop 5 .brake 6.cleanup"""
+    7 methods 1. __init__ 2. forward 3.backward
+    4.stop 5.brake 6.cleanup 7.motor_stop"""
 
     def __init__(self, pin_one, pin_two,
                  pwm_pin, freq=50, verbose=False, name="DCMotorX"):
@@ -37,8 +44,7 @@ class L298NMDc():
         (2) Pin two type=int, GPIO pin connected to IN2 or IN4
         (3) pwm_pin type=int, GPIO pin connected to EnA or ENB
         (4) freq in Hz default 50
-        (5) verbose, type=bool  type=bool default=False
-         help="Write pin actions"
+        (5) verbose, type=bool  default=False, help="Write pin actions"
         (6) name, type=string, name attribute
         """
         self.name = name
@@ -47,6 +53,7 @@ class L298NMDc():
         self.pwm_pin = pwm_pin
         self.freq = freq
         self.verbose = verbose
+        self.stop_motor = False
 
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
@@ -58,54 +65,67 @@ class L298NMDc():
         self.last_pwm = 0
         self.my_pwm.start(self.last_pwm)
         if self.verbose:
-            print(" Motor initialized named: {} ".format(self.name))
-            print(" Pin one In1 or In3:  {}".format(self.pin_one))
-            print(" Pin two In2 or in4:  {}".format(self.pin_two))
-            print(" Pin pwm enA or enB:  {}".format(self.pwm_pin))
-            print(" Frequency: {} ".format(self.freq))
+            print(f" Motor initialized named: {self.name} ")
+            print(f" Pin one In1 or In3:  {self.pin_one}")
+            print(f" Pin two In2 or in4:  {self.pin_two}")
+            print(f" Pin pwm enA or enB:  {self.pwm_pin}")
+            print(f" Frequency: {self.freq} ")
+
+    def motor_stop(self):
+        """Stop motor output immediately. PWM object kept alive for reuse.
+        Call cleanup() for full teardown at end of program."""
+        self.stop_motor = True
+        GPIO.output(self.pin_one, False)
+        GPIO.output(self.pin_two, False)
+        self.my_pwm.ChangeDutyCycle(0)
 
     def forward(self, duty_cycle=50):
         """ Move motor forwards passed duty cycle for speed control """
+        self.stop_motor = False
         GPIO.output(self.pin_one, True)
         GPIO.output(self.pin_two, False)
         if self.verbose:
-            print("Moving Motor Forward : Duty Cycle = {}".format(duty_cycle))
+            print(f"Moving Motor Forward : Duty Cycle = {duty_cycle}")
         if duty_cycle != self.last_pwm:
             self.my_pwm.ChangeDutyCycle(duty_cycle)
             self.last_pwm = duty_cycle
 
     def backward(self, duty_cycle=50):
         """ Move motor backwards passed duty cycle for speed control"""
+        self.stop_motor = False
         GPIO.output(self.pin_one, False)
         GPIO.output(self.pin_two, True)
         if self.verbose:
-            print("Moving Motor Backward : Duty Cycle = {}".format(duty_cycle))
+            print(f"Moving Motor Backward : Duty Cycle = {duty_cycle}")
         if duty_cycle != self.last_pwm:
             self.my_pwm.ChangeDutyCycle(duty_cycle)
             self.last_pwm = duty_cycle
 
     def stop(self, duty_cycle=0):
         """ Stop motor"""
+        self.stop_motor = True
         GPIO.output(self.pin_one, False)
         GPIO.output(self.pin_two, False)
         if self.verbose:
-            print("Stoping Motor : Duty Cycle = {}".format(duty_cycle))
+            print(f"Stopping Motor : Duty Cycle = {duty_cycle}")
         if duty_cycle != self.last_pwm:
             self.my_pwm.ChangeDutyCycle(duty_cycle)
             self.last_pwm = duty_cycle
 
     def brake(self, duty_cycle=100):
         """ brake motor"""
+        self.stop_motor = True
         GPIO.output(self.pin_one, True)
         GPIO.output(self.pin_two, True)
         if self.verbose:
-            print("Braking Motor : Duty Cycle = {}".format(duty_cycle))
+            print(f"Braking Motor : Duty Cycle = {duty_cycle}")
         if duty_cycle != self.last_pwm:
             self.my_pwm.ChangeDutyCycle(duty_cycle)
             self.last_pwm = duty_cycle
 
     def cleanup(self, clean_up=False):
         """ cleanup all GPIO connections used in event of error by lib user"""
+        self.stop_motor = False
         if self.verbose:
             print("rpi_dc_lib.py : Cleaning up")
         GPIO.output(self.pin_one, False)
@@ -118,17 +138,16 @@ class L298NMDc():
 
 class DRV8833NmDc():
     """ Class to control DC motor via L9110S and DRV8833 motor controller
-    6 methods 1. __init__ 2. forward
-    3.backward 4.stop 5.brake 6.cleanup"""
+    7 methods 1. __init__ 2. forward 3.backward
+    4.stop 5.brake 6.cleanup 7.motor_stop"""
 
     def __init__(self, pin_one, pin_two,
                  freq=50, verbose=False, name="DCMotorY"):
         """ init method
-        (1) pin_one, type=int,  GPIO pin  direction pin connected to IN1 or IN3
+        (1) pin_one, type=int,  GPIO pin direction pin connected to IN1 or IN3
         (2) Pin two type=int, GPIO pin PWM speed pin connected to IN2 or IN4
         (3) freq in Hz default 50
-        (4) verbose, type=bool  type=bool default=False
-         help="Write pin actions"
+        (4) verbose, type=bool  default=False, help="Write pin actions"
         (5) name, type=string, name attribute
         """
         self.name = name
@@ -136,6 +155,7 @@ class DRV8833NmDc():
         self.pin_two = pin_two
         self.freq = freq
         self.verbose = verbose
+        self.stop_motor = False
 
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
@@ -146,50 +166,61 @@ class DRV8833NmDc():
         self.last_pwm = 0
         self.my_pwm.start(self.last_pwm)
         if self.verbose:
-            print(" Motor initialized named: {} ".format(self.name))
-            print(" Direction pin In1 or In3:  {}".format(self.pin_one))
-            print(" PWM speed pin In2 or in4:  {}".format(self.pin_two))
-            print(" Frequency: {} ".format(self.freq))
+            print(f" Motor initialized named: {self.name} ")
+            print(f" Direction pin In1 or In3:  {self.pin_one}")
+            print(f" PWM speed pin In2 or in4:  {self.pin_two}")
+            print(f" Frequency: {self.freq} ")
+
+    def motor_stop(self):
+        """Stop motor output immediately. PWM object kept alive for reuse.
+        Call cleanup() for full teardown at end of program."""
+        self.stop_motor = True
+        GPIO.output(self.pin_one, False)
+        self.my_pwm.ChangeDutyCycle(0)
 
     def forward(self, duty_cycle=50):
         """ Move motor forwards passed duty cycle for speed control """
+        self.stop_motor = False
         GPIO.output(self.pin_one, True)
         if self.verbose:
-            print("Moving Motor Forward : Duty Cycle = {}".format(duty_cycle))
+            print(f"Moving Motor Forward : Duty Cycle = {duty_cycle}")
         if duty_cycle != self.last_pwm:
             self.my_pwm.ChangeDutyCycle(duty_cycle)
             self.last_pwm = duty_cycle
 
     def backward(self, duty_cycle=50):
         """ Move motor backwards passed duty cycle for speed control"""
+        self.stop_motor = False
         GPIO.output(self.pin_one, False)
         if self.verbose:
-            print("Moving Motor Backward : Duty Cycle = {}".format(duty_cycle))
+            print(f"Moving Motor Backward : Duty Cycle = {duty_cycle}")
         if duty_cycle != self.last_pwm:
             self.my_pwm.ChangeDutyCycle(duty_cycle)
             self.last_pwm = duty_cycle
 
     def stop(self, duty_cycle=0):
         """ Stop motor"""
+        self.stop_motor = True
         GPIO.output(self.pin_one, False)
         self.my_pwm.ChangeDutyCycle(duty_cycle)
         if self.verbose:
-            print("Stoping Motor : Duty Cycle = {}".format(duty_cycle))
+            print(f"Stopping Motor : Duty Cycle = {duty_cycle}")
         if duty_cycle != self.last_pwm:
-            self.my_pwm.ChangeDutyCycle(duty_cycle)
             self.last_pwm = duty_cycle
 
     def brake(self, duty_cycle=100):
         """ brake motor"""
+        self.stop_motor = True
         GPIO.output(self.pin_one, True)
         if self.verbose:
-            print("Braking Motor : Duty Cycle = {}".format(duty_cycle))
+            print(f"Braking Motor : Duty Cycle = {duty_cycle}")
         if duty_cycle != self.last_pwm:
             self.my_pwm.ChangeDutyCycle(duty_cycle)
             self.last_pwm = duty_cycle
 
     def cleanup(self, clean_up=False):
         """ cleanup all GPIO connections used in event of error by lib user"""
+        self.stop_motor = False
         if self.verbose:
             print("rpi_dc_lib.py : Cleaning up")
         GPIO.output(self.pin_one, False)
@@ -199,10 +230,11 @@ class DRV8833NmDc():
         if clean_up:
             GPIO.cleanup()
 
+
 class MC150XDc():
     """ Class to control DC motor via MC150X motor controller
-    6 methods 1. __init__ 2. forward
-    3.backward 4.standby 5.brake 6.cleanup"""
+    7 methods 1. __init__ 2. forward 3.backward
+    4.standby 5.brake 6.cleanup 7.motor_stop"""
 
     def __init__(self, pin_one, pin_two,
                  freq=50, verbose=False, name="DCMotorY"):
@@ -210,70 +242,82 @@ class MC150XDc():
         (1) pin_one type=int, GPIO PWM pin connected to INT1 or INT3
         (2) Pin two type=int, GPIO PWM pin connected to INT2 or INT4
         (3) freq in Hz default 50
-        (4) verbose, type=bool  type=bool default=False
-         help="Write pin actions"
+        (4) verbose, type=bool  default=False, help="Write pin actions"
         (5) name, type=string, name attribute
         """
         self.name = name
         self.freq = freq
         self.verbose = verbose
-        self.pin_one = pin_one
-        self.pin_two = pin_two
-        
+        self.pin_one_num = pin_one   # store pin numbers separately
+        self.pin_two_num = pin_two   # as self.pin_one/two become PWM objects
+        self.stop_motor = False
+
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
-        GPIO.setup(self.pin_one, GPIO.OUT)
-        GPIO.setup(self.pin_two, GPIO.OUT)
+        GPIO.setup(pin_one, GPIO.OUT)
+        GPIO.setup(pin_two, GPIO.OUT)
 
-        self.pin_one = GPIO.PWM(self.pin_one, self.freq)
-        self.pin_two = GPIO.PWM(self.pin_two, self.freq)
+        self.pin_one = GPIO.PWM(pin_one, self.freq)
+        self.pin_two = GPIO.PWM(pin_two, self.freq)
         self.last_pwm = 0
         self.pin_one.start(self.last_pwm)
         self.pin_two.start(self.last_pwm)
         if self.verbose:
-            print(" Motor initialized named: {} ".format(self.name))
-            print(" Pwm pin 1 InT1 or InT3:  {}".format(self.pin_one))
-            print(" PWM pin 2 InT2 or inT4:  {}".format(self.pin_two))
-            print(" Frequency: {} ".format(self.freq))
+            print(f" Motor initialized named: {self.name} ")
+            print(f" Pwm pin 1 InT1 or InT3:  {self.pin_one_num}")
+            print(f" PWM pin 2 InT2 or inT4:  {self.pin_two_num}")
+            print(f" Frequency: {self.freq} ")
+
+    def motor_stop(self):
+        """Stop motor output immediately. PWM object kept alive for reuse.
+        Call cleanup() for full teardown at end of program."""
+        self.stop_motor = True
+        self.pin_one.ChangeDutyCycle(0)
+        self.pin_two.ChangeDutyCycle(0)
 
     def forward(self, duty_cycle=50):
         """ Move motor forwards passed duty cycle for speed control """
+        self.stop_motor = False
         self.pin_one.ChangeDutyCycle(duty_cycle)
         self.pin_two.ChangeDutyCycle(0)
         if self.verbose:
-            print("Moving Motor Forward : Duty Cycle = {}".format(duty_cycle))
+            print(f"Moving Motor Forward : Duty Cycle = {duty_cycle}")
         if duty_cycle != self.last_pwm:
             self.last_pwm = duty_cycle
 
     def backward(self, duty_cycle=50):
         """ Move motor backwards passed duty cycle for speed control"""
+        self.stop_motor = False
         self.pin_two.ChangeDutyCycle(duty_cycle)
         self.pin_one.ChangeDutyCycle(0)
         if self.verbose:
-            print("Moving Motor Backward : Duty Cycle = {}".format(duty_cycle))
+            print(f"Moving Motor Backward : Duty Cycle = {duty_cycle}")
         if duty_cycle != self.last_pwm:
             self.last_pwm = duty_cycle
 
     def standby(self, duty_cycle=0):
-        """ Standyby motor"""
-        self.pin_one.ChangeDutyCycle( duty_cycle)
-        self.pin_two.ChangeDutyCycle( duty_cycle)
+        """ Standby motor"""
+        self.stop_motor = True
+        self.pin_one.ChangeDutyCycle(duty_cycle)
+        self.pin_two.ChangeDutyCycle(duty_cycle)
         if self.verbose:
-            print("Standby Motor : Duty Cycle = {}".format(duty_cycle))
+            print(f"Standby Motor : Duty Cycle = {duty_cycle}")
         if duty_cycle != self.last_pwm:
             self.last_pwm = duty_cycle
 
     def brake(self, duty_cycle=100):
         """ brake motor"""
+        self.stop_motor = True
         self.pin_one.ChangeDutyCycle(duty_cycle)
         self.pin_two.ChangeDutyCycle(duty_cycle)
         if self.verbose:
-            print("brake Motor : Duty Cycle = {}".format(duty_cycle))
+            print(f"Brake Motor : Duty Cycle = {duty_cycle}")
         if duty_cycle != self.last_pwm:
             self.last_pwm = duty_cycle
 
     def cleanup(self, clean_up=False):
         """ cleanup all GPIO connections used in event of error by lib user"""
+        self.stop_motor = False
         if self.verbose:
             print("rpi_dc_lib.py : Cleaning up")
         self.pin_one.ChangeDutyCycle(0)
@@ -283,18 +327,22 @@ class MC150XDc():
         if clean_up:
             GPIO.cleanup()
 
+
 class TranDc():
-    """ Class to control DC motor via a transistor """
+    """ Class to control DC motor via a transistor
+    4 methods 1. __init__ 2. motor_stop
+    3.dc_motor_run 4.dc_clean_up"""
+
     def __init__(self, pin, freq=50, verbose=False):
         """ init method
         (1) pin_one, type=int,  GPIO pin connected base of transistor
         (2) PWM freq in Hz default 50
-        (3) verbose, type=bool  type=bool default=False
-         help="Write pin actions"
+        (3) verbose, type=bool  default=False, help="Write pin actions"
         """
         self.pin = pin
         self.freq = freq
         self.verbose = verbose
+        self.stop_motor = False
 
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
@@ -303,16 +351,24 @@ class TranDc():
         self.motor_pwm = GPIO.PWM(self.pin, self.freq)
         self.motor_pwm.start(0)
 
+    def motor_stop(self):
+        """Stop motor output immediately. PWM object kept alive for reuse.
+        Call dc_clean_up() for full teardown at end of program."""
+        self.stop_motor = True
+        self.motor_pwm.ChangeDutyCycle(0)
+
     def dc_motor_run(self, speed=10, step_delay=1):
         """ controls speed of motor passed speed and step_delay
-        speed is PWm duty cycle in percentage, delay is in seconds """
+        speed is PWM duty cycle in percentage, delay is in seconds """
+        self.stop_motor = False
         self.motor_pwm.ChangeDutyCycle(speed)
         time.sleep(step_delay)
         if self.verbose:
-            print("Speed PWM duty cycle percentage {}".format(speed))
+            print(f"Speed PWM duty cycle percentage {speed}")
 
     def dc_clean_up(self):
-        """ docstring """
+        """ Stop PWM and release GPIO pins """
+        self.stop_motor = False
         self.motor_pwm.ChangeDutyCycle(0)
         self.motor_pwm.stop()
         GPIO.output(self.pin, False)
@@ -320,8 +376,8 @@ class TranDc():
 
 class TB6612FNGDc():
     """ Class to control DC motor via TB6612FNGDC motor controller
-    6 methods 1. __init__ 2. forward
-    3.backward 4.stop 5 .brake 6.cleanup 7.standby"""
+    8 methods 1. __init__ 2. forward 3.backward
+    4.stop 5.brake 6.cleanup 7.standby 8.motor_stop"""
 
     def __init__(self, pin_one, pin_two,
                  pwm_pin, freq=50, verbose=False, name="DCMotorX"):
@@ -330,8 +386,7 @@ class TB6612FNGDc():
         (2) Pin two type=int, GPIO pin connected to AI2 or BI2
         (3) pwm_pin type=int, GPIO pin connected to PWA or PWB
         (4) freq in Hz default 50
-        (5) verbose, type=bool  type=bool default=False
-         help="Write pin actions"
+        (5) verbose, type=bool  default=False, help="Write pin actions"
         (6) name, type=string, name attribute
         """
         self.name = name
@@ -340,6 +395,7 @@ class TB6612FNGDc():
         self.pwm_pin = pwm_pin
         self.freq = freq
         self.verbose = verbose
+        self.stop_motor = False
 
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
@@ -351,15 +407,23 @@ class TB6612FNGDc():
         self.last_pwm = 0
         self.my_pwm.start(self.last_pwm)
         if self.verbose:
-            print(" Motor initialized named: {} ".format(self.name))
-            print(" Pin one AI1 or BI1:  {}".format(self.pin_one))
-            print(" Pin two AI2 or BI2:  {}".format(self.pin_two))
-            print(" Pin pwm PWA or PWB:  {}".format(self.pwm_pin))
-            print(" Frequency: {} ".format(self.freq))
+            print(f" Motor initialized named: {self.name} ")
+            print(f" Pin one AI1 or BI1:  {self.pin_one}")
+            print(f" Pin two AI2 or BI2:  {self.pin_two}")
+            print(f" Pin pwm PWA or PWB:  {self.pwm_pin}")
+            print(f" Frequency: {self.freq} ")
 
+    def motor_stop(self):
+        """Stop motor output immediately. PWM object kept alive for reuse.
+        Call cleanup() for full teardown at end of program."""
+        self.stop_motor = True
+        GPIO.output(self.pin_one, False)
+        GPIO.output(self.pin_two, False)
+        self.my_pwm.ChangeDutyCycle(0)
 
-    def standby(standby_pin, standby_on=True):
-        """Enables/disables the  standby mode of TB661FNG controller"""
+    def standby(self, standby_pin, standby_on=True):
+        """Enables/disables the standby mode of TB661FNG controller"""
+        self.stop_motor = True
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
         if standby_on:
@@ -370,48 +434,53 @@ class TB6612FNGDc():
 
     def forward(self, duty_cycle=50):
         """ Move motor forwards passed duty cycle for speed control """
+        self.stop_motor = False
         GPIO.output(self.pin_one, True)
         GPIO.output(self.pin_two, False)
         if self.verbose:
-            print("Moving Motor Forward : Duty Cycle = {}".format(duty_cycle))
+            print(f"Moving Motor Forward : Duty Cycle = {duty_cycle}")
         if duty_cycle != self.last_pwm:
             self.my_pwm.ChangeDutyCycle(duty_cycle)
             self.last_pwm = duty_cycle
 
     def backward(self, duty_cycle=50):
         """ Move motor backwards passed duty cycle for speed control"""
+        self.stop_motor = False
         GPIO.output(self.pin_one, False)
         GPIO.output(self.pin_two, True)
         if self.verbose:
-            print("Moving Motor Backward : Duty Cycle = {}".format(duty_cycle))
+            print(f"Moving Motor Backward : Duty Cycle = {duty_cycle}")
         if duty_cycle != self.last_pwm:
             self.my_pwm.ChangeDutyCycle(duty_cycle)
             self.last_pwm = duty_cycle
 
     def stop(self, duty_cycle=0):
         """ Stop motor"""
+        self.stop_motor = True
         GPIO.output(self.pin_one, False)
         GPIO.output(self.pin_two, False)
         if self.verbose:
-            print("Stoping Motor : Duty Cycle = {}".format(duty_cycle))
+            print(f"Stopping Motor : Duty Cycle = {duty_cycle}")
         if duty_cycle != self.last_pwm:
             self.my_pwm.ChangeDutyCycle(duty_cycle)
             self.last_pwm = duty_cycle
 
     def brake(self, duty_cycle=100):
         """ brake motor"""
+        self.stop_motor = True
         GPIO.output(self.pin_one, True)
         GPIO.output(self.pin_two, True)
         if self.verbose:
-            print("Braking Motor : Duty Cycle = {}".format(duty_cycle))
+            print(f"Braking Motor : Duty Cycle = {duty_cycle}")
         if duty_cycle != self.last_pwm:
             self.my_pwm.ChangeDutyCycle(duty_cycle)
             self.last_pwm = duty_cycle
 
     def cleanup(self, clean_up=False):
         """ cleanup all GPIO connections used in event of error by lib user"""
+        self.stop_motor = False
         if self.verbose:
-            print("rpi_dc_lib.py : Cleaning up : {}".format(self.name))
+            print(f"rpi_dc_lib.py : Cleaning up : {self.name}")
         GPIO.output(self.pin_one, False)
         GPIO.output(self.pin_two, False)
         self.my_pwm.ChangeDutyCycle(0)
@@ -420,20 +489,16 @@ class TB6612FNGDc():
             GPIO.cleanup()
 
 
-
-
 def importtest(text):
-    """import print test statement"""
-    pass
-    # print(text)
+    """Import print test statement."""
+    _ = text  # acknowledged, intentionally unused
+
 
 # ===================== MAIN ===============================
-
 
 if __name__ == '__main__':
     importtest("main")
 else:
-    importtest("Imported {}".format(__name__))
-
+    importtest(f"Imported {__name__}")
 
 # ===================== END ===============================

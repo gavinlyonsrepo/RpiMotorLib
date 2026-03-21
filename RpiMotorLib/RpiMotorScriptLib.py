@@ -6,7 +6,6 @@
 # display the version and help for Rpi package RpiMotorlib
 # author            :Gavin Lyons
 # web               :https://github.com/gavinlyonsrepo/RpiMotorLib
-# python_version    :3.7.3
 """
 
 # ==========================IMPORTS======================
@@ -14,7 +13,7 @@
 import argparse
 import sys
 
-__version__ = "3.3-4"
+__version__ = "4.0.0"
 __author__ = "Gavin Lyons"
 __url__ = "https://github.com/gavinlyonsrepo/RpiMotorLib"
 
@@ -37,23 +36,22 @@ def process_cmd_arguments():
     return args
 
 
-def main(args):
+def main():
     """main function"""
-    if len(sys.argv) == 1:
-       print("usage: RpiMotorScriptLib.py [-h] [-v]")
+    args = process_cmd_arguments()
 
-    # display version
+    if len(sys.argv) == 1:
+        print("usage: RpiMotorScriptLib.py [-h] [-v]")
+
     if args.version:
         print("rpiMotorlib " + __version__)
-        
+
     print("BYE")
 
-
-# =====================MAIN===============================
+# === MAIN ===
 if __name__ == "__main__":
     try:
-        exit(main(process_cmd_arguments()))
+        sys.exit(main())
     except (KeyboardInterrupt, SystemExit):
         pass
-
-# =====================END===============================
+# ===  EOF ===

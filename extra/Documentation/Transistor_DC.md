@@ -36,37 +36,5 @@ The two methods are called
 1. dc_motor_run = Drive motor forward, two args = duty cycle % , step delay in seconds
 2. dc_clean_up = switchs GPIO pins off
 
-More example code is in the Transistor_DC test.py file in test subfolder of 
+More example code is in the Transistor_DC test.py file in example subfolder of 
 rpiMotorLib repository.
-
-This code will run motor up to max duty cycle % hold it for 
-5 seconds and then run it down to zero and then cleanup.
-
-```sh
-
-import time 
-import RPi.GPIO as GPIO
-
-# import library
-from RpiMotorLib import rpi_dc_lib
-
-step_delay = .05
-# intialise class object
-MotorOne = rpi_dc_lib.TranDc(TranDc(26 ,200 ,True)
-
-input("Press key to accelerate to 100") 
-for speed in range(0,100):
-    MotorOne.dc_motor_run(speed, step_delay)
-time.sleep(5)
-input("Press key to decelerate to 0") 
-for speed in range(100,0,-1):
-    MotorOne.dc_motor_run(speed, step_delay)
-MotorOne.dc_clean_up() 
-
-GPIO.cleanup()
-exit()
-
-```
-
-
-

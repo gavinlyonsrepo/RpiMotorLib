@@ -40,7 +40,7 @@ Module pinout
 | AON1/AON2 | Output channel A | Two outputs to connect the coil of motor |
 | BON1/BON2 | Output channel B | Two outputs to connect the coil motor  |
 
-HW Connection (for stepper motor) for the test file(see software section below) are as follows,
+HW Connection (for stepper motor) for the example file(see software section below) are as follows,
 (you can pick any GPIO pin you want).
 
 1. VM = motor PSU 
@@ -107,7 +107,7 @@ Same software as 28BYJ-48  but with
 minor change in class definition for verbose output.
 
 The library file RpiMotorLib.py has a class which controls the motor with one 
-main function. The test file in the test folder is called TB6612FNG_Nema_Test.py
+main function. The example file in the test folder is called TB6612FNG_Nema_Test.py
 
 When initializing the class pass a name and motor type.
 NB **Set motor type to Nema for this component** 
@@ -140,9 +140,9 @@ motor_stop(), if you wish to stop motor before end of its run. You can also stop
 
 Example: 
 
-There is a detailed example code is in the **TB6612FNG_Nema_Test.py** file in test subfolder of  rpiMotorLib repository. 
+There is a detailed example code is in the **TB6612FNG_Nema_Test.py** file in example subfolder of  rpiMotorLib repository. 
 
-To run this test file type **python3 TB6612FNG_Nema_Test.py** in a terminal.
+To run this example file type **python3 TB6612FNG_Nema_Test.py** in a terminal.
 
 If verbose is set to True various information on pin output and status is outputted to screen at end of a run
 

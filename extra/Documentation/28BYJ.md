@@ -78,7 +78,7 @@ Software
 --------------------------------------------
 
 The library file RpiMotorLib.py contains the class which controls
-the motor. The test file in the test folder is called [BYJ_Motor_Test.py](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/test/BYJ_Motor_Test.py).
+the motor. The example file in the test folder is called [BYJ_Motor_Test.py](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/test/BYJ_Motor_Test.py).
 
 When initialize class pass a name and motor type, The class is called BYJMotor.
 NB **Set to motor type to 28BYJ for this component** 
@@ -109,31 +109,6 @@ mymotortest.motor_run(GPIOPins, wait, steps, counterclockwise, verbose, steptype
 | (5) | verbose,                   | bool default=False | Write pin actions and provide verbose output      |
 | (6) | steptype,                  | string , default="half"        | Type of drive to step motor 3 options <br> "full" = fullstep <br> "half" = half step <br> "wave" = wave driven|
 | (7) | initdelay,                 | float, default=1mS,          | Initial delay after GPIO pins initialized but before motor is moved, gives time for GPIO to initialize.  |
-
-Example: To run A stepper motor connected to GPIO pins 18, 23, 24, 25
-(18-IN1 23-IN2 24-IN3, 25-IN4)
-for step delay of .01 second for 100-step control signal sequence, in clockwise direction,
-verbose output off , in half step mode, with an init start delay of 50mS
-
-The second function is called to stop the motor when the motor is moving.
-motor_stop(), if you wish to stop motor before the end of its run. You can also stop it with keyboard interrupt.
-
-```python
-
-import RPi.GPIO as GPIO
-
-# import the library
-from RpiMotorLib import RpiMotorLib
-
-GpioPins = [18, 23, 24, 25]
-
-# Declare an named instance of class pass a name and motor type
-mymotortest = RpiMotorLib.BYJMotor("MyMotorOne", "28BYJ")
-
-# call the function , pass the parameters
-mymotortest.motor_run(GpioPins , .01, 100, False, False, "half", .05)
-
-```
 
 If verbose is set to True various information on pin output and status is outputted to screen at the end of a run
 

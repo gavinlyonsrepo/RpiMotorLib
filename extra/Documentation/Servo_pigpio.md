@@ -101,19 +101,6 @@ Center-delay-min-delay-max-delay- and so on until user quits or set-limit reache
 | (7)  | initdelay  | float | 50mS | A delay after Gpio setup and before servo moves |
 | (8)  | sweeplen | int | 1 million |   is number of times to execute sweep. |
 
- example:Setup a class instance called servoone with control freq 50mS
- with y_one set to 3 and Y_two to 11. Next call method
- to sweep the servo connected to GPIO pins 7
- for step delay of 0.5 second from pulse width
- 1000uS to pulse width position 2000uS and center position 1500uS
- with verbose output set to True and initdelay set to 0.01mS , 100 times
- 
-```sh
-
-# call the function pass by value in this case.
-myservotest.servo_sweep(7, 1500, 1000, 2000, 0.5, True, 0.01, 100)
-
-```
 
 ### 2 - servo_move
 
@@ -129,14 +116,6 @@ servo_move(servo_pin, position, delay, verbose, initdelay)
 | (4)  | verbose | bool | False  | Output actions & details |
 | (5)  | init delay  | float | 50mS | A delay after Gpio setup and before servo moves |
 
- example: to move the servo connected to GPIO pins 7
- for step delay of 1 second to pulse width of 1200uS
- with non-verbose output and initdelay of 10mS
- 
-```sh
-# call the function pass by value in this case.
-myservotest.servo_move(7, 1200, 1, False, .01)
-```
 
 ### 3 convert_from_degree
 
@@ -144,10 +123,6 @@ converts degrees to pulse width uS
 Input degrees,
 returns pulse width in uS as float
 
-```sh
-testdegree = float(input("What degree do you want?\t"))
-print("Pulse width micro seconds = {} ".format(myservotest.convert_from_degree(testdegree)))
-```
 
 ### 4 servo_move_step 
 
@@ -166,11 +141,3 @@ seven inputs.
 | (6)  | initdelay  | float | 50mS | A delay after Gpio setup and before servo moves |
 | (7)  | verbose | bool | False  | Output actions & details |
 
-Example: to move a servo on GPIO pin 26 from 10 degrees to 170 
-degrees in 3 degree steps every two seconds, with an initial delay 
-of one second and verbose output.   
-
-```sh
-myservotest.servo_move_step.servo_move_step(26, 10, 173, 2, 3, 1, True)
-
-```        

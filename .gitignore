@@ -4,3 +4,10 @@ dist/
 build/
 stuff/
 rpimotorlib.egg-info/
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.coverage
+.pytest_cache
+.lgd-nfy0

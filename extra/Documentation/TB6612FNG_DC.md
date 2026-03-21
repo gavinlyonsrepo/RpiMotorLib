@@ -48,13 +48,13 @@ Module pinout
 | AON1/BON1 | Output 1 for channels A/B| One of the two outputs to connect the motor |
 | AON2/BON2 | Output 2 for channels A/B| One of the two outputs to connect the motor  |
 
-HW Connection (for two DC motors) for the test file(see software section below) are as follows,
+HW Connection (for two DC motors) for the example file(see software section below) are as follows,
 (you can pick any GPIO pin you want).
 
 1. VM to motor PSU 
 2. VCC to RPI 3.3 or 5 volt
 3. GND to GND connect all GND's to a common rail together with PSU and RPI
-4. PWA = 17 GPIO
+4. PWA = 13 GPIO
 5. AI1 = 22 GPIO
 6. AI2 = 27 GPIO
 7. PWB = 18 GPIO
@@ -71,29 +71,27 @@ Software
 -------------------------------------------
 
 The file rpi_dc_lib.py contains code for this component.
-It consists of a class called TB6612FNGDc and six methods.
-The Six methods are called: 
-1. forward = Drive motor forward,  passed one argument = duty cycle %
-2. backward = drive motor backward,  passed one argument = duty cycle %
-3. stop = stop motor, passed one argument = duty cycle %
-4. brake = brake motor,  passed one argument = duty cycle %
-5. cleanup = turn off the 3 GPIO pins and will also run GPIO.cleanup() 
-passed a boolean if False just turn off the 3 GPIO used by motor driver,
-if True run in-built GPIO.cleanup() function.
-6. Standby = Turns standby line on module high or low, Must be high to run
-set low when finished. Passed an integer with standby pin and a boolean.
-If true , standby high. Alternative to using this method is too just tie line to logic high.
+It consists of a class called TB6612FNGDc and seven methods.
+The seven methods are called:
+1. forward = Drive motor forward, passed one argument = duty cycle %
+2. backward = drive motor backward, passed one argument = duty cycle %
+3. stop = stop motor, intended for normal motor control flow,
+   passed one argument = duty cycle %
+4. brake = brake motor, passed one argument = duty cycle %
+5. cleanup = stop PWM and turn off GPIO pins used by motor.
+   Passed a boolean: if False just stop and zero the motor pins,
+   if True also run GPIO.cleanup() for all pins.
+6. motor_stop = intended for emergency/interrupt situations — immediately kills output.
+   Does not destroy the PWM object — motor can be restarted.
+   Call cleanup() for full teardown at end of program.
+7. standby = turns standby line on module high or low. Must be high to run,
+   set low when finished. Passed an integer with standby pin and a boolean —
+   if True, standby high. Alternative to using this method is to tie the
+   standby line directly to logic high.
 
 Example: 
 
-There is a detailed example code is in the TB6612FNGDCtest.py file in test subfolder of 
+There is a detailed example code is in the TB6612FNGDCtest.py file in example subfolder of 
 rpiMotorLib repository. 
 
-To run this test file type **python3 TB6612FNG_DCMot_Test.py** in a terminal.
-
-In event of error or keyboard interrupt call "cleanup function"
-NOTE their is no error handling in this class but their is the "cleanup" 
-function, Its left to user to catch exceptions and call "cleanup" if they 
-want. The cleanup function executes GPIO.cleanup() if passed True.if passed false it just
-sets the pins in play low. The standby function is independent of the class object
-and is set on and off by user. One class object is declared for each motor.
+To run this example file type **python3 TB6612FNG_DCMot_Test.py** in a terminal.

@@ -110,7 +110,7 @@ Same software as 28BYJ-48  but with
 minor change in class definition for verbose output.
 
 The library file RpiMotorLib.py has a class which controls the motor with one 
-main function. The test file in the test folder is called L298_Step_Test.py.
+main function. The example file in the example folder is called L298_Step_Test.py.
 
 When initializing the class pass a name and motor type.
 NB **Set motor type to Nema for this component** 
@@ -139,31 +139,6 @@ The first method is called motor_run- moves stepper motor based on 7 inputs.
  
 The second method is called to stop the motor when the motor is moving.
 motor_stop(), if you wish to stop motor before end of its run. You can also stop with keyboard interrupt. 
-
- Example: To run A stepper motor connected to GPIO pins 18, 23, 24, 25
- (18-IN1 23-IN2 24-IN3, 25-IN4)
- for step delay of 0.1 second for 50 step control signal sequence, in clockwise direction,
- verbose output off , in half step mode, with an init start delay of 50mS
-
-    
-```sh
-
-import time 
-import RPi.GPIO as GPIO
-
-# import the library
-from RpiMotorLib import RpiMotorLib
-    
-GpioPins = [18, 23, 24, 25]
-
-# Declare an named instance of class pass a name and type of motor
-mymotortest = RpiMotorLib.BYJMotor("MyMotorOne", "Nema")
-time.sleep(0.5)
-
-# call the function pass the arguments
-mymotortest.motor_run(GpioPins , 0.1, 50, False, False, "half", .05)
-
-```
 
 If verbose is set to True various information on pin output and status is outputted to screen at end of a run
 

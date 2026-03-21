@@ -1,9 +1,6 @@
-
-
-[![Website](https://img.shields.io/badge/Website-Link-blue.svg)](https://gavinlyonsrepo.github.io/)  [![Rss](https://img.shields.io/badge/Subscribe-RSS-yellow.svg)](https://gavinlyonsrepo.github.io//feed.xml)  [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/paypalme/whitelight976)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/paypalme/whitelight976) [![CI](https://github.com/gavinlyonsrepo/raspberrypi_tempmon/actions/workflows/ci.yml/badge.svg)](https://github.com/gavinlyonsrepo/raspberrypi_tempmon/actions/workflows/ci.yml) [![PyPI version](https://img.shields.io/pypi/v/rpi-tempmon.svg)](https://pypi.org/project/rpi-tempmon/)
 
 # RpiMotorLib
-
 
 ![ScreenShot dcmotor](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/extra/images/RF310T11400.jpg)
 ![ScreenShot Nema](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/extra/images/nema11.jpg)
@@ -25,76 +22,105 @@
     * [File System](#file-system)
     * [Dependencies](#dependencies)
   * [Notes and issues](#notes-and-issues)
-    * [RPI 5](#rpi-5)
     * [Two Motors simultaneously](#two-motors-simultaneously)
     * [GPIO cleanup method](#gpio-cleanup-method)
+    * [Emergency Stop](#emergency-stop)
     * [pipx](#pipx)
   * [See Also](#see-also)
 
 ## Overview
 
 * Name: RpiMotorLib
-* Title: Raspberry pi motor library.
-* Description: 
+* Version: 4.0.0
+* Title: Raspberry Pi motor library.
+* Description:
 
-A python 3 library to drive motor controllers and servos with a Raspberry pi.
+A Python 3 library to drive motor controllers and servos with a Raspberry Pi.
 
-These components supported are some of the most widely used by maker community.
-There are three categories in library. Stepper motors, DC Motors and Servos.
-The end user can import this library into their projects 
+These components supported are some of the most widely used by the maker community.
+There are three categories in the library: Stepper motors, DC Motors and Servos.
+The end user can import this library into their projects
 and then control the components with short snippets of code.
-The library is modular so user can just import/use the section they need.
+The library is modular so the user can just import/use the section they need.
 
 * Project URL: [URL LINK](https://github.com/gavinlyonsrepo/RpiMotorLib)
 
-
-* Tested on Toolchains: 
-    1. RPI 3 model B. Raspbian 10 Buster, 32 bit. Python 3.7.3.
-    2. RPI 3 model B. Raspbian 12 Bookworm, 64 bit. Python 3.11.2.
-    3. See notes for RPI 5 
+* Tested on Toolchains:
+    1. RPI 3 model B. Raspbian 12 Bookworm, 64 bit. Python 3.11.2.
+    2. RPI 5 model B. Raspbian 12 Bookworm, 64 bit. Python 3.11.2.
 
 ## Installation
 
-Latest version 3.3 (10-2024)
+Latest version 4.0.0
+
+**Raspberry Pi compatibility:**
+
+| Raspberry Pi | Supported | Recommended GPIO library |
+| ----- | ----- | ----- |
+| Pi 1 / 2 / 3 / 4 | ✅ | `rpi-lgpio` (recommended) or `RPi.GPIO` (legacy) |
+| Pi 5 | ✅ | `rpi-lgpio` required — `RPi.GPIO` does not support Pi 5 |
+
+`rpi-lgpio` is a drop-in replacement for `RPi.GPIO` that works on **all**
+Raspberry Pi models including Pi 5. It is the recommended GPIO library for
+all new installations regardless of Pi model.
 
 ### From PyPi with pip or pipx
 
-The Python Package Index (PyPI) is a repository of software for the Python programming language.
-The program is present in python package index, Pypi.
-Install using *pip* or *pipx* to the location or environment of your choice.
+The Python Package Index (PyPI) is a repository of software for the Python
+programming language. Install using *pip* or *pipx* to the location or
+environment of your choice. Recommend set up a virtual environment or use pipx
 Package name = rpimotorlib [Link](https://pypi.org/project/rpimotorlib/).
 
-NB see notes section for more on pipx. 
+**Recommended install (all Pi models including Pi 5):**
+```sh
+pip install rpimotorlib[rpilgpio]
+```
+
+**Legacy install (Pi 1-4 with existing RPi.GPIO):**
+```sh
+pip install rpimotorlib[legacy]
+```
+
+> **Warning:** Do not install `rpilgpio` and `legacy` extras together —
+> both provide the `RPi.GPIO` namespace and will conflict.
+
+**Optional extras:**
+
+| Extra | Description |
+| ----- | ----- |
+| `rpilgpio` | Installs rpi-lgpio — recommended for all Pi models including Pi 5 |
+| `legacy` | Installs RPi.GPIO — Pi 1-4 only, not supported on Pi 5 |
+| `pigpio` | Installs pigpio — optional hardware PWM servo, Pi 1-4 only |
+| `dev` | Installs pytest, pytest-cov, pylint — for development |
+
+NB see notes section for more on pipx.
 
 ### From Github
 
-Manually install from github
-The package is also archived on github and can be manually download and installed 
-via python and setup.py. Not recommended.
+Clone and install via pip:
 
 ```sh
-curl -sL https://github.com/gavinlyonsrepo/RpiMotorLib/archive/3.3.tar.gz | tar xz
-cd RpiMotorLib-3.3
-python3 setup.py build 
-python3 setup.py install --user
+git clone https://github.com/gavinlyonsrepo/RpiMotorLib.git
+cd RpiMotorLib
+pip install .[rpilgpio]
 ```
 
 ## Hardware
 
-Supported Components: 
+Supported Components:
 
 ### Stepper motors
 
 | Motor tested | Motor controller| Help File URL link |
 | ----- | ----- | ----- |
-| Unipolar 28BYJ-48 | ULN2003 driver module | [URL](extra/Documentation/28BYJ.md)| 
+| Unipolar 28BYJ-48 | ULN2003 driver module | [URL](extra/Documentation/28BYJ.md)|
 | Bipolar Nema  | TB6612FNG Dual Driver Carrier | [URL](extra/Documentation/Nema11TB6612FNG.md) |
 | Bipolar Nema  | L298N H-Bridge controller module | [URL](extra/Documentation/Nema11L298N.md) |
 | Bipolar Nema  | A4988 Stepper Driver Carrier | [URL](extra/Documentation/Nema11A4988.md)|
 | Bipolar Nema  | DRV8825 Stepper Driver Carrier | [URL](extra/Documentation/Nema11DRV8825.md) |
 | Bipolar Nema  | A3967 Stepper Driver aka "easy driver v4.4" | [URL](extra/Documentation/Nema11A3967Easy.md)|
 | Bipolar (untested on hw)| LV8729 Stepper Driver Carrier  | [URL](extra/Documentation/Nema11LV8729.md)|
-| Bipolar (untested)| DV8833 Motor controller module | TODO |
+| Bipolar (untested)| DRV8833 Motor controller module | TODO |
 | Bipolar (untested)| L9110S Motor controller module | TODO |
 | Bipolar Nema | MX1508 Motor controller module | [URL](extra/Documentation/Nema11MX150X.md) |
 
@@ -104,7 +130,7 @@ Supported Components:
 | ----- | ----- | ----- |
 | DC Brushed Motor | L298N Motor controller module. | [ URL ](extra/Documentation/L298N_DC.md) |
 | DC Brushed Motor | L9110S Motor controller module. | [ URL ](extra/Documentation/L9110S_DC.md) |
-| DC Brushed Motor | DV8833 Motor controller module. | [ URL ](extra/Documentation/DRV8833_DC.md) |
+| DC Brushed Motor | DRV8833 Motor controller module. | [ URL ](extra/Documentation/DRV8833_DC.md) |
 | DC Brushed Motor | TB6612FNG Dual motor driver carrier| [ URL ](extra/Documentation/TB6612FNG_DC.md) |
 | DC Brushed Motor | MX1508 Motor controller module| [ URL ](extra/Documentation/MX1508_DC.md) |
 | DC Brushed Motor | Transistor control | [ URL ](extra/Documentation/Transistor_DC.md) |
@@ -112,122 +138,110 @@ Supported Components:
 ### Servos
 
 There are two different options for controlling the servo.
-When using Rpi_GPIO option you may notice twitching at certain
-delays and stepsizes. This is the result of the 
-implementation of the RPIO PWM software timing. If the application requires
-precise control the user can pick the pigpio library
-which uses hardware based timing. The disadvantage being they must install 
-a dependency(pigpio) and start its daemon.
+When using the rpi-lgpio/RPi.GPIO option you may notice twitching at certain
+delays and step sizes. This is the result of software PWM timing.
+If the application requires precise control the user can pick the pigpio library
+which uses hardware based timing. The disadvantage is they must install
+a dependency (pigpio) and start its daemon.
+**Note: pigpio does not support Raspberry Pi 5.**
 
-
-| Servo | Link |
-| ----- | ----- |
-| Servo software timing | [  RPi.GPIO module PWM ](extra/Documentation/Servo_RPI_GPIO.md) |
-| Servo hardware timing | [  pigpio library module PWM ](extra/Documentation/Servo_pigpio.md) |
-
+| Servo | Pi 5 | Link |
+| ----- | ----- | ----- |
+| Servo software timing | ✅ | [ rpi-lgpio / RPi.GPIO PWM ](extra/Documentation/Servo_RPI_GPIO.md) |
+| Servo hardware timing | ❌ | [ pigpio library PWM ](extra/Documentation/Servo_pigpio.md) |
 
 ## Software
 
-1. Separate help files are in documentation folder to learn how to use library.
-    Click on the relevant URL link in tables in hardware section.
-2. Test files used during development are in test folder of repository.
+1. Separate help files are in the documentation folder to learn how to use the library.
+   Click on the relevant URL link in the tables in the hardware section.
+2. Hardware example scripts are in the `examples/` folder of the repository.
 3. There is a "Software matrix" showing which classes are used to drive which components.
-    This is in the Software_Matrix.md file in extra/Documentation folder.
-
+   This is in the Software_Matrix.md file in extra/Documentation folder.
 
 ### File System
-
 
 RpiMotorLib files are listed below:
 
 | File Path | Description |
 | ------ | ------ |
-| RPiMotorLib/RpiMotorLib.py |  stepper motor python library file |
-| RPiMotorLib/rpiservolib.py | servo python library RPi.GPIO  PWM file |
-| RPiMotorLib/rpi_pservo_lib.py | servo python library pigpio PWM file |
-| RPiMotorLib/rpi_dc_lib.py  |    DC python motor library  file |
-| documentation/*.md | 15 markdown library documentation files |
-| test/*Test.py | 14 python test files |
-| /usr/share/doc/RpiMotorLib/README.md | This help file |
-| RPiMotorLib/RpiMotorScriptLib.py | small script with meta data about library |
+| RpiMotorLib/RpiMotorLib.py | Stepper motor library file |
+| RpiMotorLib/rpiservolib.py | Servo library — software PWM via rpi-lgpio/RPi.GPIO |
+| RpiMotorLib/rpi_pservo_lib.py | Servo library — hardware PWM via pigpio (Pi 1-4 only) |
+| RpiMotorLib/rpi_dc_lib.py | DC motor library file |
+| RpiMotorLib/gpio_adapter.py | GPIO abstraction layer — supports rpi-lgpio, RPi.GPIO, lgpio |
+| RpiMotorLib/settings.py | Settings manager — reads ~/.config/rpiMotorLib/config.ini |
+| RpiMotorLib/rpi_emergency_stop.py | Emergency stop push button class |
+| RpiMotorLib/RpiMotorScriptLib.py | Script to display version and help information |
+| extra/Documentation/*.md | Markdown library documentation files |
+| extra/Documentation/estop/estopreadme.md | Emergency stop documentation |
+| extra/Documentation/pipx/pipxreadme.md | pipx installation documentation |
+| examples/ | Hardware example scripts organised by motor type |
+| tests/ | Pytest unit tests with mocked GPIO — run on any machine |
 
 A small script is installed to display version and help information.
-Run the information script by typing.
-RpiMotorScriptLib.py -[options]
+Run the information script by typing:
 
-| Option          | Description     |
+```sh
+rpimotorscript -[options]
+```
+
+| Option | Description |
 | --------------- | --------------- |
 | -h  | Print help information and exit |
 | -v  | Print version information and exit |
 
-
 ### Dependencies
 
+| Dependency | Required | Pi 5 | Notes |
+| ----- | ----- | ----- | ----- |
+| rpi-lgpio >= 0.4 | Recommended | ✅ | Drop-in RPi.GPIO replacement, works on all Pi models |
+| RPi.GPIO | Legacy alternative | ❌ | Pre-installed on most Pi 1-4 systems |
+| pigpio >= 1.78 | Optional | ❌ | Hardware PWM servo only, Pi 1-4 only |
 
-1. RPi.GPIO 0.6.3  [Rpi.GPIO pypi page](https://pypi.python.org/pypi/RPi.GPIO)
+The GPIO backend is selected automatically at runtime in the following priority order:
 
-A module to control Raspberry Pi GPIO channels.
-This package provides a class to control the GPIO on a Raspberry Pi.
-This should already be installed on most Raspberry Pis.
+1. `RPIMOTORLIB_GPIO_BACKEND` environment variable (if set)
+2. `~/.config/rpiMotorLib/config.ini` (created automatically on first run)
+3. Auto-detect: tries rpi-lgpio/RPi.GPIO first, then lgpio
 
-2. pigpio 1.64-1 [Homepage](abyz.co.uk/rpi/pigpio/)
-
-This Dependency is *Optional*, it is currently 
-only used in one of the two servo control options.
-pigpio is a library for the Raspberry which allows 
-control of the General Purpose Input Outputs (GPIO).
-
+Valid backend values in config: `null` (auto-detect), `rpigpio`, `lgpio`.
 
 ## Notes and issues
 
-### RPI 5
-
-Will NOT work on raspberry pi 5's at present as  RPi.GPIO does not work anymore due to change's in way raspberry pi 5  handles the peripheral access. See github issue #26
-
 ### Two Motors simultaneously
 
-Running two motors simultaneously, See github issue #11
+Running two motors simultaneously — see github issue #11.
 
-If you want to control two or more steppers simultaneously, there are two basic setup
-files for using threading in test/Multi_Threading_Example folder. 
+If you want to control two or more steppers simultaneously, there are two
+example scripts using threading in `examples/Multi_Threading_Example/`:
 
-1. For Unipolar 28BYJ-48  MultiMotorThreading_BYJ.py
-2. For Bipolar DRV8825 Stepper MultiMotorThreading_DRV8825.py
+1. For Unipolar 28BYJ-48: `MultiMotorThreading_BYJ.py`
+2. For Bipolar DRV8825 Stepper: `MultiMotorThreading_DRV8825.py`
 
 ### GPIO cleanup method
 
-Potential Issue with GPIO.cleanup() method not working* See github issue #18 and #21
+As of v4.0.0 the library manages GPIO cleanup internally via the GPIO
+abstraction layer. User scripts no longer need to call `GPIO.cleanup()`
+directly — the motor class `cleanup()` methods and `estop.cleanup()` handle
+this correctly for all backends.
 
-Some users are reporting that GPIO.cleanup() does not work.
-It does not switch off or "cleanup" GPIO as it should.
-This is external function from RPi.GPIO. It is mainly used in the test scripts.
-It is also called by the classes in DC motor if the cleanup method is passed argument "true".
-If you see this issue simply don't use GPIO.cleanup() or remove GPIO.cleanup 
-and clear the GPIO you set manually or use python "del" method to destroy the relevant class object,
-to free resources if you need them again.
+For users on older versions experiencing GPIO cleanup issues see github
+issues #18 and #21.
+
+### Emergency Stop
+
+All example scripts include support for an motor movement stop push button.
+See the dedicated documentation:
+[Emergency Stop README](extra/Documentation/estop/estopreadme.md)
 
 ### pipx
 
-As of pep668, Users on many systems will now get an error if they try and install packages on system
-with pip("~environment is externally managed"). One solution is to use pip to install to a virtual environment.
-
-Another is to use package. **PIPX**, which installs packages globally into isolated Virtual Environments.
-
-The first problem I had was getting my test files to "see" this isolated Virtual environment so they could import the modules. In test/pipx
-I have created two pipx examples files showing a solution. In example 1 I append the package location to sys.path using sys.path.insert
-and in example 2 I simply change the shebang at first line of file(the new shebang is from the pipx installed RpiMotorScriptLib.py file at .local/bin).
-I will learn more about pipx and see if there is a better solution.
-
-The second problem after finding the correct path is the dependency RPi.GPIO module is not in the pipx venv. So must be "injected" into the venv.
-this is because I did not include RPi.GPIO in the setup.py as it is always there globally(for most users).
-I will correct this in next update.
-
-```sh
-pipx install rpimotorlib
-pipx inject rpimotorlib RPi.GPIO
-```
-
+As of PEP 668, users on many systems will get an error if they try to
+install packages system-wide with pip. pipx installs packages into isolated
+virtual environments and is a clean solution.
+See the dedicated documentation:
+[pipx README](extra/Documentation/pipx/pipxreadme.md)
 
 ## See Also
 
-1. Partial port to Raspberry pi PICO SDK C++ at [link.](https://github.com/gavinlyonsrepo/Stepper_Motor_Control_PICO)
+1. Partial port to Raspberry Pi PICO SDK C++ at [link.](https://github.com/gavinlyonsrepo/Stepper_Motor_Control_PICO)

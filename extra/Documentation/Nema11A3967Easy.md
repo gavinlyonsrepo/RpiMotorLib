@@ -116,7 +116,7 @@ Software
 
 The library file RpiMotorLib.py contains the class which controls 
 the motor. The class is called A3967EasyNema. 
-The test file is called A3967_Nema_Test.py.
+The example file is called A3967_Nema_Test.py.
 
 init method 3 inputs.
 
@@ -142,29 +142,3 @@ Another method is called to stop the motor when the motor is moving.
 motor_stop(), if you wish to stop motor before end of its run. 
 You can also stop with keyboard interrupt.
 
- Example:
- 
-```sh
-
-import RPi.GPIO as GPIO
-
-
-# import the library
-from RpiMotorLib import RpiMotorLib
-    
-#GPIO pins 
-GPIO_pins = (6, 13) # Microstep Resolution MS1-MS2 -> GPIO Pin
-direction= 26       # Direction -> GPIO Pin
-step = 19    # Step -> GPIO Pin
-
-# Declare an named instance of class, pass GPIO-PINs
-mymotortest = RpiMotorLib.A3967EasyNema(direction, step, GPIO_pins)
-
-# call the function, pass the arguments, In this example
-# we move 200 steps in full mode(one revolution) after an initdelay
-# of 50mS with step delay of 5mS, Clockwise direction and verbose output on. 
-
-mymotortest.motor_move(.005, 200 , False, True, "Full", .05)
-
-
-```

@@ -106,34 +106,7 @@ and Drv8825.
 The two difference from a user POV is 
 
 1. When you instantiate the class the user passes the motor type ( "DRV8825") 
-2. 1/32 microstep for DRV8825 is available. The test file is called DRV8825_Nema_Test.py
+2. 1/32 microstep for DRV8825 is available. The example file is called DRV8825_Nema_Test.py
 
 See for more details [A4988 software Section](Nema11A4988.md) 
 
-
-Example: Should do a 180 degree turn.
-To run A stepper motor clockwise in Full mode for 100 steps.
- for step delay of .01 second. 
- verbose output off , with 50mS init delay.
- 
-```sh
-
- 
-import RPi.GPIO as GPIO
-
-# import the library
-from RpiMotorLib import RpiMotorLib
-    
-#define GPIO pins
-GPIO_pins = (14, 15, 18) # Microstep Resolution MS1-MS3 -> GPIO Pin
-direction= 20       # Direction -> GPIO Pin
-step = 21      # Step -> GPIO Pin
-
-# Declare a instance of class pass GPIO pins numbers and the motor type
-mymotortest = RpiMotorLib.A4988Nema(direction, step, GPIO_pins, "DRV8825")
-
-
-# call the function, pass the arguments
-mymotortest.motor_go(False, "Full" , 100, .01, False, .05)
-
-```

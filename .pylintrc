@@ -1,0 +1,8 @@
+[DESIGN]
+max-args = 8
+max-attributes = 9
+max-positional-arguments = 8
+
+
+[MESSAGES CONTROL]
+disable = C0103, R0801

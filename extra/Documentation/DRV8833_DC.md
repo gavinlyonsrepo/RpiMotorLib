@@ -41,102 +41,20 @@ This library was tested on a RF-310T-11400 DC motor.
 Software
 -------------------------------------------
 The file rpi_dc_lib.py contains code for this component
-It consists of a class called DRV8833NmDc and five methods
-The five methods are called: 
+It consists of a class called DRV8833NmDc and six methods
+The methods are called: 
 1. forward = Drive motor forward,  passed one argument = duty cycle %
 2. backward = drive motor backward,  passed one argument = duty cycle %
-3. stop = stop motor, passed one argument = duty cycle %
+3. stop = stop motor, Intended for normal motor control flow
+   passed one argument = duty cycle %
 4. brake = brake motor,  passed one argument = duty cycle %
-5. cleanup = turn off the 3 GPIO pins and will also run GPIO.cleanup() 
-passed a boolean if False just turn off the 2 GPIO useds by motor,
-if True run in-built GPIO.cleanup() function.
+5. cleanup = stop PWM and turn off GPIO pins used by motor.
+   Passed a boolean: if False just stop and zero the motor pins,
+   if True also run GPIO.cleanup() for all pins.
+6. motor_stop = Intended for emergency/interrupt situations — immediately kills output
+   immediately stop motor output and set stop flag.
+   Does not destroy the PWM object — motor can be restarted.
+   Call cleanup() for full teardown at end of program.
 
-Example: 
+Example code is in the DRV8833_or_ L9110S_DC_Test.py file 
 
-The GPIO pins of pi in this example
-in1 = 19
-in2 = 13
-
-1. Runs a motor forwards at duty cycle 15 for 3 seconds 
-2. Stop
-3. Run a motor forwards in steps of 1 from duty cycle 15 to 30
-4. Stop
-5. Runs a motor backwards at duty cycle 15 for 3 seconds 
-6. Stop
-7. Run a motor backwards in steps of 1 from duty cycle 15 to 30
-8. Stop
-9. Run a motor forwards at 50 and test brake
-10. cleanup
-
-In event or error or keyboard interrupt call "cleanup function"
-NOTE their is no error handling in this class but their is the "cleanup" 
-function, Its left to user to catch exceptions and call "cleanup" if they 
-want. The cleanup function executes GPIO.cleanup() if passed True
-
-More example code is in the DRV8833_or_ L9110S_DC_Test.py file 
-in test subfolder of rpiMotorLib repository.
-
-```sh
-import time 
-import RPi.GPIO as GPIO
-from RpiMotorLib import rpi_dc_lib 
-
-def motorone():
-    
-    print(" TEST: testing motor 1") 
-    # Motorssetup
-    MotorOne = rpi_dc_lib.DRV8833NmDc(19 ,13 ,50 ,True, "motor_one")
-    
-    try:
-        print("1. motor forward")
-        MotorOne.forward(15)
-        input("press key to stop") 
-        print("motor stop\n")
-        MotorOne.stop(0)
-        time.sleep(3)
-
-        print("2. motor forward speed up")
-        for i in range(15,30):
-            MotorOne.forward(i)
-            time.sleep(1)
-        MotorOne.stop(0)
-        print("motor stoped\n")
-        time.sleep(3)
-        
-        print("3. motor backward")
-        MotorOne.backward(15)
-        input("press key to stop") 
-        MotorOne.stop(0)
-        print("motor stopped\n")
-        time.sleep(3)
-
-        print("4. motor backward speed up")
-        for i in range(15,30):
-            MotorOne.backward(i)
-            time.sleep(1)
-        MotorOne.stop(0)
-        print("motor stopped\n")
-        time.sleep(3)
-      
-      
-        print("5  brake check")
-        MotorOne.forward(50)
-        time.sleep(3)
-        MotorOne.brake(100)
-        print("motor brake\n")
-        
-    except KeyboardInterrupt:
-            print("CTRL-C: Terminating program.")
-    except Exception as error:
-            print(error)
-            print("Unexpected error:")
-    finally:
-        MotorOne.cleanup(False)
-        
-if __name__ == '__main__':
-   
-    print("START")
-    motorone()
-    exit()
-    
-```

@@ -22,20 +22,20 @@ Module pinout
 | Motor A | Output 1 for channels A| One of the two outputs to connect the motor coil 1|
 | Motor B | Output 2 for channels B| One of the two outputs to connect the motor coil 2 |
 
-HW Connection (for stepper motor) for the test file(see software section below) are as follows,
+HW Connection (for stepper motor) for the example file(see software section below) are as follows,
 (you can pick any GPIO pin you want).
 
 
 1. '+' to motor PSU (2-10 volts) tested at 5
-2. '-' to GND connect all GND's to a common rail together with PSU and RPI
+2. '-' to GND (connect all GND's to a common rail together with PSU and RPI)
 3. IN1 = 20 GPIO
 4. IN2 = 21 GPIO
 5. IN3 = 19 GPIO
 6. IN4 = 26 GPIO
-7. Motor B Coil Number 1 Stepper motor  black wire A(Nema 11)
-8. Motor B Coil Number 1 Stepper motor  green wire C(Nema 11)
-9. Motor A Coil Number 2 Stepper motor  red wire B(Nema 11)
-10. Motor A Coil Number 2 Stepper motor  blue wire D(Nema 11)
+7. Motor A 1 (next to resistor TR) Coil 1 Stepper motor green wire C(Nema 11)
+8. Motor A 2 Coil 1 Stepper motor black wire A(Nema 11)
+9. Motor B 1 Coil 2 Stepper motor blue wire D(Nema 11)
+10. Motor B 2 (edge of board BR) Coil 2 Stepper motor red wire B(Nema 11)
 
 
 Now the stepper motor , This library was tested  
@@ -86,7 +86,7 @@ Same software as 28BYJ-48  but with
 minor change in class definition for verbose output.
 
 The library file RpiMotorLib.py has a class which controls the motor with one 
-main function. The test file in the test folder is called MC150X_Nema_Test.py
+main function. The example file in the test folder is called MC150X_Nema_Test.py
 
 When initializing the class pass a name and motor type.
 NB **Set motor type to Nema for this component** 
@@ -119,9 +119,9 @@ motor_stop(), if you wish to stop motor before end of its run. You can also stop
 
 Example: 
 
-There is a detailed example code is in the **MC150X_Nema_Test.py** file in test subfolder of  rpiMotorLib repository. 
+There is a detailed example code is in the **MC150X_Nema_Test.py** file in example subfolder of  rpiMotorLib repository. 
 
-To run this test file type **python3 MC150X_Nema_Test.py** in a terminal.
+To run this example file type **python3 MC150X_Nema_Test.py** in a terminal.
 
 If verbose is set to True various information on pin output and status is outputted to screen at end of a run
 

@@ -1,0 +1,75 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rpimotorlib"
+version = "4.0.0"
+description = "A Python 3 library to control various motor types on Raspberry Pi (Pi 1–5)"
+readme = "README.md"
+license = { text = "GPL-3.0-or-later" }
+authors = [
+    { name = "Gavin Lyons", email = "glyons66@hotmail.com" }
+]
+keywords = ["raspberry-pi", "gpio", "stepper-motor", "dc-motor", "servo", "robotics"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Topic :: System :: Hardware",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: POSIX :: Linux",
+]
+requires-python = ">=3.9"
+
+
+[project.optional-dependencies]
+# WARNING: do not install 'legacy' and 'rpilgpio' in the same environment.
+# Both provide the RPi.GPIO namespace and will conflict.
+# For legacy users on Raspberry pi 1-4
+legacy = ["RPi.GPIO"]
+# For users who want hardware-timed PWM on Pi 1-4 (not Pi 5)
+pigpio = ["pigpio>=1.78"]
+# Rasopberry 1-5 users 
+rpilgpio = ["rpi-lgpio>=0.4"]
+# Development / CI tools
+dev = [
+    "pytest>=7.4",
+    "pytest-cov>=4.1",
+    "pylint>=3.0",
+]
+
+[project.scripts]
+rpimotorscript = "RpiMotorLib.RpiMotorScriptLib:main"
+
+[project.urls]
+Homepage = "https://github.com/gavinlyonsrepo/RpiMotorLib"
+Repository = "https://github.com/gavinlyonsrepo/RpiMotorLib"
+"Bug Tracker" = "https://github.com/gavinlyonsrepo/RpiMotorLib/issues"
+Documentation = "https://github.com/gavinlyonsrepo/RpiMotorLib/tree/master/extra/Documentation"
+Changelog = "https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/CHANGELOG.md"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["RpiMotorLib*"]
+
+[tool.setuptools.package-data]
+"RpiMotorLib" = ["py.typed"]
+
+# ── pytest ──────────────────────────────────────────────────────────────────
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--tb=short -q"
+
+# ── coverage ─────────────────────────────────────────────────────────────────
+[tool.coverage.run]
+source = ["RpiMotorLib"]
+omit = ["tests/*"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
