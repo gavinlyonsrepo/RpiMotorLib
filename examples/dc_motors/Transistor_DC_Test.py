@@ -27,7 +27,7 @@ def motorone():
 
     estop.enable()
 
-    input("Press key to speed up")
+    input("Press enter key to speed up")
     step_delay = .05
     my_motor_one.stop_motor = False
     for speed in range(0, 100):
@@ -36,7 +36,7 @@ def motorone():
         my_motor_one.dc_motor_run(speed, step_delay)
     time.sleep(5)
 
-    input("Press key to speed down")
+    input("Press enter key to speed down")
     my_motor_one.stop_motor = False
     for speed in range(100, 0, -1):
         my_motor_one.dc_motor_run(speed, step_delay)

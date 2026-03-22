@@ -32,9 +32,10 @@ Class init:
 | (2) | freq  | int | 50| PWM freq in Hz of control signal |
 | (3) | verbose | bool | False |  Write pin actions to console|
 
-The two methods are called 
+The  methods are called 
 1. dc_motor_run = Drive motor forward, two args = duty cycle % , step delay in seconds
-2. dc_clean_up = switchs GPIO pins off
+2. dc_clean_up = Switch's GPIO pins off
+3. motor_stop =  Stop motor output immediately. PWM object kept alive for reuse.
 
 More example code is in the Transistor_DC test.py file in example subfolder of 
 rpiMotorLib repository.

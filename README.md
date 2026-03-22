@@ -18,6 +18,7 @@
     * [Stepper motors](#stepper-motors)
     * [DC motors](#dc-motors)
     * [Servos](#servos)
+    * [Motor stop push button](#motor-stop-push-button)
   * [Software](#software)
     * [File System](#file-system)
     * [Dependencies](#dependencies)
@@ -25,8 +26,6 @@
     * [Servo trace back issue](#servo-trace-back-issue)
     * [Two Motors simultaneously](#two-motors-simultaneously)
     * [GPIO cleanup method](#gpio-cleanup-method)
-    * [Emergency Stop](#emergency-stop)
-    * [pipx](#pipx)
   * [See Also](#see-also)
 
 ## Overview
@@ -56,11 +55,12 @@ Latest version 4.0.0
 
 **Raspberry Pi compatibility:**
 
-Before the Raspberry pi 5 rpimotorlib used RPi.GPIO as low level
-dependency. but it wont work on Raspberry 5 and will not be upgraded
-so we switched to rpi-lgpio which works on all in Version 4.0.0.
-Using a gpio_adpater, we maintained backwards compatibility
-and capability to use RPi.GPIO.
+Prior to v4.0.0, RpiMotorLib used RPi.GPIO as its GPIO dependency. 
+RPi.GPIO does not support Raspberry Pi 5 and is no longer actively maintained.
+From v4.0.0 onwards, rpi-lgpio is the recommended GPIO library — it is a 
+drop-in replacement for RPi.GPIO that works on all Pi models including Pi 5.
+Backward compatibility with RPi.GPIO is maintained via an internal GPIO 
+abstraction layer.
 
 | Raspberry Pi | Supported | Recommended GPIO library |
 | ----- | ----- | ----- |
@@ -77,7 +77,7 @@ The Python Package Index (PyPI) is a repository of software for the Python
 programming language. Install using *pip* or *pipx* to the location or
 environment of your choice. Recommend set up a
 [virtual environment](extra/Documentation/venv_help/venv_help_readme.md)
-or use pipx. NB see notes section for more on pipx.
+or use pipx. [pipx README](extra/Documentation/pipx/pipxreadme.md) .
 Package name = rpimotorlib [Link](https://pypi.org/project/rpimotorlib/).
 
 **Recommended install (all Pi models including Pi 5):**
@@ -157,6 +157,12 @@ a dependency (pigpio) and start its daemon.
 | Servo software timing | ✅ | [ rpi-lgpio / RPi.GPIO PWM ](extra/Documentation/Servo_RPI_GPIO.md) |
 | Servo hardware timing | ❌ | [ pigpio library PWM ](extra/Documentation/Servo_pigpio.md) |
 
+### Motor stop push button
+
+All example scripts include support for a motor movement stop push button.
+
+[Emergency Stop README](extra/Documentation/estop/estopreadme.md)
+
 ## Software
 
 1. Separate help files are in the documentation folder to learn how to use the library.
@@ -215,7 +221,7 @@ Valid backend values in config: `null` (auto-detect), `rpigpio`, `lgpio`.
 
 ### Servo trace back issue
 
-rpi-lgpio 0.6 may produces a harmless `TypeError` traceback
+rpi-lgpio 0.6 may produce a harmless `TypeError` traceback
 after `GPIO.cleanup()` when PWM has been used. This is a known upstream
 bug in rpi-lgpio (see [PR #23](https://github.com/waveform80/rpi-lgpio/pull/23))
 and does not affect motor or servo operation. A fix exists in the PR but
@@ -236,19 +242,9 @@ As of v4.0.0 the library manages GPIO cleanup internally via the GPIO
 abstraction layer. User scripts no longer need to call `GPIO.cleanup()`
 directly — the motor class `cleanup()` methods and `estop.cleanup()` handle
 this correctly for all backends.
-
 For users on older versions experiencing GPIO cleanup issues see github
 issues #18 and #21.
 
-### Emergency Stop
-
-All example scripts include support for an motor movement stop push button.
-
-[Emergency Stop README](extra/Documentation/estop/estopreadme.md)
-
-### pipx
-
-[pipx README](extra/Documentation/pipx/pipxreadme.md)
 
 ## See Also
 

@@ -1,10 +1,8 @@
-Servos
-----------------------------------
+# Servos
 
 ![ScreenShot servo](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/extra/images/sg90.jpg)
 
-Hardware
-------------------------------------
+## Hardware
 
 Should Work on any servo with 20mS duty cycle or 50Hz frequency, tested on.
 Tower pro Digital micro servo SG90.
@@ -44,15 +42,19 @@ To get slope of line m = (y2-y1)/(x2-x1). The equation of the line using the poi
 
 So for default values 90 degree or midpoint is 1500.
 
-Software for Servo by pigpio library
---------------------------------------------
+## Software for Servo by pigpio library
 
-NB , Remember to start to pigpio daemon every time you want to use it or at
-startup. By typing sudo pigpiod in terminal 
+
+**NOTES**
+
+Remember to start to pigpio daemon every time you want to use it or at
+startup. By typing sudo pigpiod in terminal
+The pigpio library will NOT work on Raspberry 5.
+
+
 
 The library file rpi_pservo_lib.py has a single class 
 which controls the servo. Test file is called ServoPIGPIOTest.py.
-
 The class is called ServoPigpio and it contains five methods:
 
 | ID  | Method  |  Help  | 
