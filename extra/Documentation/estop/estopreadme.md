@@ -40,18 +40,11 @@ estop.cleanup()
 The `stop_callable` argument accepts any callable — pass the stop method
 of whatever motor or servo instance you are using:
 
-| Class | Stop method |
+| Device | Stop method |
 | ----- | ----- |
-| BYJMotor | `motor.motor_stop` |
-| A4988Nema | `motor.motor_stop` |
-| A3967EasyNema | `motor.motor_stop` |
-| L298NMDc | `motor.motor_stop` |
-| DRV8833NmDc | `motor.motor_stop` |
-| MC150XDc | `motor.motor_stop` |
-| TB6612FNGDc | `motor.motor_stop` |
-| TranDc | `motor.motor_stop` |
-| SG90servo | `servo.servo_stop` |
-| ServoPigpio | `servo.servo_stop` |
+| Motors | `motor.motor_stop` |
+| servos | `servo.servo_stop` |
+
 
 ## Stopping multiple motors
 
@@ -94,3 +87,17 @@ EmergencyStop(gpio_pin, stop_callable, bouncetime=200, verbose=False)
 All hardware example scripts in the `examples/` folder include emergency stop
 support commented in by default. To disable it, comment out the three
 `EmergencyStop` lines in the script.
+
+
+## Known issue — RPi.GPIO edge detection 
+
+`EmergencyStop` requires `add_event_detect` which is broken in RPi.GPIO
+on Raspberry Pi running Bookworm due to removal of the sysfs GPIO interface
+in recent kernels(~6.6.y_. If you see `RuntimeError: Failed to add edge detection`
+replace RPi.GPIO with rpi-lgpio:
+```sh
+pip install rpimotorlib[rpilgpio]
+```
+References:
+- [Raspberry Pi kernel issue #6037](https://github.com/raspberrypi/linux/issues/6037)
+

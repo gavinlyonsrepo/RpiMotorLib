@@ -25,7 +25,8 @@
   * [Notes and issues](#notes-and-issues)
     * [Servo trace back issue](#servo-trace-back-issue)
     * [Two Motors simultaneously](#two-motors-simultaneously)
-    * [GPIO cleanup method](#gpio-cleanup-method)
+    * [RPi.GPIO cleanup method](#rpi.gpio-cleanup-method)
+    * [RPi.GPIO edge detection](#rpi.gpio-edge-detection) 
   * [See Also](#see-also)
 
 ## Overview
@@ -236,8 +237,9 @@ example scripts using threading in `examples/Multi_Threading_Example/`:
 1. For Unipolar 28BYJ-48: `MultiMotorThreading_BYJ.py`
 2. For Bipolar DRV8825 Stepper: `MultiMotorThreading_DRV8825.py`
 
-### GPIO cleanup method
+### RPi.GPIO cleanup method
 
+RPi.GPIO legacy issue:
 As of v4.0.0 the library manages GPIO cleanup internally via the GPIO
 abstraction layer. User scripts no longer need to call `GPIO.cleanup()`
 directly — the motor class `cleanup()` methods and `estop.cleanup()` handle
@@ -245,6 +247,16 @@ this correctly for all backends.
 For users on older versions experiencing GPIO cleanup issues see github
 issues #18 and #21.
 
+### RPi.GPIO edge detection 
+
+RPi.GPIO legacy issue:
+RPi.GPIO `add_event_detect` raises `RuntimeError: Failed to add edge detection`
+on Raspberry Pi due to removal of the sysfs GPIO interface
+in recent kernels(~6.6.y). This affects `EmergencyStop` when using the `legacy` extra.
+Switch to 'rpilgpio'. 
+
+References:
+- [Raspberry Pi kernel issue #6037](https://github.com/raspberrypi/linux/issues/6037)
 
 ## See Also
 
