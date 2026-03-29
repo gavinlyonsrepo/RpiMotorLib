@@ -103,6 +103,16 @@ pip install rpimotorlib[legacy]
 | `pigpio` | Installs pigpio — optional hardware PWM servo, Pi 1-4 only |
 | `dev` | Installs pytest, pytest-cov, pylint — for development |
 
+
+Depending on Environment and location installed, you may also need to install 
+swig which is dependency of lgpio or install lgpio globally, 
+[lgpio homepage](https://abyz.me.uk/lg/download.html)
+
+```sh
+sudo apt install swig
+```
+
+
 ### From Github
 
 Clone and install via pip:
