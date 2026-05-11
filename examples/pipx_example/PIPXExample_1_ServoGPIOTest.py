@@ -16,7 +16,8 @@ import sys
 import time
 
 # Adjust this path to match your machine and Python version
-sys.path.insert(0, '/home/gavin/.local/pipx/venvs/rpimotorlib/lib/python3.11/site-packages/') # pylint: disable=line-too-long
+#old path /home/gll/.local/pipx/venvs/rpimotorlib/lib/python3.11/site-packages/
+sys.path.insert(0, '/home/gll/.local/share/pipx/venvs/rpimotorlib/lib/python3.13/site-packages') # pylint: disable=line-too-long
 
 from RpiMotorLib.rpiservolib import SG90servo  # pylint: disable=import-error,wrong-import-position
 

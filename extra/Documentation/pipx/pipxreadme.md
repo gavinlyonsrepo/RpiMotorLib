@@ -67,6 +67,12 @@ cat ~/.local/bin/rpimotorscript | head -1
 This method uses the standard `from RpiMotorLib import ...` import syntax
 with no `sys.path` manipulation needed.
 
+run as program
+
+```sh
+./PIPXExample_2_ServoGPIOTest.py 
+```
+
 
 ### Method 3 -- Inject rpiMotorLib into project
 
@@ -79,6 +85,8 @@ pipx inject my_project rpimotorlib
 
 
 ## Finding your pipx venv path
+
+The pipx path may vary on different machines.
 
 ```sh
 pipx list --short

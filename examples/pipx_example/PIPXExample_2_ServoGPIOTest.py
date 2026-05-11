@@ -1,4 +1,5 @@
-#!/home/gavin/.local/pipx/venvs/rpimotorlib/bin/python
+#!/home/gll/.local/share/pipx/venvs/rpimotorlib/bin/python
+
 """
 Example file for RpiMotorLib - pipx install method 2
 Module : rpiservolib.py
